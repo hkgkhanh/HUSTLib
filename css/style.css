@@ -1,0 +1,121 @@
+body
+{
+	margin: 0;
+	font-family: "Verdana", sans-serif;
+	background-color: #B5DAE6;
+	font-size: 14px;
+	cursor: default;
+	z-index: 0;
+}
+
+a:link, a:visited, a:hover, a:active
+{
+  text-decoration: none;
+  color: #000000;
+}
+
+.banner {
+  display: flex;
+  justify-content: space-between;
+	background-color: #ffffff;
+/*  background-image: linear-gradient(to right, rgb(163, 29, 46, 0), rgb(163, 29, 46, 0), rgb(163, 29, 46, 1));*/
+  color: #D80015;
+  padding: 0;
+  padding-left: 1em;
+}
+
+.banner-image {
+  height: 100px;
+}
+
+.banner-login {
+  align-self: flex-end;
+}
+
+.banner-login a {
+  font-size: 1em;
+  padding: 0.5em;
+  margin: 0;
+  text-align: center;
+  background-color: #A31D2E;
+  color: #FEFEFE;
+}
+
+.banner-login a:hover
+{
+  cursor: pointer;
+  color: #F2C230;
+}
+
+.navbar
+{
+  display: flex;
+  justify-content: center;
+  background-color: #A31D2E;
+  position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.navbar a
+{
+  font-size: 1.2em;
+  text-transform: uppercase;
+  padding: 1em;
+  text-align: center;
+  background-color: #A31D2E;
+  color: #FEFEFE;
+}
+
+.navbar a:hover
+{
+  cursor: pointer;
+  color: #F2C230;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 16em auto 24em;
+  gap: 1em;
+  background-color: #2196F3;
+  padding: 1em;
+}
+
+.container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  padding: 1em;
+}
+
+.func > a {
+  font-size: 1.2em;
+  margin: 1em 0;
+}
+
+input[type=text], input[type=email], input[type=password], input[type=tel], input[type=date] {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+input[type=radio] {
+  margin: 0.5em 0 0.5em 1em;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.required {
+  color: red;
+}
