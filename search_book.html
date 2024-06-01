@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+	</head>
+	<body>
+
+		<div class="banner">
+			<img src="image/banner.png" class="banner-image">
+			<div class="banner-login">
+				<a id="link-login" href="login.html">Đăng nhập</a>
+				<a id="link-signup" href="signup.html">Đăng ký</a>
+			</div>
+		</div>
+		<div class="navbar">
+			<a id="link-homepage" href="index.html">Trang chủ</a>
+			<a id="link-intro" href="cubing.html">Giới thiệu</a>
+			<a id="link-news" href="index.html">Tin tức</a>
+			<a id="link-search" href="search_book.html">Tra cứu</a>
+			<a id="link-stats" href="index.html">Thống kê</a>
+		</div>
+
+		<div class="container">
+ 			<div class="func">
+ 				<a id="link-searchbook" href="search_book.html">Tra cứu sách</a><br>
+				<a id="link-searchuser" href="search_user.html">Tra cứu người dùng</a><br>
+				<a id="link-searchgroup" href="search_group.html">Tra cứu hội nhóm</a>
+ 			</div>
+  			<div class="main">
+  				<div class="main-sort_option">
+  					<label for="sort_by"><b>Sắp xếp theo</b></label>
+  					<select name="sort_by" id="sort_by_select">
+    					<option value="0">Chọn thứ tự hiển thị</option>
+    					<option value="1">Lượt mượn tăng dần</option>
+    					<option value="2">Lượt mượn giảm dần</option>
+    					<option value="3">Đánh giá giảm dần</option>
+  					</select>
+				</div>
+
+				<div class="main-book_items">
+					<a href="index.html">
+						<img src="image/book_placeholder.png"><br>
+						<span>Phát triển lĩnh vực công nghệ tài chính (FinTech) của Trung Quốc và một số hàm ý đối với Việt Nam</span><br>
+						<span>Author name 1</span>
+					</a>
+					<a href="index.html">
+						<img src="image/book_placeholder.png"><br>
+						<span>Book name</span><br>
+						<span>Author name 1</span>
+					</a>
+					<a href="index.html">
+						<img src="image/book_placeholder.png"><br>
+						<span>Book name</span><br>
+						<span>Author name 1</span>
+					</a>
+					<a href="index.html">
+						<img src="image/book_placeholder.png"><br>
+						<span>Book name</span><br>
+						<span>Author name 1</span>
+					</a>
+					<a href="index.html">
+						<img src="image/book_placeholder.png"><br>
+						<span>Book name</span><br>
+						<span>Author name 1</span>
+					</a>
+					<a href="index.html">
+						<img src="image/book_placeholder.png"><br>
+						<span>Book name</span><br>
+						<span>Author name 1</span>
+					</a>
+				</div>
+  			</div>
+
+  			<div class="right">
+  				<label for="title"><b>Tên sách</b></label>
+    			<input type="text" name="title">
+
+    			<label for="author"><b>Tác giả</b></label>
+    			<input type="text" name="author">
+
+    			<label for="category"><b>Thể loại</b></label><br>
+  				<select name="category">
+    				<option value="0">Chọn thể loại</option>
+    				<option value="1">Giáo trình, tài liệu chuyên ngành</option>
+    				<option value="2">Bài báo khoa học, NCKH</option>
+    				<option value="3">Lý luận chính trị</option>
+    				<option value="4">Tiểu thuyết</option>
+    				<option value="5">Truyện ngắn, tản văn</option>
+    				<option value="6">Thơ</option>
+    				<option value="7">Tài chính</option>
+    				<option value="8">Kiến thức - khoa học công nghệ</option>
+    				<option value="9">Kĩ năng sống</option>
+  				</select><br>
+
+  				<label for="publisher"><b>Nhà xuất bản</b></label>
+  				<select name="publisher">
+    				<option value="0">Chọn nhà xuất bản</option>
+    				<option value="1">NXB Bách khoa Hà Nội</option>
+    				<option value="2">NXB Kim Đồng</option>
+    				<option value="3">NXB Giáo dục Việt Nam</option>
+    				<option value="4">NXB Trẻ</option>
+    				<option value="5">NXB Chính trị Quốc gia Sự thật</option>
+    				<option value="6">NXB Khoa học tự nhiên và Công nghệ</option>
+    				<option value="7">NXB Tài chính</option>
+  				</select>
+
+  				<label for="publish_year"><b>Năm xuất bản</b></label>
+    			<input type="number" name="publish_year">
+
+    			<button type="submit">Tìm kiếm</button>
+  			</div>
+  				
+		</div>
+
+		<script type="text/javascript">
+		</script>
+
+	</body>
+</html>

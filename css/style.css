@@ -89,11 +89,16 @@ a:link, a:visited, a:hover, a:active
 }
 
 .func > a {
+  display: block;
   font-size: 1.2em;
-  margin: 1em 0;
+  margin: 0.5em;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 1.2em;
 }
 
-input[type=text], input[type=email], input[type=password], input[type=tel], input[type=date] {
+input[type=text], input[type=email], input[type=password], input[type=tel], input[type=date], input[type=number], select:not(#sort_by_select) {
   width: 100%;
   padding: 0.5em;
   margin: 0.5em 0;
@@ -102,9 +107,13 @@ input[type=text], input[type=email], input[type=password], input[type=tel], inpu
   box-sizing: border-box;
 }
 
+.main-sort_option {
+  text-align: right;
+}
+
 input[type=radio] {
   margin: 0.5em 0 0.5em 1em;
-}
+} 
 
 button {
   background-color: #04AA6D;
@@ -118,4 +127,144 @@ button {
 
 .required {
   color: red;
+}
+
+.main-book_items
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: none;
+}
+
+.main-book_items a
+{
+  width: 18em;
+  height: 20em;
+  margin: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+  background-color: #8DAAB3;
+  border-radius: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.main-book_items a img
+{
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  background-color: none;
+  border-radius: 1em 1em 0 0;
+  margin-bottom: 1em;
+}
+
+.book_info-image { grid-area: image; }
+.book_info-name { grid-area: name; }
+.book_info-categories { grid-area: cats; }
+.book_info-authors { grid-area: authors; }
+.book_info-rating { grid-area: rating; }
+.book_info-quantity { grid-area: quantity; }
+.book_info-rent { grid-area: rent; }
+.book_info-rent_count { grid-area: rent_count; }
+.book_info-rate { grid-area: rate; }
+.book_info-publish_year { grid-area: year; }
+.book_info-same_authors { grid-area: same_authors; }
+.book_info-same_categories { grid-area: same_cats; }
+.book_info-same_authors_header { grid-area: same_authors_header; }
+.book_info-same_categories_header { grid-area: same_cats_header; }
+
+.main-book_info {
+  display: grid;
+  grid-template-areas:
+    'image name name name'
+    'image cats cats cats'
+    'image authors authors authors'
+    'image year year year'
+    'image quantity rent_count rating'
+    'rent rent rate rate'
+/*    'comments comments comments comments'*/
+    'same_authors_header same_authors_header same_authors_header same_authors_header'
+    'same_authors same_authors same_authors same_authors'
+    'same_cats_header same_cats_header same_cats_header same_cats_header'
+    'same_cats same_cats same_cats same_cats';
+  gap: 0.5em ;
+  background: none;
+/*  background-color: green;*/
+  padding: 0.5em;
+  margin: 0;
+}
+
+.book_info-image, .book_info-rating, .book_info-rent, .book_info-rate {
+/*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: center;
+}
+
+.book_info-name, .book_info-categories, .book_info-authors, .book_info-publish_year, .book_info-rent_count, .book_info-quantity {
+/*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: left;
+}
+
+.book_info-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.book_info-same_authors, .book_info-same_categories {
+  /*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: center;
+  white-space: nowrap;
+  overflow: auto;
+ }
+
+.book_info-same_authors_header, .book_info-same_categories_header {
+  /*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: center;
+ }
+
+.book_info-same_authors_header > p, .book_info-same_categories_header > p {
+  padding: 1em;
+  text-align: center;
+  background-color: #A31D2E;
+  color: #FEFEFE;
+ }
+
+ .list-book
+{
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  background-color: none;
+}
+
+.list-book a
+{
+  width: 18em;
+  height: 20em;
+  margin: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+  background-color: #8DAAB3;
+  border-radius: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.list-book a img
+{
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  background-color: none;
+  border-radius: 1em 1em 0 0;
+  margin-bottom: 1em;
+}
+
+.comment_cell {
+  margin: 0 0 2em 0;
 }

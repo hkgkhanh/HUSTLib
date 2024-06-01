@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+	</head>
+	<body>
+
+		<div class="banner">
+			<img src="image/banner.png" class="banner-image">
+			<div class="banner-login">
+				<a id="link-login" href="login.html">Đăng nhập</a>
+				<a id="link-signup" href="signup.html">Đăng ký</a>
+			</div>
+		</div>
+		<div class="navbar">
+			<a id="link-homepage" href="index.html">Trang chủ</a>
+			<a id="link-intro" href="cubing.html">Giới thiệu</a>
+			<a id="link-news" href="index.html">Tin tức</a>
+			<a id="link-search" href="search_book.html">Tra cứu</a>
+			<a id="link-stats" href="index.html">Thống kê</a>
+		</div>
+
+		<div class="container">
+ 			<div class="func">
+ 				<a id="link-searchbook" href="search_book.html">Tra cứu sách</a><br>
+				<a id="link-searchuser" href="search_user.html">Tra cứu người dùng</a><br>
+				<a id="link-searchgroup" href="search_group.html">Tra cứu hội nhóm</a>
+ 			</div>
+  			<div class="main">
+  				<div class="main-sort_option">
+  					<label for="sort_by"><b>Sắp xếp theo</b></label>
+  					<select name="sort_by" id="sort_by_select">
+    					<option value="0">Chọn thứ tự hiển thị</option>
+    					<option value="1">ID tăng dần</option>
+    					<option value="2">ID giảm dần</option>
+  					</select>
+				</div>
+
+				<div class="main-book_items">
+					<a href="index.html">
+						<img src="image/user_placeholder.png"><br>
+						<span>Nguyễn Văn A</span><br>
+						<span>20221234</span>
+					</a>
+					<a href="index.html">
+						<img src="image/user_placeholder.png"><br>
+						<span>Nguyễn Văn A</span><br>
+						<span>20221234</span>
+					</a>
+					<a href="index.html">
+						<img src="image/user_placeholder.png"><br>
+						<span>Nguyễn Văn A</span><br>
+						<span>20221234</span>
+					</a>
+					<a href="index.html">
+						<img src="image/user_placeholder.png"><br>
+						<span>Nguyễn Văn A</span><br>
+						<span>20221234</span>
+					</a>
+					<a href="index.html">
+						<img src="image/user_placeholder.png"><br>
+						<span>Nguyễn Văn A</span><br>
+						<span>20221234</span>
+					</a>
+					<a href="index.html">
+						<img src="image/user_placeholder.png"><br>
+						<span>Nguyễn Văn A</span><br>
+						<span>20221234</span>
+					</a>
+				</div>
+  			</div>
+
+  			<div class="right">
+  				<label for="name"><b>Họ và tên</b></label>
+    			<input type="text" name="name">
+
+    			<label for="id"><b>ID</b></label>
+    			<input type="number" name="id">
+
+    			<label for="phonenumber"><b>Số điện thoại</b></label>
+    			<input type="tel" name="phonenumber" pattern="0[0-9]{9}">
+
+    			<label for="mail"><b>Email</b></label>
+    			<input type="email" name="mail">
+
+    			<button type="submit">Tìm kiếm</button>
+  			</div>
+  				
+		</div>
+
+		<script type="text/javascript">
+		</script>
+
+	</body>
+</html>
