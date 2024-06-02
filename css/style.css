@@ -78,7 +78,7 @@ a:link, a:visited, a:hover, a:active
   display: grid;
   grid-template-columns: 16em auto 24em;
   gap: 1em;
-  background-color: #2196F3;
+  background-color: #1ab2ff;
   padding: 1em;
 }
 
@@ -168,7 +168,6 @@ button {
 .book_info-quantity { grid-area: quantity; }
 .book_info-rent { grid-area: rent; }
 .book_info-rent_count { grid-area: rent_count; }
-.book_info-rate { grid-area: rate; }
 .book_info-publish_year { grid-area: year; }
 .book_info-same_authors { grid-area: same_authors; }
 .book_info-same_categories { grid-area: same_cats; }
@@ -183,8 +182,7 @@ button {
     'image authors authors authors'
     'image year year year'
     'image quantity rent_count rating'
-    'rent rent rate rate'
-/*    'comments comments comments comments'*/
+    'image rent rent rent'
     'same_authors_header same_authors_header same_authors_header same_authors_header'
     'same_authors same_authors same_authors same_authors'
     'same_cats_header same_cats_header same_cats_header same_cats_header'
@@ -196,7 +194,7 @@ button {
   margin: 0;
 }
 
-.book_info-image, .book_info-rating, .book_info-rent, .book_info-rate {
+.book_info-image, .book_info-rating, .book_info-rent {
 /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
   text-align: center;
@@ -216,7 +214,7 @@ button {
 .book_info-same_authors, .book_info-same_categories {
   /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
   overflow: auto;
  }
@@ -238,7 +236,7 @@ button {
 {
   display: inline-flex;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: left;
   background-color: none;
 }
 
@@ -265,6 +263,62 @@ button {
   margin-bottom: 1em;
 }
 
-.comment_cell {
-  margin: 0 0 2em 0;
+.comment_cell, .add_comment_cell {
+/*  margin: 0 0 2em 0;*/
+  margin: 1em 0 1em 0;
+}
+
+.add_comment_cell > textarea {
+  width: 100%;
+  height: 9em;
+  padding: 0.5em;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  background-color: #f8f8f8;
+  resize: none;
+  font-family: "Verdana", sans-serif;
+}
+
+.star_pick > button {
+  width: calc(91% / 6);
+  padding: 0.5em 0;
+}
+
+.book-rent-stt { grid-area: bookstt; }
+.book-name { grid-area: bookname; }
+.book-authors { grid-area: bookauthors; }
+.book-remove { grid-area: bookremove; }
+
+.main-book {
+  display: grid;
+  grid-template-columns: 50px auto 100px;
+  grid-template-areas:
+    'bookstt bookname bookremove'
+    'bookstt bookauthors bookremove';
+  gap: 0.5em ;
+  background: none;
+  padding: 0.5em;
+  margin: 1em 0;
+}
+
+.book-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.button-confirm { grid-area: confirm; }
+.button-delete { grid-area: delete; }
+
+.main-buttons {
+  display: grid;
+  grid-template-areas:
+    'confirm delete';
+  gap: 0.5em ;
+  background: none;
+  padding: 0.5em;
+  margin: 0;
+}
+
+.book-remove > button, .button-delete > button {
+  background-color: #A31D2E; 
 }
