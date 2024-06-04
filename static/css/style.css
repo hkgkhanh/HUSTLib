@@ -1,0 +1,324 @@
+body
+{
+	margin: 0;
+	font-family: "Verdana", sans-serif;
+	background-color: #B5DAE6;
+	font-size: 14px;
+	cursor: default;
+	z-index: 0;
+}
+
+a:link, a:visited, a:hover, a:active
+{
+  text-decoration: none;
+  color: #000000;
+}
+
+.banner {
+  display: flex;
+  justify-content: space-between;
+	background-color: #ffffff;
+/*  background-image: linear-gradient(to right, rgb(163, 29, 46, 0), rgb(163, 29, 46, 0), rgb(163, 29, 46, 1));*/
+  color: #D80015;
+  padding: 0;
+  padding-left: 1em;
+}
+
+.banner-image {
+  height: 100px;
+}
+
+.banner-login {
+  align-self: flex-end;
+}
+
+.banner-login a {
+  font-size: 1em;
+  padding: 0.5em;
+  margin: 0;
+  text-align: center;
+  background-color: #A31D2E;
+  color: #FEFEFE;
+}
+
+.banner-login a:hover
+{
+  cursor: pointer;
+  color: #F2C230;
+}
+
+.navbar
+{
+  display: flex;
+  justify-content: center;
+  background-color: #A31D2E;
+  position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.navbar a
+{
+  font-size: 1.2em;
+  text-transform: uppercase;
+  padding: 1em;
+  text-align: center;
+  background-color: #A31D2E;
+  color: #FEFEFE;
+}
+
+.navbar a:hover
+{
+  cursor: pointer;
+  color: #F2C230;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 16em auto 24em;
+  gap: 1em;
+  background-color: #1ab2ff;
+  padding: 1em;
+}
+
+.container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  padding: 1em;
+}
+
+.func > a {
+  display: block;
+  font-size: 1.2em;
+  margin: 0.5em;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 1.2em;
+}
+
+input[type=text], input[type=email], input[type=password], input[type=tel], input[type=date], input[type=number], select:not(#sort_by_select) {
+  width: 100%;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.main-sort_option {
+  text-align: right;
+}
+
+input[type=radio] {
+  margin: 0.5em 0 0.5em 1em;
+} 
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.required {
+  color: red;
+}
+
+.main-book_items
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: none;
+}
+
+.main-book_items a
+{
+  width: 18em;
+  height: 20em;
+  margin: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+  background-color: #8DAAB3;
+  border-radius: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.main-book_items a img
+{
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  background-color: none;
+  border-radius: 1em 1em 0 0;
+  margin-bottom: 1em;
+}
+
+.book_info-image { grid-area: image; }
+.book_info-name { grid-area: name; }
+.book_info-categories { grid-area: cats; }
+.book_info-authors { grid-area: authors; }
+.book_info-rating { grid-area: rating; }
+.book_info-quantity { grid-area: quantity; }
+.book_info-rent { grid-area: rent; }
+.book_info-rent_count { grid-area: rent_count; }
+.book_info-publish_year { grid-area: year; }
+.book_info-same_authors { grid-area: same_authors; }
+.book_info-same_categories { grid-area: same_cats; }
+.book_info-same_authors_header { grid-area: same_authors_header; }
+.book_info-same_categories_header { grid-area: same_cats_header; }
+
+.main-book_info {
+  display: grid;
+  grid-template-areas:
+    'image name name name'
+    'image cats cats cats'
+    'image authors authors authors'
+    'image year year year'
+    'image quantity rent_count rating'
+    'image rent rent rent'
+    'same_authors_header same_authors_header same_authors_header same_authors_header'
+    'same_authors same_authors same_authors same_authors'
+    'same_cats_header same_cats_header same_cats_header same_cats_header'
+    'same_cats same_cats same_cats same_cats';
+  gap: 0.5em ;
+  background: none;
+/*  background-color: green;*/
+  padding: 0.5em;
+  margin: 0;
+}
+
+.book_info-image, .book_info-rating, .book_info-rent {
+/*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: center;
+}
+
+.book_info-name, .book_info-categories, .book_info-authors, .book_info-publish_year, .book_info-rent_count, .book_info-quantity {
+/*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: left;
+}
+
+.book_info-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.book_info-same_authors, .book_info-same_categories {
+  /*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: left;
+  white-space: nowrap;
+  overflow: auto;
+ }
+
+.book_info-same_authors_header, .book_info-same_categories_header {
+  /*  background-color: rgba(255, 255, 255, 0.8);*/
+  background: none;
+  text-align: center;
+ }
+
+.book_info-same_authors_header > p, .book_info-same_categories_header > p {
+  padding: 1em;
+  text-align: center;
+  background-color: #A31D2E;
+  color: #FEFEFE;
+ }
+
+ .list-book
+{
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: left;
+  background-color: none;
+}
+
+.list-book a
+{
+  width: 18em;
+  height: 20em;
+  margin: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+  background-color: #8DAAB3;
+  border-radius: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.list-book a img
+{
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  background-color: none;
+  border-radius: 1em 1em 0 0;
+  margin-bottom: 1em;
+}
+
+.comment_cell, .add_comment_cell {
+/*  margin: 0 0 2em 0;*/
+  margin: 1em 0 1em 0;
+}
+
+.add_comment_cell > textarea {
+  width: 100%;
+  height: 9em;
+  padding: 0.5em;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  background-color: #f8f8f8;
+  resize: none;
+  font-family: "Verdana", sans-serif;
+}
+
+.star_pick > button {
+  width: calc(91% / 6);
+  padding: 0.5em 0;
+}
+
+.book-rent-stt { grid-area: bookstt; }
+.book-name { grid-area: bookname; }
+.book-authors { grid-area: bookauthors; }
+.book-remove { grid-area: bookremove; }
+
+.main-book {
+  display: grid;
+  grid-template-columns: 50px auto 100px;
+  grid-template-areas:
+    'bookstt bookname bookremove'
+    'bookstt bookauthors bookremove';
+  gap: 0.5em ;
+  background: none;
+  padding: 0.5em;
+  margin: 1em 0;
+}
+
+.book-name {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.button-confirm { grid-area: confirm; }
+.button-delete { grid-area: delete; }
+
+.main-buttons {
+  display: grid;
+  grid-template-areas:
+    'confirm delete';
+  gap: 0.5em ;
+  background: none;
+  padding: 0.5em;
+  margin: 0;
+}
+
+.book-remove > button, .button-delete > button {
+  background-color: #A31D2E; 
+}
