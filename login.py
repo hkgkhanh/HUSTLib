@@ -8,11 +8,11 @@ app = Flask(__name__)
 
 
 
-@app.route('/')
+@app.route('/login_page')
 def login_page():
     return render_template('login.html')
 
-@app.route('/home_page')
+@app.route('/')
 def home_page():
     return render_template('index.html')
 
@@ -20,6 +20,17 @@ def home_page():
 def signup_page():
     return render_template('signup.html')
 
+@app.route('/search_page')
+def search_page():
+    return render_template('search_book.html')
+
+@app.route('/search_user_page')
+def search_user_page():
+    return render_template('search_user.html')
+
+@app.route('/search_group_page')
+def search_group_page():
+    return render_template('search_group.html')
 
 @app.route('/process_login', methods=['POST'])
 def login():
