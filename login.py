@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import psycopg2
 import psycopg2.extras 
 
+
 app = Flask(__name__)
 
 
