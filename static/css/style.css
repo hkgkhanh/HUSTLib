@@ -322,3 +322,46 @@ button {
 .book-remove > button, .button-delete > button {
   background-color: #A31D2E; 
 }
+
+.right-subdiv {
+  text-align: center;
+}
+
+.right-bookitem > table {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.right-bookitem > table > tr, td {
+  border: none;
+  text-align: left;
+  padding: 1em;
+}
+
+tr:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.main-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: none;
+}
+
+.main-item > div {
+  width: 100%;
+  text-align: center;
+  margin: 0.5em;
+  padding: 2em;
+  border-radius: 1em;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 1.5em;
+}
+
+.cat-count > div {
+  width: 20%;
+}

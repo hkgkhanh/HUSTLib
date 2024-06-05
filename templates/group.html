@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HUSTLib - Thư viện của sinh viên BKHN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 20%;
+            background-color: #007BFF;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h2 {
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .group-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .group-item {
+            padding: 10px;
+            background-color: #0056b3;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .group-item:hover {
+            background-color: #004494;
+        }
+
+        .chat-container {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: #fff;
+        }
+
+        .chat-header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+
+        .chat-message {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .chat-message.outgoing {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        .chat-message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+
+        .chat-message .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chat-message .message-content {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            position: relative;
+        }
+
+        .chat-message.incoming .message-content {
+            background-color: #eee;
+            color: #000;
+        }
+
+        .chat-message .timestamp {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .chat-input button {
+            margin-left: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .chat-input button:hover {
+            background-color: #0056b3;
+        }
+
+        /* .admin-message {
+            background-color: #FF5733 !important;
+        } */
+
+        .window-container {
+            width: 20%;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: width 0.5s;
+        }
+
+        .window-toggle {
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            transition: right 0.5s;
+        }
+
+        .window-toggle:hover {
+            background-color: #0056b3;
+        }
+
+        .window-toggle.collapsed {
+            right: 0;
+        }
+
+        .window-content {
+            padding: 20px;
+            height: calc(100vh - 20px);
+            overflow-y: auto;
+        }
+
+        .collapsible {
+            background-color: #f1f1f1;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #ccc;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+
+        .vote-options {
+            margin-top: 10px;
+        }
+
+        .vote-options input {
+            margin-bottom: 5px;
+        }
+
+        .vote-message {
+            background-color: #ffeb3b;
+            color: #000;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .vote-message h4 {
+            margin: 0 0 10px 0;
+        }
+
+        .vote-option {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .vote-option:hover {
+            background-color: #ddd;
+        }
+
+        #voteSectionContainer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+        <div class="banner-login">
+            <a id="link-cart" href="templates/login.html">Giỏ mượn</a>
+            <a id="link-group" href="templates/signup.html">Hội nhóm</a>
+            <a id="link-profile" href="templates/signup.html">Hồ sơ</a>
+            <a id="link-login" href="/login_page">Đăng nhập</a>
+            <a id="link-signup" href="/signup_page">Đăng ký</a>
+        </div>
+    </div>
+    <div class="sidebar">
+        <h2>Groups</h2>
+        <div class="search-bar">
+            <input type="text" id="groupSearch" onkeyup="filterGroups()" placeholder="Search groups...">
+        </div>
+        <div class="group-list" id="groupList">
+            <div class="group-item" onclick="loadChat('group1')">Group 1</div>
+            <div class="group-item" onclick="loadChat('group2')">Group 2</div>
+            <div class="group-item" onclick="loadChat('group3')">Group 3</div>
+            <div class="group-item" onclick="loadChat('group4')">Group 4</div>
+            <div class="group-item" onclick="loadChat('group5')">Group 5</div>
+        </div>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-header" id="chatHeader">Group Chat</div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+            <button onclick="toggleWindow('voteSectionContainer')">Tạo vote</button>
+        </div>
+    </div>
+
+    <div class="window-container" id="memberListContainer">
+        <div class="window-toggle" onclick="toggleWindow('memberListContainer')">&#8942;</div>
+        <div class="window-content" id="memberList">
+            <!-- Member list content will be populated dynamically -->
+            <h3>Member List</h3>
+            <ul>
+                <li>User 1</li>
+                <li>User 2</li>
+                <li>User 3</li>
+                <!-- Add more users dynamically -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- <div class="window-container" id="voteSectionContainer">
+        <div class="window-toggle" onclick="toggleWindow('voteSectionContainer')">&#8942;</div>
+        <div class="window-content" id="voteSection"> -->
+            <!-- Vote section content will be populated dynamically -->
+            <!-- <h3>Create Vote</h3>
+            <input type="text" id="voteQuestion" placeholder="Enter vote question">
+            <button onclick="createVote()">Create Vote</button>
+        </div>
+    </div> -->
+
+    <div class="window-container" id="voteSectionContainer">
+        
+        <div class="window-content" id="voteSection">
+            <h3>Create Vote</h3>
+            <input type="text" id="voteQuestion" placeholder="Enter vote question">
+            <div class="vote-options" id="voteOptions">
+                <input type="text" placeholder="Option 1" class="vote-option-input">
+                <input type="text" placeholder="Option 2" class="vote-option-input">
+                <!-- Additional options can be added dynamically -->
+            </div>
+            <button onclick="addVoteOption()">Add Option</button>
+            <button onclick="createVote()">Create Vote</button>
+        </div>
+    </div>
+
+    <script>
+        let currentGroup = '';
+        let userRole = 'admin'; // Change this to 'admin' or 'member' to test role functionality
+
+        const chats = {
+            group1: [
+                { role: 'member', type: 'incoming', message: 'Hello! How are you?', timestamp: '10:00 AM', avatar: 'path/to/incoming-avatar.jpg' },
+                { role: 'admin', type: 'outgoing', message: 'I\'m good, thank you! How about you?', timestamp: '10:02 AM', avatar: 'path/to/outgoing-avatar.jpg' }
+            ],
+            group2: [],
+            group3: [],
+            group4: [],
+            group5: []
+        };
+
+        function filterGroups() {
+            const input = document.getElementById('groupSearch');
+            const filter = input.value.toLowerCase();
+            const groupList = document.getElementById('groupList');
+            const groups = groupList.getElementsByClassName('group-item');
+            for (let i = 0; i < groups.length; i++) {
+                const group = groups[i];
+                const text = group.textContent || group.innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    group.style.display = '';
+                } else {
+                    group.style.display = 'none';
+                }
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function loadChat(group) {
+            currentGroup = group;
+            document.getElementById('chatHeader').innerText = group.replace('group', 'Group ');
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = '';
+            const messages = chats[group];
+            messages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('chat-message', msg.type);
+                if (msg.role === 'admin') {
+                    messageElement.classList.add('admin-message');
+                }
+
+                const avatarElement = document.createElement('div');
+                avatarElement.classList.add('avatar');
+
+                const avatarImgElement = document.createElement('img');
+                avatarImgElement.src = msg.avatar;
+                avatarImgElement.alt = 'Avatar';
+                avatarElement.appendChild(avatarImgElement);
+
+                const messageContentElement = document.createElement('div');
+                messageContentElement.classList.add('message-content');
+
+                const textElement = document.createElement('p');
+                textElement.textContent = msg.message;
+
+                const timestampElement = document.createElement('div');
+                timestampElement.classList.add('timestamp');
+                timestampElement.textContent = msg.timestamp;
+
+                messageContentElement.appendChild(textElement);
+                messageContentElement.appendChild(timestampElement);
+                messageElement.appendChild(avatarElement);
+                messageElement.appendChild(messageContentElement);
+
+                messagesContainer.appendChild(messageElement);
+            });
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            if (!currentGroup) return alert('Please select a group to chat in.');
+
+            const input = document.getElementById('chatInput');
+            const message = input.value;
+            if (message.trim()) {
+                const messageContainer = document.getElementById('chatMessages');
+
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('chat-message', 'outgoing');
+                if (userRole === 'admin') {
+                    messageElement.classList.add('admin-message');
+                }
+
+                const avatarElement = document.createElement('div');
+                avatarElement.classList.add('avatar');
+
+                const avatarImgElement = document.createElement('img');
+                avatarImgElement.src = 'path/to/outgoing-avatar.jpg';  // Replace with the actual path to the outgoing avatar image
+                avatarImgElement.alt = 'Avatar';
+                avatarElement.appendChild(avatarImgElement);
+
+                const messageContentElement = document.createElement('div');
+                messageContentElement.classList.add('message-content');
+
+                const textElement = document.createElement('p');
+                textElement.textContent = message;
+
+                const timestampElement = document.createElement('div');
+                const now = new Date();
+                timestampElement.classList.add('timestamp');
+                timestampElement.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                messageContentElement.appendChild(textElement);
+                messageContentElement.appendChild(timestampElement);
+                messageElement.appendChild(avatarElement);
+                messageElement.appendChild(messageContentElement);
+
+                messageContainer.appendChild(messageElement);
+
+                // Update the chats object
+                chats[currentGroup].push({
+                    role: userRole,
+                    type: 'outgoing',
+                    message: message,
+                    timestamp: timestampElement.textContent,
+                    avatar: 'path/to/outgoing-avatar.jpg' // Replace with the actual path to the outgoing avatar image
+                });
+
+                input.value = '';
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            }
+        }
+
+        function toggleWindow(windowId) {
+            const windowContainer = document.getElementById(windowId);
+            const windowToggle = windowContainer.querySelector('.window-toggle');
+            const windowContent = windowContainer.querySelector('.window-content');
+            if (windowToggle.classList.contains('collapsed')) {
+                windowToggle.classList.remove('collapsed');
+                windowContent.style.display = 'block';
+            } else {
+                windowToggle.classList.add('collapsed');
+                windowContent.style.display = 'none';
+            }
+        }
+
+                function addVoteOption() {
+            const voteOptions = document.getElementById('voteOptions');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = `Option ${voteOptions.children.length + 1}`;
+            input.classList.add('vote-option-input');
+            voteOptions.appendChild(input);
+        }
+
+        function createVote() {
+            const voteQuestion = document.getElementById('voteQuestion').value.trim();
+            if (!voteQuestion) return alert('Please enter a vote question.');
+
+            const voteOptions = document.querySelectorAll('.vote-option-input');
+            const options = [];
+            voteOptions.forEach(option => {
+                if (option.value.trim()) options.push(option.value.trim());
+            });
+            if (options.length < 2) return alert('Please enter at least two options.');
+
+            // Construct the vote message
+            const messageContainer = document.getElementById('chatMessages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', 'incoming', 'vote-message');
+
+            const messageContentElement = document.createElement('div');
+            messageContentElement.classList.add('message-content');
+
+            const questionElement = document.createElement('h4');
+            questionElement.textContent = voteQuestion;
+            messageContentElement.appendChild(questionElement);
+
+            options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('vote-option');
+                optionElement.textContent = option;
+                messageContentElement.appendChild(optionElement);
+            });
+
+            messageElement.appendChild(messageContentElement);
+            messageContainer.appendChild(messageElement);
+
+            // Update the chats object
+            chats[currentGroup].push({
+                role: 'member', // Assuming vote created by member
+                type: 'incoming',
+                message: { voteQuestion, options },
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                avatar: 'path/to/incoming-avatar.jpg' // Replace with the actual path to the incoming avatar image
+            });
+
+            document.getElementById('voteQuestion').value = '';
+            document.getElementById('voteOptions').innerHTML = '';
+            addVoteOption(); // Add the initial option inputs
+            addVoteOption(); // Add the initial option inputs
+
+            toggleWindow('voteSectionContainer'); // Hide the vote section after creating the vote
+        }
+
+        function voteOptionClicked(optionElement, options) {
+            const index = optionElement.dataset.index;
+            options[index].count += 1;
+            const countElement = optionElement.querySelector('.vote-count');
+            countElement.textContent = options[index].count;
+        }
+
+        // Initialize the first group chat
+        loadChat('group1');
+    </script>
+</body>
+</html>
