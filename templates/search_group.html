@@ -1,98 +1,98 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>HUSTLib - Thư viện của sinh viên BKHN</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+<head>
+	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
 		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
-		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
-	</head>
-	<body>
+			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+		</head>
+		<body>
 
-		<div class="banner">
-			<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
-			<div class="banner-login">
-				<a id="link-cart" href="login.html">Giỏ mượn</a>
-				<a id="link-group" href="signup.html">Hội nhóm</a>
-				<a id="link-profile" href="signup.html">Hồ sơ</a>
-				<a id="link-login" href="/login_page">Đăng nhập</a>
-				<a id="link-signup" href="/signup_page">Đăng ký</a>
+			<div class="banner">
+				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+				<div class="banner-login">
+					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
+					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
+					<a id="link-profile" href="/profile_page">Hồ sơ</a>
+					<a id="link-login" href="/login_page">Đăng nhập</a>
+					<a id="link-signup" href="/signup_page">Đăng ký</a>
+				</div>
 			</div>
-		</div>
-		<div class="navbar">
-			<a id="link-homepage" href="/">Trang chủ</a>
-			<a id="link-intro" href="intro.html">Giới thiệu</a>
-			<!-- <a id="link-news" href="index.html">Tin tức</a> -->
-			<a id="link-search" href="/search_page">Tra cứu</a>
-			<a id="link-stats" href="index.html">Thống kê</a>
-		</div>
+			<div class="navbar">
+				<a id="link-homepage" href="/">Trang chủ</a>
+				<a id="link-intro" href="intro.html">Giới thiệu</a>
+				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
+				<a id="link-search" href="/search_page">Tra cứu</a>
+				<a id="link-stats" href="index.html">Thống kê</a>
+			</div>
 
-		<div class="container">
- 			<div class="func">
- 				<a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
-				<a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
-				<a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a>
- 			</div>
-  			<div class="main">
-  				<div class="main-sort_option">
-  					<label for="sort_by"><b>Sắp xếp theo</b></label>
-  					<select name="sort_by" id="sort_by_select">
-    					<option value="0">Chọn thứ tự hiển thị</option>
-    					<option value="1">Ngày tạo sớm nhất</option>
-    					<option value="2">Ngày tạo gần nhất</option>
-    					<option value="1">Số thành viên tăng dần</option>
-    					<option value="2">Số thành viên giảm dần</option>
-  					</select>
+			<div class="container">
+				<div class="func">
+					<a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
+					<a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
+					<a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a>
+				</div>
+				<div class="main">
+					<div class="main-sort_option">
+						<label for="sort_by"><b>Sắp xếp theo</b></label>
+						<select name="sort_by" id="sort_by_select">
+							<option value="0">Chọn thứ tự hiển thị</option>
+							<option value="1">Ngày tạo sớm nhất</option>
+							<option value="2">Ngày tạo gần nhất</option>
+							<option value="1">Số thành viên tăng dần</option>
+							<option value="2">Số thành viên giảm dần</option>
+						</select>
+					</div>
+
+					<div class="main-book_items">
+						<a href="index.html">
+							<img src="image/group_placeholder.png"><br>
+							<span>Group name</span><br>
+							<span>ID: 1</span>
+						</a>
+						<a href="index.html">
+							<img src="image/group_placeholder.png"><br>
+							<span>Group name</span><br>
+							<span>ID: 1</span>
+						</a>
+						<a href="index.html">
+							<img src="image/group_placeholder.png"><br>
+							<span>Group name</span><br>
+							<span>ID: 1</span>
+						</a>
+						<a href="index.html">
+							<img src="image/group_placeholder.png"><br>
+							<span>Group name</span><br>
+							<span>ID: 1</span>
+						</a>
+						<a href="index.html">
+							<img src="image/group_placeholder.png"><br>
+							<span>Group name</span><br>
+							<span>ID: 1</span>
+						</a>
+						<a href="index.html">
+							<img src="image/group_placeholder.png"><br>
+							<span>Group name</span><br>
+							<span>ID: 1</span>
+						</a>
+					</div>
 				</div>
 
-				<div class="main-book_items">
-					<a href="index.html">
-						<img src="image/group_placeholder.png"><br>
-						<span>Group name</span><br>
-						<span>ID: 1</span>
-					</a>
-					<a href="index.html">
-						<img src="image/group_placeholder.png"><br>
-						<span>Group name</span><br>
-						<span>ID: 1</span>
-					</a>
-					<a href="index.html">
-						<img src="image/group_placeholder.png"><br>
-						<span>Group name</span><br>
-						<span>ID: 1</span>
-					</a>
-					<a href="index.html">
-						<img src="image/group_placeholder.png"><br>
-						<span>Group name</span><br>
-						<span>ID: 1</span>
-					</a>
-					<a href="index.html">
-						<img src="image/group_placeholder.png"><br>
-						<span>Group name</span><br>
-						<span>ID: 1</span>
-					</a>
-					<a href="index.html">
-						<img src="image/group_placeholder.png"><br>
-						<span>Group name</span><br>
-						<span>ID: 1</span>
-					</a>
+				<div class="right">
+					<label for="name"><b>Tên hội nhóm</b></label>
+					<input type="text" name="name">
+
+					<label for="id"><b>ID</b></label>
+					<input type="number" name="id">
+
+					<button type="submit">Tìm kiếm</button>
 				</div>
-  			</div>
+				
+			</div>
 
-  			<div class="right">
-  				<label for="name"><b>Tên hội nhóm</b></label>
-    			<input type="text" name="name">
+			<script type="text/javascript">
+			</script>
 
-    			<label for="id"><b>ID</b></label>
-    			<input type="number" name="id">
-
-    			<button type="submit">Tìm kiếm</button>
-  			</div>
-  				
-		</div>
-
-		<script type="text/javascript">
-		</script>
-
-	</body>
-</html>
+		</body>
+		</html>

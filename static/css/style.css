@@ -365,3 +365,19 @@ tr:hover {
 .cat-count > div {
   width: 20%;
 }
+
+.prof-img {
+  text-align: center;
+}
+
+.prof-text > table {
+  width: fit-content;
+  margin: auto;
+}
+
+.prof-img > img {
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+  border: 1px solid black;
+}

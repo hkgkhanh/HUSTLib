@@ -30,8 +30,24 @@ def search_user_page():
     return render_template('search_user.html')
 
 @app.route('/search_group_page')
-def search_group_page():
+def chat_group_page():
     return render_template('search_group.html')
+
+@app.route('/chat_group_page')
+def search_group_page():
+    return render_template('group.html')
+
+@app.route('/cart_page')
+def cart_page():
+    return render_template('cart.html')
+
+@app.route('/profile_page')
+def profile_page():
+    return render_template('profile.html')
+
+@app.route('/profile_temp_page')
+def profile_temp_page():
+    return render_template('profile_temp.html')
 
 @app.route('/process_login', methods=['POST'])
 def login():

@@ -10,11 +10,11 @@
     <div class="banner">
         <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
         <div class="banner-login">
-            <a id="link-cart" href="login.html">Giỏ mượn</a>
-            <a id="link-group" href="signup.html">Hội nhóm</a>
-            <a id="link-profile" href="profile.html">Hồ sơ</a> <!-- Đặt href để trang này tự load khi nhấp vào -->
+            <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+            <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+            <a id="link-profile" href="/profile_page">Hồ sơ</a>
             <a id="link-login" href="/login_page">Đăng nhập</a>
-                <a id="link-signup" href="/signup_page">Đăng ký</a>
+            <a id="link-signup" href="/signup_page">Đăng ký</a>
         </div>
     </div>
     <div class="navbar">
@@ -28,9 +28,9 @@
     <div class="container">
         <div class="func"></div>
         <div class="main">
-            <h2>Thông tin cá nhân</h2>
+            <!-- <h2>Thông tin cá nhân</h2>
             <p>Xin chào, {{ user['FirstName'] }} {{ user['LastName'] }}!</p>
-            <p>Email: {{ user['Email'] }}</p>
+            <p>Email: {{ user['Email'] }}</p> -->
             <!-- Thêm các thông tin cá nhân khác tùy theo nhu cầu -->
             <a href="/logout">Đăng xuất</a> <!-- Đặt href để đăng xuất -->
         </div>  

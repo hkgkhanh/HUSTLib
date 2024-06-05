@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>HUSTLib - Thư viện của sinh viên BKHN</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+<head>
+	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
 		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
-		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
-	</head>
-	<body>
+			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+		</head>
+		<body>
 
-		<div class="banner">
-			<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
-			<div class="banner-login">
-				<a id="link-cart" href="login.html">Giỏ mượn</a>
-				<a id="link-group" href="signup.html">Hội nhóm</a>
-				<a id="link-profile" href="signup.html">Hồ sơ</a>
-				<a id="link-login" href="/login_page">Đăng nhập</a>
-				<a id="link-signup" href="/signup_page">Đăng ký</a>
+			<div class="banner">
+				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+				<div class="banner-login">
+					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
+					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
+					<a id="link-profile" href="/profile_page">Hồ sơ</a>
+					<a id="link-login" href="/login_page">Đăng nhập</a>
+					<a id="link-signup" href="/signup_page">Đăng ký</a>
+				</div>
 			</div>
-		</div>
-		<div class="navbar">
-			<a id="link-homepage" href="/">Trang chủ</a>
-			<a id="link-intro" href="intro.html">Giới thiệu</a>
-			<!-- <a id="link-news" href="index.html">Tin tức</a> -->
-			<a id="link-search" href="/search_page">Tra cứu</a>
-			<a id="link-stats" href="index.html">Thống kê</a>
-		</div>
+			<div class="navbar">
+				<a id="link-homepage" href="/">Trang chủ</a>
+				<a id="link-intro" href="intro.html">Giới thiệu</a>
+				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
+				<a id="link-search" href="/search_page">Tra cứu</a>
+				<a id="link-stats" href="index.html">Thống kê</a>
+			</div>
 
-		<div class="container">
- 			<div class="func">
- 				<a id="link-searchbook" href="search_book.html">Tra cứu sách</a><br>
-				<a id="link-searchuser" href="search_user.html">Tra cứu người dùng</a><br>
-				<a id="link-searchgroup" href="search_group.html">Tra cứu hội nhóm</a>
- 			</div>
-  			<div class="main">
-				<div class="main-book">
-					<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
-					<div class="book-rent-stt">1</div>
-  					<div class="book-name">Nhập môn các phương pháp tối ưu</div>
-  					<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
-  					<div class="book-remove"><button>Xóa</button></div>
+			<div class="container">
+				<div class="func">
+					<a id="link-searchbook" href="search_book.html">Tra cứu sách</a><br>
+					<a id="link-searchuser" href="search_user.html">Tra cứu người dùng</a><br>
+					<a id="link-searchgroup" href="search_group.html">Tra cứu hội nhóm</a>
 				</div>
-				<div class="main-book">
-					<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
-					<div class="book-rent-stt">2</div>
-  					<div class="book-name">Phát triển lĩnh vực công nghệ tài chính (FinTech) của Trung Quốc và một số hàm ý đối với Việt Nam</div>
-  					<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
-  					<div class="book-remove"><button>Xóa</button></div>
+				<div class="main">
+					<div class="main-book">
+						<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
+						<div class="book-rent-stt">1</div>
+						<div class="book-name">Nhập môn các phương pháp tối ưu</div>
+						<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
+						<div class="book-remove"><button>Xóa</button></div>
+					</div>
+					<div class="main-book">
+						<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
+						<div class="book-rent-stt">2</div>
+						<div class="book-name">Phát triển lĩnh vực công nghệ tài chính (FinTech) của Trung Quốc và một số hàm ý đối với Việt Nam</div>
+						<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
+						<div class="book-remove"><button>Xóa</button></div>
+					</div>
+					<div class="main-book">
+						<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
+						<div class="book-rent-stt">3</div>
+						<div class="book-name">Nhập môn các phương pháp tối ưu</div>
+						<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
+						<div class="book-remove"><button>Xóa</button></div>
+					</div>
+					<div class="main-book">
+						<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
+						<div class="book-rent-stt">4</div>
+						<div class="book-name">Nhập môn các phương pháp tối ưu</div>
+						<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
+						<div class="book-remove"><button>Xóa</button></div>
+					</div>
+					<div class="main-book">
+						<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
+						<div class="book-rent-stt">5</div>
+						<div class="book-name">Nhập môn các phương pháp tối ưu</div>
+						<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
+						<div class="book-remove"><button>Xóa</button></div>
+					</div>
+					<div class="main-buttons">
+						<div class="button-confirm"><button>Xác nhận mượn</button></div>
+						<div class="button-delete"><button>Xóa toàn bộ</button></div>
+					</div>
 				</div>
-				<div class="main-book">
-					<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
-					<div class="book-rent-stt">3</div>
-  					<div class="book-name">Nhập môn các phương pháp tối ưu</div>
-  					<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
-  					<div class="book-remove"><button>Xóa</button></div>
-				</div>
-				<div class="main-book">
-					<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
-					<div class="book-rent-stt">4</div>
-  					<div class="book-name">Nhập môn các phương pháp tối ưu</div>
-  					<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
-  					<div class="book-remove"><button>Xóa</button></div>
-				</div>
-				<div class="main-book">
-					<!-- <div class="book-image"><img src="image/book_placeholder.png"></div> -->
-					<div class="book-rent-stt">5</div>
-  					<div class="book-name">Nhập môn các phương pháp tối ưu</div>
-  					<div class="book-authors">Lê Quang Thủy, Nguyễn Thị Bạch Kim</div>
-  					<div class="book-remove"><button>Xóa</button></div>
-				</div>
-				<div class="main-buttons">
-					<div class="button-confirm"><button>Xác nhận mượn</button></div>
-  					<div class="button-delete"><button>Xóa toàn bộ</button></div>
-				</div>
-  			</div>
 
-  			<div class="right">
-  				
-  			</div>
-  				
-		</div>
+				<div class="right">
+					
+				</div>
+				
+			</div>
 
-		<script type="text/javascript">
-		</script>
+			<script type="text/javascript">
+			</script>
 
-	</body>
-</html>
+		</body>
+		</html>

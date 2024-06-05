@@ -1,184 +1,184 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>HUSTLib - Thư viện của sinh viên BKHN</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+<head>
+	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
 		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
-		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
-	</head>
-	<body>
+			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+		</head>
+		<body>
 
-		<div class="banner">
-			<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
-			<div class="banner-login">
-				<a id="link-cart" href="templates/login.html">Giỏ mượn</a>
-				<a id="link-group" href="templates/signup.html">Hội nhóm</a>
-				<a id="link-profile" href="templates/signup.html">Hồ sơ</a>
-				<a id="link-login" href="/login_page">Đăng nhập</a>
-				<a id="link-signup" href="/signup_page">Đăng ký</a>
+			<div class="banner">
+				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+				<div class="banner-login">
+					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
+					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
+					<a id="link-profile" href="/profile_page">Hồ sơ</a>
+					<a id="link-login" href="/login_page">Đăng nhập</a>
+					<a id="link-signup" href="/signup_page">Đăng ký</a>
+				</div>
 			</div>
-		</div>
-		<div class="navbar">
-			<a id="link-homepage" href="/">Trang chủ</a>
-			<a id="link-intro" href="intro.html">Giới thiệu</a>
-			<!-- <a id="link-news" href="index.html">Tin tức</a> -->
-			<a id="link-search" href="/search_page">Tra cứu</a>
-			<a id="link-stats" href="index.html">Thống kê</a>
-		</div>
+			<div class="navbar">
+				<a id="link-homepage" href="/">Trang chủ</a>
+				<a id="link-intro" href="intro.html">Giới thiệu</a>
+				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
+				<a id="link-search" href="/search_page">Tra cứu</a>
+				<a id="link-stats" href="index.html">Thống kê</a>
+			</div>
 
-		<div class="container">
- 			<div class="func">
- 			</div>
-  			<div class="main">
-  				<div class="main-item">
-  					<div>Chuyên mục Sách tháng 5:<br><b>Thực hành nghề tin học văn phòng</b></div>
-  					<div>Chuyên mục Sách tháng 4:<br><b>Rừng mắm</b></div>
-  					<div>Chuyên mục Sách tháng 3:<br><b>So sánh giáo dục Việt Nam với các nước</b></div>
-  				</div>
-  				<div class="main-item cat-count">
-  					<div><b>15</b><br>Giáo trình, tài liệu chuyên ngành</div>
-  					<div><b>22</b><br>Bài báo khoa học, NCKH</div>
-  					<div><b>5</b><br>Lý luận chính trị</div>
-  					<div><b>9</b><br>Tiểu thuyết</div>
-  					<div><b>6</b><br>Truyện ngắn, tản văn</div>
-  					<div><b>3</b><br>Thơ</div>
-  					<div><b>2</b><br>Tài chính</div>
-  					<div><b>8</b><br>Kiến thức, khoa học - công nghệ</div>
-  					<div><b>3</b><br>Kĩ năng sống</div>
-  				</div>
-  			</div>  
-  			<div class="right">
-  				<div class="right-subdiv">
-  					<b>BXH NGƯỜI DÙNG NỔI BẬT</b>
-  					<div class="right-bookitem">
-  						<table>
-  							<tr>
-  								<th></th>
-  								<th>Người dùng</th>
-  								<th>Lượt mượn</th>
-  							</tr>
-  							<tr>
-  								<td>1</td>
-  								<td>Nguyễn Văn A</td>
-  								<td>6</td>
-  							</tr>
-  							<tr>
-  								<td>2</td>
-  								<td>Trần Thị B</td>
-  								<td>6</td>
-  							</tr>
-  							<tr>
-  								<td>3</td>
-  								<td>Lý Quốc C</td>
-  								<td>5</td>
-  							</tr>
-  							<tr>
-  								<td>4</td>
-  								<td>Nguyễn Vũ D</td>
-  								<td>5</td>
-  							</tr>
-  							<tr>
-  								<td>5</td>
-  								<td>Đào Kiên E</td>
-  								<td>5</td>
-  							</tr>
-  							<tr>
-  								<td>6</td>
-  								<td>Lê Văn F</td>
-  								<td>5</td>
-  							</tr>
-  							<tr>
-  								<td>7</td>
-  								<td>Trần Quang G</td>
-  								<td>4</td>
-  							</tr>
-  							<tr>
-  								<td>8</td>
-  								<td>Mai Đức H</td>
-  								<td>4</td>
-  							</tr>
-  							<tr>
-  								<td>9</td>
-  								<td>Đỗ Quang I</td>
-  								<td>4</td>
-  							</tr>
-  							<tr>
-  								<td>10</td>
-  								<td>Phạm Đức J</td>
-  								<td>3</td>
-  							</tr>
-  						</table>
-  					</div>
-  				</div>
-  				<hr>
-  				<div class="right-subdiv">
-  					<b>BXH SÁCH NỔI BẬT</b>
-  					<div class="right-bookitem">
-  						<table>
-  							<tr>
-  								<th></th>
-  								<th>Đầu sách</th>
-  								<th>Đánh giá</th>
-  							</tr>
-  							<tr>
-  								<td>1</td>
-  								<td>Bài giảng Giải tích I</td>
-  								<td>⭐5</td>
-  							</tr>
-  							<tr>
-  								<td>2</td>
-  								<td>Cấu trúc dữ liệu và giải thuật</td>
-  								<td>⭐5</td>
-  							</tr>
-  							<tr>
-  								<td>3</td>
-  								<td>Bài giảng Đại số</td>
-  								<td>⭐5</td>
-  							</tr>
-  							<tr>
-  								<td>4</td>
-  								<td>Book name</td>
-  								<td>⭐4.5</td>
-  							</tr>
-  							<tr>
-  								<td>5</td>
-  								<td>Book name</td>
-  								<td>⭐4.5</td>
-  							</tr>
-  							<tr>
-  								<td>6</td>
-  								<td>Book name</td>
-  								<td>⭐4.5</td>
-  							</tr>
-  							<tr>
-  								<td>7</td>
-  								<td>Book name</td>
-  								<td>⭐4.5</td>
-  							</tr>
-  							<tr>
-  								<td>8</td>
-  								<td>Book name</td>
-  								<td>⭐4.5</td>
-  							</tr>
-  							<tr>
-  								<td>9</td>
-  								<td>Book name</td>
-  								<td>⭐4.5</td>
-  							</tr>
-  							<tr>
-  								<td>10</td>
-  								<td>Book name</td>
-  								<td>⭐4.5</td>
-  							</tr>
-  						</table>
-  					</div>
-  				</div>
-  			</div>
-		</div>
+			<div class="container">
+				<div class="func">
+				</div>
+				<div class="main">
+					<div class="main-item">
+						<div>Chuyên mục Sách tháng 5:<br><b>Thực hành nghề tin học văn phòng</b></div>
+						<div>Chuyên mục Sách tháng 4:<br><b>Rừng mắm</b></div>
+						<div>Chuyên mục Sách tháng 3:<br><b>So sánh giáo dục Việt Nam với các nước</b></div>
+					</div>
+					<div class="main-item cat-count">
+						<div><b>15</b><br>Giáo trình, tài liệu chuyên ngành</div>
+						<div><b>22</b><br>Bài báo khoa học, NCKH</div>
+						<div><b>5</b><br>Lý luận chính trị</div>
+						<div><b>9</b><br>Tiểu thuyết</div>
+						<div><b>6</b><br>Truyện ngắn, tản văn</div>
+						<div><b>3</b><br>Thơ</div>
+						<div><b>2</b><br>Tài chính</div>
+						<div><b>8</b><br>Kiến thức, khoa học - công nghệ</div>
+						<div><b>3</b><br>Kĩ năng sống</div>
+					</div>
+				</div>  
+				<div class="right">
+					<div class="right-subdiv">
+						<b>BXH NGƯỜI DÙNG NỔI BẬT</b>
+						<div class="right-bookitem">
+							<table>
+								<tr>
+									<th></th>
+									<th>Người dùng</th>
+									<th>Lượt mượn</th>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>Nguyễn Văn A</td>
+									<td>6</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Trần Thị B</td>
+									<td>6</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Lý Quốc C</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Nguyễn Vũ D</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Đào Kiên E</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>Lê Văn F</td>
+									<td>5</td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>Trần Quang G</td>
+									<td>4</td>
+								</tr>
+								<tr>
+									<td>8</td>
+									<td>Mai Đức H</td>
+									<td>4</td>
+								</tr>
+								<tr>
+									<td>9</td>
+									<td>Đỗ Quang I</td>
+									<td>4</td>
+								</tr>
+								<tr>
+									<td>10</td>
+									<td>Phạm Đức J</td>
+									<td>3</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<hr>
+					<div class="right-subdiv">
+						<b>BXH SÁCH NỔI BẬT</b>
+						<div class="right-bookitem">
+							<table>
+								<tr>
+									<th></th>
+									<th>Đầu sách</th>
+									<th>Đánh giá</th>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>Bài giảng Giải tích I</td>
+									<td>⭐5</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Cấu trúc dữ liệu và giải thuật</td>
+									<td>⭐5</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Bài giảng Đại số</td>
+									<td>⭐5</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Book name</td>
+									<td>⭐4.5</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Book name</td>
+									<td>⭐4.5</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>Book name</td>
+									<td>⭐4.5</td>
+								</tr>
+								<tr>
+									<td>7</td>
+									<td>Book name</td>
+									<td>⭐4.5</td>
+								</tr>
+								<tr>
+									<td>8</td>
+									<td>Book name</td>
+									<td>⭐4.5</td>
+								</tr>
+								<tr>
+									<td>9</td>
+									<td>Book name</td>
+									<td>⭐4.5</td>
+								</tr>
+								<tr>
+									<td>10</td>
+									<td>Book name</td>
+									<td>⭐4.5</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 
-		<script type="text/javascript">
-		</script>
+			<script type="text/javascript">
+			</script>
 
-	</body>
-</html>
+		</body>
+		</html>

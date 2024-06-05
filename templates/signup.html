@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>HUSTLib - Thư viện của sinh viên BKHN</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+<head>
+	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
 		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
-		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
-	</head>
-	<body>
+			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+		</head>
+		<body>
 
-		<div class="banner">
-			<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
-			<div class="banner-login">
-				<a id="link-cart" href="login.html">Giỏ mượn</a>
-				<a id="link-group" href="signup.html">Hội nhóm</a>
-				<a id="link-profile" href="signup.html">Hồ sơ</a>
-				<a id="link-login" href="/login_page">Đăng nhập</a>
-				<a id="link-signup" href="/signup_page">Đăng ký</a>
+			<div class="banner">
+				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+				<div class="banner-login">
+					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
+					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
+					<a id="link-profile" href="/profile_page">Hồ sơ</a>
+					<a id="link-login" href="/login_page">Đăng nhập</a>
+					<a id="link-signup" href="/signup_page">Đăng ký</a>
+				</div>
 			</div>
-		</div>
-		<div class="navbar">
-			<a id="link-homepage" href="/">Trang chủ</a>
-			<a id="link-intro" href="intro.html">Giới thiệu</a>
-			<!-- <a id="link-news" href="index.html">Tin tức</a> -->
-			<a id="link-search" href="/search_page">Tra cứu</a>
-			<a id="link-stats" href="index.html">Thống kê</a>
-		</div>
+			<div class="navbar">
+				<a id="link-homepage" href="/">Trang chủ</a>
+				<a id="link-intro" href="intro.html">Giới thiệu</a>
+				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
+				<a id="link-search" href="/search_page">Tra cứu</a>
+				<a id="link-stats" href="index.html">Thống kê</a>
+			</div>
 
-		<div class="container">
- 			<div class="func"></div>
-  			<div class="main">
-    				<label for="firstname"><b>Tên</b><b class="required">*</b></label>
-    				<input type="text" name="firstname" required>
+			<div class="container">
+				<div class="func"></div>
+				<div class="main">
+					<label for="firstname"><b>Tên</b><b class="required">*</b></label>
+					<input type="text" name="firstname" required>
 
-    				<label for="lastname"><b>Họ (và tên đệm)</b><b class="required">*</b></label>
-    				<input type="text" name="lastname" required>
+					<label for="lastname"><b>Họ (và tên đệm)</b><b class="required">*</b></label>
+					<input type="text" name="lastname" required>
 
-    				<label for="uname"><b>Email</b><b class="required">*</b></label>
-    				<input type="email" name="uname" required>
+					<label for="uname"><b>Email</b><b class="required">*</b></label>
+					<input type="email" name="uname" required>
 
-    				<label for="address"><b>Địa chỉ</b><b class="required">*</b></label>
-    				<input type="text" name="address" required>
+					<label for="address"><b>Địa chỉ</b><b class="required">*</b></label>
+					<input type="text" name="address" required>
 
-    				<label for="phonenumber"><b>Số điện thoại</b><b class="required">*</b></label>
-    				<input type="tel" name="phonenumber" pattern="0[0-9]{9}" required>
+					<label for="phonenumber"><b>Số điện thoại</b><b class="required">*</b></label>
+					<input type="tel" name="phonenumber" pattern="0[0-9]{9}" required>
 
-  					<label for="gender"><b>Giới tính</b><b class="required">*</b></label><br>
-    				<input type="radio" id="male" name="gender" value="M">
-  					<label for="male">Nam</label>
-  					<input type="radio" id="female" name="gender" value="F">
-  					<label for="female">Nữ</label><br>
+					<label for="gender"><b>Giới tính</b><b class="required">*</b></label><br>
+					<input type="radio" id="male" name="gender" value="M">
+					<label for="male">Nam</label>
+					<input type="radio" id="female" name="gender" value="F">
+					<label for="female">Nữ</label><br>
 
-  					<label for="dob"><b>Ngày sinh</b><b class="required">*</b></label>
-  					<input type="date" name="dob">
+					<label for="dob"><b>Ngày sinh</b><b class="required">*</b></label>
+					<input type="date" name="dob">
 
-    				<label for="psw"><b>Mật khẩu</b><b class="required">*</b></label>
-    				<input type="password" name="psw" required>
+					<label for="psw"><b>Mật khẩu</b><b class="required">*</b></label>
+					<input type="password" name="psw" required>
 
-    				<label for="cpsw"><b>Nhập lại mật khẩu</b><b class="required">*</b></label>
-    				<input type="password" name="cpsw" required>
+					<label for="cpsw"><b>Nhập lại mật khẩu</b><b class="required">*</b></label>
+					<input type="password" name="cpsw" required>
 
-    				<button type="submit">Đăng ký</button>
+					<button type="submit">Đăng ký</button>
 
-    				<span class="psw">Đã có tài khoản? <a href="#">Đăng nhập</a>!</span>
-  			</div>  
-  			<div class="right"></div>
-		</div>
+					<span class="psw">Đã có tài khoản? <a href="#">Đăng nhập</a>!</span>
+				</div>  
+				<div class="right"></div>
+			</div>
 
-		<script type="text/javascript">
-		</script>
+			<script type="text/javascript">
+			</script>
 
-	</body>
-</html>
+		</body>
+		</html>

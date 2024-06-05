@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HUSTLib - Thư viện của sinh viên BKHN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+</head>
+<body>
+
+    <div class="banner">
+        <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+        <div class="banner-login">
+            <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+            <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+            <a id="link-profile" href="/profile_page">Hồ sơ</a>
+            <a id="link-login" href="/login_page">Đăng nhập</a>
+            <a id="link-signup" href="/signup_page">Đăng ký</a>
+        </div>
+    </div>
+    <div class="navbar">
+        <a id="link-homepage" href="/">Trang chủ</a>
+            <a id="link-intro" href="intro.html">Giới thiệu</a>
+            <!-- <a id="link-news" href="index.html">Tin tức</a> -->
+            <a id="link-search" href="/search_page">Tra cứu</a>
+            <a id="link-stats" href="index.html">Thống kê</a>
+    </div>
+
+    <div class="container">
+        <div class="func"></div>
+        <div class="main">
+            <div class="main-subdiv">
+                <div class="prof-img"><img src="image/user_placeholder.png"></div>
+                <div class="prof-text">
+                    <table>
+                        <tr>
+                            <td>Họ và tên</td>
+                            <td>Nguyễn Văn A</td>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Giới tính</td>
+                            <td>M</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày sinh</td>
+                            <td>12/10/2004</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td>18 Giải Phóng, Hai Bà Trưng, Hà Nội</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại</td>
+                            <td>0885994446</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>abc.de225678@sis.hust.edu.vn</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày tạo tài khoản</td>
+                            <td>1/4/2024</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="main-subdiv">
+                
+            </div>
+            <div class="main-subdiv">
+                
+            </div>
+            <!-- Thêm các thông tin cá nhân khác tùy theo nhu cầu -->
+            <a href="/logout">Đăng xuất</a> <!-- Đặt href để đăng xuất -->
+        </div>  
+        <div class="right"></div>
+    </div>
+
+</body>
+</html>

@@ -5,18 +5,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
     <style>
-        body {
-            font-family: 'Verdana', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+        .group-container {
+            height: calc(100vh - 100px - 60px);
             display: flex;
-            height: 100vh;
         }
 
         .sidebar {
             width: 20%;
-            background-color: #007BFF;
+            background-color: rgba(179, 0, 18, 0.8);
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -48,7 +44,7 @@
 
         .group-item {
             padding: 10px;
-            background-color: #0056b3;
+            background-color: rgba(0, 0, 0, 0.3);
             margin-bottom: 10px;
             border-radius: 5px;
             cursor: pointer;
@@ -56,7 +52,8 @@
         }
 
         .group-item:hover {
-            background-color: #004494;
+            cursor: pointer;
+            color: #F2C230;
         }
 
         .chat-container {
@@ -68,7 +65,7 @@
         }
 
         .chat-header {
-            background-color: #007BFF;
+            background-color: rgba(179, 0, 18, 0.8);
             color: #fff;
             padding: 15px;
             border-bottom: 1px solid #ccc;
@@ -89,6 +86,12 @@
         }
 
         .chat-message.outgoing {
+            flex-direction: row-reverse;
+            text-align: left;
+            overflow-wrap: break-word;
+        }
+
+        .outgoing .timestamp {
             flex-direction: row-reverse;
             text-align: right;
         }
@@ -112,14 +115,15 @@
             max-width: 70%;
             padding: 10px;
             border-radius: 10px;
-            background-color: #007BFF;
-            color: #fff;
+            background-color: #eee;
+            color: #000;
             position: relative;
         }
 
         .chat-message.incoming .message-content {
             background-color: #eee;
             color: #000;
+            overflow-wrap: break-word;
         }
 
         .chat-message .timestamp {
@@ -144,18 +148,18 @@
         }
 
         .chat-input button {
-            margin-left: 10px;
+            width: fit-content;
+            margin-left: 1em;
             padding: 10px;
             border: none;
-            border-radius: 3px;
-            background-color: #007BFF;
+            background-color: #04AA6D;
             color: white;
             cursor: pointer;
             outline: none;
         }
 
         .chat-input button:hover {
-            background-color: #0056b3;
+            background-color: #047c50;
         }
 
         /* .admin-message {
@@ -164,7 +168,7 @@
 
         .window-container {
             width: 20%;
-            background-color: #fff;
+            background-color: #e6e6e6;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
@@ -193,133 +197,140 @@
 
         .window-content {
             padding: 20px;
-            height: calc(100vh - 20px);
-            overflow-y: auto;
-        }
+/*            height: calc(100vh - 20px);*/
+overflow-y: auto;
+}
 
-        .collapsible {
-            background-color: #f1f1f1;
-            color: #444;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: background-color 0.3s;
-        }
+.collapsible {
+    background-color: #f1f1f1;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: background-color 0.3s;
+}
 
-        .active, .collapsible:hover {
-            background-color: #ccc;
-        }
+.active, .collapsible:hover {
+    background-color: #ccc;
+}
 
-        .content {
-            padding: 0 18px;
-            display: none;
-            overflow: hidden;
-            background-color: #f1f1f1;
-        }
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
 
-        .vote-options {
-            margin-top: 10px;
-        }
+.vote-options {
+    margin-top: 10px;
+}
 
-        .vote-options input {
-            margin-bottom: 5px;
-        }
+.vote-options input {
+    margin-bottom: 5px;
+}
 
-        .vote-message {
-            background-color: #ffeb3b;
-            color: #000;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
+.vote-message {
+    background-color: #ffeb3b;
+    color: #000;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
 
-        .vote-message h4 {
-            margin: 0 0 10px 0;
-        }
+.vote-message h4 {
+    margin: 0 0 10px 0;
+}
 
-        .vote-option {
-            margin: 5px 0;
-            padding: 5px;
-            background-color: #f1f1f1;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+.vote-option {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-        .vote-option:hover {
-            background-color: #ddd;
-        }
+.vote-option:hover {
+    background-color: #ddd;
+}
 
-        #voteSectionContainer {
-            display: none;
-        }
-    </style>
+#voteSectionContainer {
+    display: none;
+}
+</style>
 </head>
 <body>
     <div class="banner">
         <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
         <div class="banner-login">
-            <a id="link-cart" href="templates/login.html">Giỏ mượn</a>
-            <a id="link-group" href="templates/signup.html">Hội nhóm</a>
-            <a id="link-profile" href="templates/signup.html">Hồ sơ</a>
+            <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+            <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+            <a id="link-profile" href="/profile_page">Hồ sơ</a>
             <a id="link-login" href="/login_page">Đăng nhập</a>
             <a id="link-signup" href="/signup_page">Đăng ký</a>
         </div>
     </div>
-    <div class="sidebar">
-        <h2>Groups</h2>
-        <div class="search-bar">
-            <input type="text" id="groupSearch" onkeyup="filterGroups()" placeholder="Search groups...">
-        </div>
-        <div class="group-list" id="groupList">
-            <div class="group-item" onclick="loadChat('group1')">Group 1</div>
-            <div class="group-item" onclick="loadChat('group2')">Group 2</div>
-            <div class="group-item" onclick="loadChat('group3')">Group 3</div>
-            <div class="group-item" onclick="loadChat('group4')">Group 4</div>
-            <div class="group-item" onclick="loadChat('group5')">Group 5</div>
-        </div>
+    <div class="navbar">
+        <a id="link-homepage" href="/">Trang chủ</a>
+        <a id="link-intro" href="intro.html">Giới thiệu</a>
+        <!-- <a id="link-news" href="index.html">Tin tức</a> -->
+        <a id="link-search" href="/search_page">Tra cứu</a>
+        <a id="link-stats" href="index.html">Thống kê</a>
     </div>
+    <div class="group-container">
+        <div class="sidebar">
+            <h2>Groups</h2>
+            <div class="search-bar">
+                <input type="text" id="groupSearch" onkeyup="filterGroups()" placeholder="Search groups...">
+            </div>
+            <div class="group-list" id="groupList">
+                <div class="group-item" onclick="loadChat('group1')">Group 1</div>
+                <div class="group-item" onclick="loadChat('group2')">Group 2</div>
+                <div class="group-item" onclick="loadChat('group3')">Group 3</div>
+                <div class="group-item" onclick="loadChat('group4')">Group 4</div>
+                <div class="group-item" onclick="loadChat('group5')">Group 5</div>
+            </div>
+        </div>
 
-    <div class="chat-container">
-        <div class="chat-header" id="chatHeader">Group Chat</div>
-        <div class="chat-messages" id="chatMessages"></div>
-        <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="handleKeyPress(event)">
-            <button onclick="sendMessage()">Send</button>
-            <button onclick="toggleWindow('voteSectionContainer')">Tạo vote</button>
+        <div class="chat-container">
+            <div class="chat-header" id="chatHeader">Group Chat</div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="handleKeyPress(event)">
+                <button onclick="sendMessage()">Send</button>
+                <button onclick="toggleWindow('voteSectionContainer')">Tạo vote</button>
+            </div>
         </div>
-    </div>
 
-    <div class="window-container" id="memberListContainer">
-        <div class="window-toggle" onclick="toggleWindow('memberListContainer')">&#8942;</div>
-        <div class="window-content" id="memberList">
-            <!-- Member list content will be populated dynamically -->
-            <h3>Member List</h3>
-            <ul>
-                <li>User 1</li>
-                <li>User 2</li>
-                <li>User 3</li>
-                <!-- Add more users dynamically -->
-            </ul>
+        <div class="window-container" id="memberListContainer">
+            <div class="window-toggle" onclick="toggleWindow('memberListContainer')">&#8942;</div>
+            <div class="window-content" id="memberList">
+                <!-- Member list content will be populated dynamically -->
+                <h3>Member List</h3>
+                <ul>
+                    <li>User 1</li>
+                    <li>User 2</li>
+                    <li>User 3</li>
+                    <!-- Add more users dynamically -->
+                </ul>
+            </div>
         </div>
-    </div>
 
     <!-- <div class="window-container" id="voteSectionContainer">
         <div class="window-toggle" onclick="toggleWindow('voteSectionContainer')">&#8942;</div>
-        <div class="window-content" id="voteSection"> -->
-            <!-- Vote section content will be populated dynamically -->
-            <!-- <h3>Create Vote</h3>
+        <div class="window-content" id="voteSection">
+            <h3>Create Vote</h3>
             <input type="text" id="voteQuestion" placeholder="Enter vote question">
             <button onclick="createVote()">Create Vote</button>
         </div>
     </div> -->
 
     <div class="window-container" id="voteSectionContainer">
-        
+
         <div class="window-content" id="voteSection">
             <h3>Create Vote</h3>
             <input type="text" id="voteQuestion" placeholder="Enter vote question">
@@ -332,16 +343,17 @@
             <button onclick="createVote()">Create Vote</button>
         </div>
     </div>
+</div>
 
-    <script>
-        let currentGroup = '';
+<script>
+    let currentGroup = '';
         let userRole = 'admin'; // Change this to 'admin' or 'member' to test role functionality
 
         const chats = {
             group1: [
-                { role: 'member', type: 'incoming', message: 'Hello! How are you?', timestamp: '10:00 AM', avatar: 'path/to/incoming-avatar.jpg' },
+                { role: 'member', type: 'incoming', message: 'Hello! How are you?mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm', timestamp: '10:00 AM', avatar: 'path/to/incoming-avatar.jpg' },
                 { role: 'admin', type: 'outgoing', message: 'I\'m good, thank you! How about you?', timestamp: '10:02 AM', avatar: 'path/to/outgoing-avatar.jpg' }
-            ],
+                ],
             group2: [],
             group3: [],
             group4: [],
@@ -478,7 +490,7 @@
             }
         }
 
-                function addVoteOption() {
+        function addVoteOption() {
             const voteOptions = document.getElementById('voteOptions');
             const input = document.createElement('input');
             input.type = 'text';
