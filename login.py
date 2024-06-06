@@ -53,6 +53,15 @@ def profile_temp_page():
 def rent_manage_page():
     return render_template('rent_manage.html')
 
+@app.route('/book_info_page')
+def book_info_page():
+    return render_template('book_info.html')
+
+
+@app.route('/book_manage_page')
+def book_manage_page():
+    return render_template('book_manage.html')
+
 @app.route('/process_login', methods=['POST'])
 def login():
     if request.method == 'POST':

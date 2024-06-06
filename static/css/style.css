@@ -76,7 +76,7 @@ a:link, a:visited, a:hover, a:active
 
 .container {
   display: grid;
-  grid-template-columns: 16em auto 24em;
+  grid-template-columns: auto 65em 24em;
   gap: 1em;
   background-color: #1ab2ff;
   padding: 1em;
@@ -211,7 +211,7 @@ button {
   font-weight: bold;
 }
 
-.book_info-same_authors, .book_info-same_categories {
+.book_info-same_authors, .book_info-same_categories, .booklist, .ratelist {
   /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
   text-align: left;
@@ -219,20 +219,20 @@ button {
   overflow: auto;
  }
 
-.book_info-same_authors_header, .book_info-same_categories_header {
+.book_info-same_authors_header, .book_info-same_categories_header, .booklist_header, .ratelist_header {
   /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
   text-align: center;
  }
 
-.book_info-same_authors_header > p, .book_info-same_categories_header > p {
+.book_info-same_authors_header > p, .book_info-same_categories_header > p, .booklist_header > p, .ratelist_header > p {
   padding: 1em;
   text-align: center;
   background-color: #A31D2E;
   color: #FEFEFE;
  }
 
- .list-book
+ .list-book, .list-rate
 {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -251,6 +251,17 @@ button {
   border-radius: 1em;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.list-rate a {
+  width: 18em;
+  height: auto;
+  margin: 1em;
+  padding-bottom: 1em;
+  text-align: center;
+  background-color: #8DAAB3;
+  border-radius: 1em;
+  text-wrap: wrap;
 }
 
 .list-book a img
@@ -313,7 +324,7 @@ button {
   display: grid;
   grid-template-areas:
     'confirm delete';
-  gap: 0.5em ;
+  gap: 0.5em;
   background: none;
   padding: 0.5em;
   margin: 0;
@@ -380,4 +391,8 @@ tr:hover {
   height: 8em;
   border-radius: 50%;
   border: 1px solid black;
+}
+
+.btn-red {
+  background-color: #A31D2E;
 }
