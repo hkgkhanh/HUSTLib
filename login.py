@@ -62,6 +62,10 @@ def book_info_page():
 def book_manage_page():
     return render_template('book_manage.html')
 
+@app.route('/stats_page')
+def stats_page():
+    return render_template('stats.html')
+
 @app.route('/process_login', methods=['POST'])
 def login():
     if request.method == 'POST':

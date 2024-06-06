@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
+			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+		</head>
+		<body>
+
+			<div class="banner">
+				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+				<div class="banner-login">
+					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
+					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
+					<a id="link-profile" href="/profile_page">Hồ sơ</a>
+					<a id="link-login" href="/login_page">Đăng nhập</a>
+					<a id="link-signup" href="/signup_page">Đăng ký</a>
+				</div>
+			</div>
+			<div class="navbar">
+				<a id="link-homepage" href="/">Trang chủ</a>
+				<a id="link-intro" href="intro.html">Giới thiệu</a>
+				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
+				<a id="link-search" href="/search_page">Tra cứu</a>
+				<a id="link-stats" href="/stats_page">Thống kê</a>
+			</div>
+
+			<div class="stats-container">
+				<div id="user-count" class="text-center">
+					<b>2560</b><br>Người dùng
+				</div>
+				<div id="book-count" class="text-center">
+					<b>105</b><br>Đầu sách
+				</div>
+				<div id="author-count" class="text-center">
+					<b>122</b><br>Tác giả
+				</div>
+				<div id="rent-count" class="text-center">
+					<b>433</b><br>Lượt mượn được thực hiện
+				</div>
+				<div id="group-count" class="text-center">
+					<b>50</b><br>Hội nhóm
+				</div>
+			</div>
+
+			<div class="exam-time-stats">
+				<div id="jun-jul-frac">
+					<b>30.5%</b><br>Lượt mượn vào tháng 6, 7
+				</div>
+				<div id="dec-jan-frac">
+					<b>28.8%</b><br>Lượt mượn vào tháng 12, 1
+				</div>
+			</div>
+
+			<div class="table-stats">
+				<div class="table-stats-author">
+					<b>Danh sách tác giả</b>
+					<div class="right-bookitem">
+						<table>
+							<tr>
+								<th></th>
+								<th>Tác giả</th>
+								<th>Số lượng sách</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Nguyễn Văn A</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Trần Thị B</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Lý Quốc C</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Nguyễn Vũ D</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>Đào Kiên E</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>Lê Văn F</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>Trần Quang G</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>Mai Đức H</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>Đỗ Quang I</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>Phạm Đức J</td>
+								<td>3</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="table-stats-publisher">
+					<b>Danh sách NXB</b>
+					<div class="right-bookitem">
+						<table>
+							<tr>
+								<th></th>
+								<th>NXB</th>
+								<th>Số lượng sách</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>NXB Bách khoa Hà Nội</td>
+								<td>70</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>NXB Kim Đồng</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>NXB Giáo dục Việt Nam</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>NXB Trẻ</td>
+								<td>9</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>NXB Chính trị Quốc gia Sự thật</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>NXB Khoa học tự nhiên và Công nghệ</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>NXB Tài chính</td>
+								<td>4</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="table-stats-user-on-time">
+					<b>Người dùng chưa từng mượn quá hạn</b>
+					<div class="right-bookitem">
+						<table>
+							<tr>
+								<th></th>
+								<th>Người dùng</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Nguyễn Văn A</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Trần Thị B</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Lý Quốc C</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Nguyễn Vũ D</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>Đào Kiên E</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>Lê Văn F</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>Trần Quang G</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>Mai Đức H</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>Đỗ Quang I</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>Phạm Đức J</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="table-stats-user-most-rent">
+					<b>Người dùng mượn nhiều sách nhất</b>
+					<div class="right-bookitem">
+						<table>
+							<tr>
+								<th></th>
+								<th>Người dùng</th>
+								<th>Lượt mượn</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Nguyễn Văn A</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Trần Thị B</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Lý Quốc C</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Nguyễn Vũ D</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>Đào Kiên E</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>Lê Văn F</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>Trần Quang G</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>Mai Đức H</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>Đỗ Quang I</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>Phạm Đức J</td>
+								<td>3</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="table-stats-user-most-rate">
+					<b>Người dùng đánh giá nhiều nhất</b>
+					<div class="right-bookitem">
+						<table>
+							<tr>
+								<th></th>
+								<th>Người dùng</th>
+								<th>Lượt đánh giá</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Nguyễn Văn A</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Trần Thị B</td>
+								<td>6</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Lý Quốc C</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Nguyễn Vũ D</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>Đào Kiên E</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>Lê Văn F</td>
+								<td>5</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>Trần Quang G</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>Mai Đức H</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>Đỗ Quang I</td>
+								<td>4</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>Phạm Đức J</td>
+								<td>3</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div class="table-stats-blacklist">
+					<b>Danh sách đen</b>
+					<div class="right-bookitem">
+						<table>
+							<tr>
+								<th></th>
+								<th>Người dùng</th>
+								<th>Đơn mượn</th>
+								<th>Lí do</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>Nguyễn Văn A</td>
+								<td>1234</td>
+								<td>Ngu</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Trần Thị B</td>
+								<td>5432</td>
+								<td>Mất sách</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Lý Quốc C</td>
+								<td>5566</td>
+								<td>Quá hạn</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Nguyễn Vũ D</td>
+								<td>7749</td>
+								<td>Mất sách</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<script type="text/javascript">
+			</script>
+
+		</body>
+		</html>

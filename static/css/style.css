@@ -396,3 +396,24 @@ tr:hover {
 .btn-red {
   background-color: #A31D2E;
 }
+
+.stats-container, .table-stats, .exam-time-stats {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #1ab2ff;
+  justify-content: center;
+}
+
+.stats-container, .exam-time-stats {
+  font-size: 1.5em;
+}
+
+.stats-container > div, .table-stats > div, .exam-time-stats > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  padding: 1em;
+  margin: 0.5em;
+  text-align: center;
+  border-radius: 1em;
+  height: fit-content;
+}
