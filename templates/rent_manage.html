@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
+			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+		</head>
+		<body>
+
+			<div class="banner">
+				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+				<div class="banner-login">
+					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
+					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
+					<a id="link-profile" href="/profile_page">Hồ sơ</a>
+					<a id="link-login" href="/login_page">Đăng nhập</a>
+					<a id="link-signup" href="/signup_page">Đăng ký</a>
+				</div>
+			</div>
+			<div class="navbar">
+				<a id="link-homepage" href="/">Trang chủ</a>
+				<a id="link-intro" href="intro.html">Giới thiệu</a>
+				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
+				<a id="link-search" href="/search_page">Tra cứu</a>
+				<a id="link-stats" href="index.html">Thống kê</a>
+			</div>
+
+			<div class="container">
+				<div class="func">
+					<!--<a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
+					<a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
+					<a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a>-->
+				</div>
+				<div class="main">
+					<table>
+            <tr>
+              <td>Đơn mượn</td>
+              <td>1234</td>
+              <td>ID người mượn</td>
+              <td>1234</td>
+            </tr>
+            <tr>
+              <td>Ngày mượn</td>
+              <td>12/10/2024</td>
+              <td>Ngày trả</td>
+              <td>12/11/2024</td>
+            </tr>
+            <tr>
+              <td>Đã trả hết</td>
+              <td>False</td>
+              <td>Đã đến nhận sách</td>
+              <td>True</td>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <th>stt</th>
+              <th>RentID</th>
+              <th>RentlineID</th>
+              <th>BookID</th>
+              <th>Tên sách</th>
+              <th>Trạng thái trả</th>
+              <th>Ngày trả</th>
+              <th>Trạng thái sách (usability)</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>1234</td>
+              <td>12345</td>
+              <td>1234</td>
+              <td>Bài giảng Giải tích I</td>
+              <td onclick="alert('are you sure')">Not returned</td>
+              <td></td>
+              <td>good</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>1234</td>
+              <td>12346</td>
+              <td>2346</td>
+              <td>Bài giảng Đại số</td>
+              <td>Returned</td>
+              <td>20/10/2024</td>
+              <td>damaged</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>1234</td>
+              <td>12347</td>
+              <td>5555</td>
+              <td>Cấu trúc dữ liệu và thuật toán</td>
+              <td>Returned</td>
+              <td>21/10/2024</td>
+              <td>lost</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>1234</td>
+              <td>12348</td>
+              <td>7749</td>
+              <td>Book name</td>
+              <td>Not returned</td>
+              <td></td>
+              <td>good</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>1234</td>
+              <td>12349</td>
+              <td>1210</td>
+              <td>Book name</td>
+              <td>Returned</td>
+              <td>1/11/2024</td>
+              <td>good</td>
+            </tr>
+          </table>
+				</div>
+
+				<div class="right">
+					<label for="id_rent"><b>ID đơn mượn</b></label>
+					<input type="text" name="id_rent">
+          
+					<label for="id_book"><b>ID sách mượn</b></label>
+					<input type="text" name="id_book">
+
+					<label for="id_customer"><b>ID người mượn</b></label>
+					<input type="text" name="id_customer">
+					<label for="name_customer"><b>Họ tên người mượn</b></label>
+					<input type="text" name="name_customer">
+
+					<button type="submit">Tìm kiếm</button>
+				</div>
+				
+			</div>
+
+			<script type="text/javascript">
+			</script>
+
+		</body>
+		</html>

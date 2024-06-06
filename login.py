@@ -49,6 +49,10 @@ def profile_page():
 def profile_temp_page():
     return render_template('profile_temp.html')
 
+@app.route('/rent_manage_page')
+def rent_manage_page():
+    return render_template('rent_manage.html')
+
 @app.route('/process_login', methods=['POST'])
 def login():
     if request.method == 'POST':
