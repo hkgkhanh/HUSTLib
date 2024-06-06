@@ -20,6 +20,67 @@ def home_page():
 @app.route('/signup_page')
 def signup_page():
     return render_template('signup.html')
+# Đoạn mã đăng ký
+@app.route('/signup', methods=['POST'])
+def signup():
+    if request.method == 'POST':
+        # Lấy dữ liệu từ form
+        first_name = request.form['FirstName']
+        last_name = request.form['LastName']
+        address = request.form['Address']
+        phone_number = request.form['PhoneNumber']
+        email = request.form['Email']
+        password = request.form['Password']
+        dob = request.form['DOB']
+        gender = request.form['Gender']
+        role = request.form['Role']
+
+        # Kết nối đến cơ sở dữ liệu
+        hostname = 'localhost'
+        database = 'hust_lib'
+        username = 'postgres'
+        pwd = 'skadi123'
+        port_id = 5432
+
+        # Khởi tạo các biến kết nối và con trỏ
+        conn = None
+        cur = None
+
+        try:
+            # Kết nối đến cơ sở dữ liệu
+            conn = psycopg2.connect(
+                host=hostname,
+                dbname=database,
+                user=username,
+                password=pwd,
+                port=port_id
+            )
+
+            # Sử dụng con trỏ
+            with conn.cursor() as cur:
+                # Thực thi truy vấn SQL INSERT
+                cur.execute('''
+                    INSERT INTO Person (FirstName, LastName, Address, PhoneNumber, Email, Password, DOB, Gender, Role)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ''', (first_name, last_name, address, phone_number, email, password, dob, gender, role))
+                conn.commit()
+
+                # Thông báo cho người dùng nếu INSERT thành công
+                return "Signup success!"
+        except Exception as error:
+            # Xử lý nếu có lỗi xảy ra
+            conn.rollback()
+            
+            # Thông báo cho người dùng nếu có lỗi xảy ra
+        finally:
+            # Đóng kết nối và con trỏ
+            if cur:
+                cur.close()
+            if conn:
+                conn.close()
+        return "Signup fail!"
+
+
 
 @app.route('/search_page')
 def search_page():
