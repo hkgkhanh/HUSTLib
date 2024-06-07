@@ -11,7 +11,7 @@
         }
 
         .sidebar {
-            width: 20%;
+            width: 18em;
             background-color: rgba(179, 0, 18, 0.8);
             color: #fff;
             display: flex;
@@ -57,7 +57,7 @@
         }
 
         .chat-container {
-            width: 60%;
+            width: calc(100vw - 18em - 40em);
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -167,11 +167,11 @@
         } */
 
         .window-container {
-            width: 20%;
+            width: 40em;
             background-color: #e6e6e6;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
             position: relative;
-            overflow: hidden;
+            overflow: auto;
             transition: width 0.5s;
         }
 
@@ -196,7 +196,7 @@
         }
 
         .window-content {
-            padding: 20px;
+            padding: 1em;
 /*            height: calc(100vh - 20px);*/
 overflow-y: auto;
 }
@@ -261,9 +261,28 @@ overflow-y: auto;
 #voteSectionContainer {
     display: none;
 }
+
+#memberList, #askJoinList, #meetingList {
+    height: fit-content;
+}
+
+#memberList, #askJoinList, #meetingList > h3 {
+    cursor: pointer;
+}
+
+#memberList table tr td button {
+    padding: 0.5em;
+    border-radius: 0.5em;
+    background-color: rgba(179, 0, 18, 0.8);
+}
+
+ #askJoinList table tr td button {
+    padding: 0.5em;
+    border-radius: 0.5em;
+ }
 </style>
 </head>
-<body>
+<body onload="hideElements()">
     <div class="banner">
         <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
         <div class="banner-login">
@@ -296,27 +315,88 @@ overflow-y: auto;
             </div>
         </div>
 
-        <div class="chat-container">
+        <div class="chat-container" id="chatContainer">
             <div class="chat-header" id="chatHeader">Group Chat</div>
             <div class="chat-messages" id="chatMessages"></div>
             <div class="chat-input">
                 <input type="text" id="chatInput" placeholder="Type your message here..." onkeydown="handleKeyPress(event)">
                 <button onclick="sendMessage()">Send</button>
                 <button onclick="toggleWindow('voteSectionContainer')">Tạo vote</button>
+                <button onclick="toggleRightSidebar()">⚙️</button>
             </div>
         </div>
 
-        <div class="window-container" id="memberListContainer">
-            <div class="window-toggle" onclick="toggleWindow('memberListContainer')">&#8942;</div>
+        <div class="window-container" id="rightSidebarContainer">
             <div class="window-content" id="memberList">
-                <!-- Member list content will be populated dynamically -->
-                <h3>Member List</h3>
-                <ul>
-                    <li>User 1</li>
-                    <li>User 2</li>
-                    <li>User 3</li>
-                    <!-- Add more users dynamically -->
-                </ul>
+                <h3 onclick="toggleRightSidebarSubDiv('memberListTable')">Thành viên (6)</h3>
+                <table id="memberListTable">
+                    <tr>
+                        <td>Nguyễn Văn A</td>
+                        <td>Chủ nhóm</td>
+                        <td><button>Xóa khỏi nhóm</button></td>
+                    </tr>
+                    <tr>
+                        <td>Trần Thị B</td>
+                        <td>Thành viên</td>
+                        <td><button>Xóa khỏi nhóm</button></td>
+                    </tr>
+                    <tr>
+                        <td>Lê Quốc C</td>
+                        <td>Thành viên</td>
+                        <td><button>Xóa khỏi nhóm</button></td>
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <div class="window-content" id="askJoinList">
+                <h3 onclick="toggleRightSidebarSubDiv('askJoinListTable')">Đơn xin vào nhóm (6)</h3>
+                <table id="askJoinListTable">
+                    <tr>
+                        <td>Vũ Văn Thiệu</td>
+                        <td>Tôi mong muốn gì đó</td>
+                        <td><button>Chấp nhận</button></td>
+                    </tr>
+                    <tr>
+                        <td>Nguyễn Nam Khánh</td>
+                        <td>Tôi mong muốn được tham gia vào nhóm</td>
+                        <td><button>Chấp nhận</button></td>
+                    </tr>
+                    <tr>
+                        <td>Trần Đình Khang</td>
+                        <td>Tôi hi vọng được gia nhập</td>
+                        <td><button>Chấp nhận</button></td>
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <div class="window-content" id="meetingList">
+                <h3 onclick="toggleRightSidebarSubDiv('meetingListTable')">Cuộc họp sắp tới (2)</h3>
+                <table id="meetingListTable">
+                    <tr>
+                        <td>Tiêu đề cuộc họp</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae ligula varius, eleifend arcu a, lacinia eros.</td>
+                        <td>9:00:00 12/7/2024</td>
+                        <td>B1-101</td>
+                    </tr>
+                    <tr>
+                        <td>Tiêu đề cuộc họp</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae ligula varius, eleifend arcu a, lacinia eros.</td>
+                        <td>9:00:00 12/7/2024</td>
+                        <td>B1-101</td>
+                    </tr>
+                    <tr>
+                        <td>Tiêu đề cuộc họp</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae ligula varius, eleifend arcu a, lacinia eros.</td>
+                        <td>9:00:00 12/7/2024</td>
+                        <td>B1-101</td>
+                    </tr>
+                    <tr>
+                        <td>Tiêu đề cuộc họp</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae ligula varius, eleifend arcu a, lacinia eros.</td>
+                        <td>9:00:00 12/7/2024</td>
+                        <td>B1-101</td>
+                    </tr>
+                </table>
             </div>
         </div>
 
@@ -474,6 +554,34 @@ overflow-y: auto;
 
                 input.value = '';
                 messageContainer.scrollTop = messageContainer.scrollHeight;
+            }
+        }
+
+        function hideElements() {
+            document.getElementById("memberListTable").style.display = "none";
+            document.getElementById("askJoinListTable").style.display = "none";
+            document.getElementById("meetingListTable").style.display = "none";
+            document.getElementById("rightSidebarContainer").style.display = "none";
+            document.getElementById("chatContainer").style.width = "calc(100vw - 18em)";
+        }
+
+        function toggleRightSidebar() {
+            const rightSidebarContainer = document.getElementById("rightSidebarContainer");
+            if (rightSidebarContainer.style.display != "none") {
+                rightSidebarContainer.style.display = "none";
+                document.getElementById("chatContainer").style.width = "calc(100vw - 18em)";
+            } else {
+                rightSidebarContainer.style.display = "block";
+                document.getElementById("chatContainer").style.width = "calc(100vw - 18em - 40em)";
+            }
+        }
+
+        function toggleRightSidebarSubDiv(elementId) {
+            const container = document.getElementById(elementId);
+            if (container.style.display != "none") {
+                container.style.display = "none";
+            } else {
+                container.style.display = "block";
             }
         }
 
