@@ -121,6 +121,7 @@ button {
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
+  border-radius: 0.5em;
   cursor: pointer;
   width: 100%;
 }
@@ -211,7 +212,7 @@ button {
   font-weight: bold;
 }
 
-.book_info-same_authors, .book_info-same_categories, .booklist, .ratelist, .meetinglist {
+.book_info-same_authors, .book_info-same_categories, .booklist, .ratelist, .meetinglist, .grouplist {
   /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
   text-align: left;
@@ -219,20 +220,20 @@ button {
   overflow: auto;
  }
 
-.book_info-same_authors_header, .book_info-same_categories_header, .booklist_header, .ratelist_header , .meetinglist_header{
+.book_info-same_authors_header, .book_info-same_categories_header, .booklist_header, .ratelist_header , .meetinglist_header, .meetinglist_header {
   /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
   text-align: center;
  }
 
-.book_info-same_authors_header > p, .book_info-same_categories_header > p, .booklist_header > p, .ratelist_header > p, .meetinglist_header > p {
+.book_info-same_authors_header > p, .book_info-same_categories_header > p, .booklist_header > p, .ratelist_header > p, .meetinglist_header > p, .grouplist_header > p {
   padding: 1em;
   text-align: center;
   background-color: #A31D2E;
   color: #FEFEFE;
  }
 
- .list-book, .list-rate, .list-meeting
+ .list-book, .list-rate, .list-meeting, .list-group
 {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -240,7 +241,7 @@ button {
   background-color: none;
 }
 
-.list-book a
+.list-book a, .list-group a
 {
   width: 18em;
   height: 20em;
@@ -264,7 +265,7 @@ button {
   text-wrap: wrap;
 }
 
-.list-book a img
+.list-book a img, .list-group a img
 {
   width: 100%;
   height: 80%;
@@ -385,6 +386,16 @@ tr:hover {
   width: fit-content;
   margin: auto;
 }
+
+.prof-text table tr td {
+  width: fit-content;
+  padding: 0 1em;
+  height: 3em;
+}
+
+.prof-text table tr td button {
+  padding: 0.5em;
+  border-radius: 0.5em;}
 
 .prof-img > img {
   width: 8em;
