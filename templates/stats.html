@@ -29,19 +29,19 @@
 
 			<div class="stats-container">
 				<div id="user-count" class="text-center">
-					<b>2560</b><br>Người dùng
+					<b>{{ user_count }}</b><br>Người dùng
 				</div>
 				<div id="book-count" class="text-center">
-					<b>105</b><br>Đầu sách
+					<b>{{ book_count }}</b><br>Đầu sách
 				</div>
 				<div id="author-count" class="text-center">
-					<b>122</b><br>Tác giả
+					<b>{{ author_count }}</b><br>Tác giả
 				</div>
 				<div id="rent-count" class="text-center">
-					<b>433</b><br>Lượt mượn được thực hiện
+					<b>{{ rent_count }}</b><br>Lượt mượn được thực hiện
 				</div>
 				<div id="group-count" class="text-center">
-					<b>50</b><br>Hội nhóm
+					<b>{{ group_count }}</b><br>Hội nhóm
 				</div>
 			</div>
 
@@ -54,7 +54,6 @@
 				</div>
 			</div>
 
-			<div class="table-stats">
 				<div class="table-stats-author">
 					<b>Danh sách tác giả</b>
 					<div class="right-bookitem">
@@ -62,109 +61,44 @@
 							<tr>
 								<th></th>
 								<th>Tác giả</th>
-								<th>Số lượng sách</th>
+								<th>Số lượng đầu sách</th>
 							</tr>
+							{% set index = 1 %}
+							{% for author_data in authors_data %}
 							<tr>
-								<td>1</td>
-								<td>Nguyễn Văn A</td>
-								<td>6</td>
+								<td>{{ index }}</td>
+								<td>{{ author_data[0] }}</td>
+								<td>{{ author_data[1] }}</td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>Trần Thị B</td>
-								<td>6</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Lý Quốc C</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>Nguyễn Vũ D</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>Đào Kiên E</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>Lê Văn F</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>Trần Quang G</td>
-								<td>4</td>
-							</tr>
-							<tr>
-								<td>8</td>
-								<td>Mai Đức H</td>
-								<td>4</td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>Đỗ Quang I</td>
-								<td>4</td>
-							</tr>
-							<tr>
-								<td>10</td>
-								<td>Phạm Đức J</td>
-								<td>3</td>
-							</tr>
+							{% set index = index + 1 %}
+							{% endfor %}
 						</table>
 					</div>
 				</div>
 
 				<div class="table-stats-publisher">
-					<b>Danh sách NXB</b>
+					<b>Nhà xuất bản</b>
 					<div class="right-bookitem">
 						<table>
 							<tr>
 								<th></th>
 								<th>NXB</th>
-								<th>Số lượng sách</th>
+								<th>Số lượng đầu sách</th>
 							</tr>
+							{% set index = 1 %}
+							{% for publisher_data in publishers_data %}
 							<tr>
-								<td>1</td>
-								<td>NXB Bách khoa Hà Nội</td>
-								<td>70</td>
+								<td>{{ index }}</td>
+								<td>{{ publisher_data[0] }}</td>
+								<td>{{ publisher_data[1] }}</td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td>NXB Kim Đồng</td>
-								<td>10</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>NXB Giáo dục Việt Nam</td>
-								<td>10</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>NXB Trẻ</td>
-								<td>9</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>NXB Chính trị Quốc gia Sự thật</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>NXB Khoa học tự nhiên và Công nghệ</td>
-								<td>5</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>NXB Tài chính</td>
-								<td>4</td>
-							</tr>
+							{% set index = index + 1 %}
+							{% endfor %}
 						</table>
 					</div>
 				</div>
+		
+
 
 				<div class="table-stats-user-on-time">
 					<b>Người dùng chưa từng mượn quá hạn</b>

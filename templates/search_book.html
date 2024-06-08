@@ -1,126 +1,122 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
-		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
-			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
-		</head>
-		<body>
+    <title>HUSTLib - Thư viện của sinh viên BKHN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+    <meta charset="UTF-8">
+</head>
+<body>
 
-			<div class="banner">
-				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
-				<div class="banner-login">
-					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
-					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
-					<a id="link-profile" href="/profile_page">Hồ sơ</a>
-					<a id="link-login" href="/login_page">Đăng nhập</a>
-					<a id="link-signup" href="/signup_page">Đăng ký</a>
-				</div>
-			</div>
-			<div class="navbar">
-				<a id="link-homepage" href="/">Trang chủ</a>
-				<a id="link-intro" href="intro.html">Giới thiệu</a>
-				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
-				<a id="link-search" href="/search_page">Tra cứu</a>
-				<a id="link-stats" href="/stats_page">Thống kê</a>
-			</div>
+<div class="banner">
+    <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+    <div class="banner-login">
+        <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+        <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+        <a id="link-profile" href="/profile_page">Hồ sơ</a>
+        <a id="link-login" href="/login_page">Đăng nhập</a>
+        <a id="link-signup" href="/signup_page">Đăng ký</a>
+    </div>
+</div>
 
-			<div class="container">
-				<div class="func">
-					<a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
-					<a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
-					<!-- <a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a> -->
-				</div>
-				<div class="main">
-					<div class="main-sort_option">
-						<label for="sort_by"><b>Sắp xếp theo</b></label>
-						<select name="sort_by" id="sort_by_select">
-							<option value="0">Chọn thứ tự hiển thị</option>
-							<option value="1">Lượt mượn tăng dần</option>
-							<option value="2">Lượt mượn giảm dần</option>
-							<option value="3">Đánh giá giảm dần</option>
-						</select>
-					</div>
+<div class="navbar">
+    <a id="link-homepage" href="/">Trang chủ</a>
+    <a id="link-intro" href="intro.html">Giới thiệu</a>
+    <a id="link-search" href="/search_page">Tra cứu</a>
+    <a id="link-stats" href="/stats_page">Thống kê</a>
+</div>
 
-					<div class="main-book_items">
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
-							<span>Phát triển lĩnh vực công nghệ tài chính (FinTech) của Trung Quốc và một số hàm ý đối với Việt Nam</span><br>
-							<span>Author name 1</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
-							<span>Book name</span><br>
-							<span>Author name 1</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
-							<span>Book name</span><br>
-							<span>Author name 1</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
-							<span>Book name</span><br>
-							<span>Author name 1</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
-							<span>Book name</span><br>
-							<span>Author name 1</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
-							<span>Book name</span><br>
-							<span>Author name 1</span>
-						</a>
-					</div>
-				</div>
+<div class="container">
+    <div class="func">
+        <a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
+        <a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
+        <!-- <a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a> -->
+    </div>
+    <div class="main">
+        <div class="main-sort_option">
+            <label for="sort_by"><b>Sắp xếp theo</b></label>
+            <select name="sort_by" id="sort_by_select">
+                <option value="0">Chọn thứ tự hiển thị</option>
+                <option value="1">Lượt mượn tăng dần</option>
+                <option value="2">Lượt mượn giảm dần</option>
+                <option value="3">Đánh giá giảm dần</option>
+            </select>
+        </div>
 
-				<div class="right">
-					<label for="title"><b>Tên sách</b></label>
-					<input type="text" name="title">
+        <div class="main-book_items">
+            {% if books %}
+                {% for book in books %}
+                    <a href="/book_info/{{ book.book_id }}">
+                        <div class="book-item">
+                            <img src="{{ url_for('static', filename='images/book_placeholder.png') }}" alt="{{ book.title }}"><br>
+                            <span><b>{{ book.title }}</b></span><br>
+                            <span>Tác giả: {{ book.author }}</span><br>
+                            <span>Nhà xuất bản: {{ book.publisher }}</span><br>
+                            <span>Năm xuất bản: {{ book.publish_year }}</span><br>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>Không tìm thấy sách phù hợp.</p>
+            {% endif %}
+        </div>
+    </div>
 
-					<label for="author"><b>Tác giả</b></label>
-					<input type="text" name="author">
+    <div class="right">
+        <form action="/search_page" method="GET" accept-charset="UTF-8">
+            <label for="title"><b>Tên sách</b></label>
+            <input type="text" name="title">
 
-					<label for="category"><b>Thể loại</b></label><br>
-					<select name="category">
-						<option value="0">Chọn thể loại</option>
-						<option value="1">Giáo trình, tài liệu chuyên ngành</option>
-						<option value="2">Bài báo khoa học, NCKH</option>
-						<option value="3">Lý luận chính trị</option>
-						<option value="4">Tiểu thuyết</option>
-						<option value="5">Truyện ngắn, tản văn</option>
-						<option value="6">Thơ</option>
-						<option value="7">Tài chính</option>
-						<option value="8">Kiến thức - khoa học công nghệ</option>
-						<option value="9">Kĩ năng sống</option>
-					</select><br>
+            <label for="author"><b>Tác giả</b></label>
+            <input type="text" name="author">
 
-					<label for="publisher"><b>Nhà xuất bản</b></label>
-					<select name="publisher">
-						<option value="0">Chọn nhà xuất bản</option>
-						<option value="1">NXB Bách khoa Hà Nội</option>
-						<option value="2">NXB Kim Đồng</option>
-						<option value="3">NXB Giáo dục Việt Nam</option>
-						<option value="4">NXB Trẻ</option>
-						<option value="5">NXB Chính trị Quốc gia Sự thật</option>
-						<option value="6">NXB Khoa học tự nhiên và Công nghệ</option>
-						<option value="7">NXB Tài chính</option>
-					</select>
+            <label for="category"><b>Thể loại</b></label><br>
+            <select name="category">
+                <option value="0">Chọn thể loại</option>
+                {% for category in categories %}
+                    <option value="{{ category.categoryid }}">{{ category.categoryname }}</option>
+                {% endfor %}
+            </select><br>
 
-					<label for="publish_year"><b>Năm xuất bản</b></label>
-					<input type="number" name="publish_year">
+            <label for="publisher"><b>Nhà xuất bản</b></label>
+            <select name="publisher">
+                <option value="0">Chọn nhà xuất bản</option>
+                {% for publisher in publishers %}
+                    <option value="{{ publisher.publisherid }}">{{ publisher.name }}</option>
+                {% endfor %}
+            </select>
 
-					<button type="submit">Tìm kiếm</button>
-				</div>
-				
-			</div>
+            <label for="publish_year"><b>Năm xuất bản</b></label>
+            <input type="number" name="publish_year">
 
-			<script type="text/javascript">
-			</script>
+            <button type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+</div>
 
-		</body>
-		</html>
+<div class="pagination">
+    {% if current_page > 1 %}
+        <a href="{{ url_for('search_page', page=1) }}">Trang đầu</a>
+        <a href="{{ url_for('search_page', page=current_page - 1) }}">Trang trước</a>
+    {% endif %}
+
+    {% for p in range(1, total_pages + 1) %}
+        {% if p == current_page %}
+            <span>{{ p }}</span>
+        {% else %}
+            <a href="{{ url_for('search_page', page=p) }}">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page < total_pages %}
+        <a href="{{ url_for('search_page', page=current_page + 1) }}">Trang tiếp</a>
+        <a href="{{ url_for('search_page', page=total_pages) }}">Trang cuối</a>
+    {% endif %}
+</div>
+
+<script type="text/javascript">
+    // JavaScript functions go here
+</script>
+
+</body>
+</html>
