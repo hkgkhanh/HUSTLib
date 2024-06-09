@@ -1,15 +1,16 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template,request ,url_for,redirect,flash,session
 import psycopg2
 import psycopg2.extras
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Đặt một khóa bí mật cho phiên làm việc
 
 def get_db_connection():
     conn = psycopg2.connect(
         host='localhost',
         dbname='hust_lib',
         user='postgres',
-        password='postgre',
+        password='skadi123',
         port=5432
     )
     return conn
@@ -20,7 +21,6 @@ def login_page():
 
 @app.route('/')
 def home_page():
-    
     return render_template('index.html')
 
 @app.route('/signup_page')
@@ -113,7 +113,7 @@ def search_page():
 
     # Xây dựng câu truy vấn để đếm tổng số sách dựa trên các điều kiện tìm kiếm
     count_query = '''
-        SELECT COUNT(*)
+        SELECT COUNT(DISTINCT Book.BookID)
         FROM Book
         INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
         INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
@@ -133,7 +133,9 @@ def search_page():
 
     # Xây dựng câu truy vấn chính
     query = '''
-        SELECT Book.Title, Book.BookID, Author.Full_Name AS Author, Publisher.Name AS Publisher, Book.PublishYear
+        SELECT
+            Book.Title, Book.BookID,
+            string_agg(DISTINCT Author.Full_Name, ', ') AS Author
         FROM Book
         INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
         INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
@@ -148,7 +150,7 @@ def search_page():
 
     # Thêm GROUP BY và ORDER BY
     query += '''
-        GROUP BY Book.Title, Book.BookID, Author.Full_Name, Publisher.Name, Book.PublishYear
+        GROUP BY Book.BookID, Book.Title
         ORDER BY Book.BookID
     '''
 
@@ -203,9 +205,6 @@ def cart_page():
 def profile_page():
     return render_template('profile.html')
 
-@app.route('/profile_temp_page')
-def profile_temp_page():
-    return render_template('profile_temp.html')
 
 @app.route('/rent_manage_page')
 def rent_manage_page():
@@ -294,9 +293,6 @@ def stats_quantity():
                            publishers_data=publishers_data)
 
 
-
-
-
 @app.route('/process_login', methods=['POST'])
 def login():
     if request.method == 'POST':
@@ -312,14 +308,46 @@ def login():
                 cur.execute('SELECT * FROM Person WHERE Email = %s AND Password = %s', (email, password))
                 user = cur.fetchone()
                 if user:
-                    return "Login success!"
+                    # Lưu thông tin người dùng vào session
+                    session['user_id'] = user['personid']
+                    session['user_role'] = user['role']
+
+                    flash('Login success!')
+                    return redirect(url_for('profile_page'))  # Chuyển hướng đến trang hồ sơ
                 else:
-                    return "Invalid email or password. Please try again."
+                    flash('Invalid email or password. Please try again.')
+                    return redirect(url_for('login_page'))
         except Exception as error:
             print(error)
+            flash('An error occurred. Please try again later.')
+            return redirect(url_for('login_page'))  # Thêm return trong trường hợp có lỗi
         finally:
             if conn is not None:
                 conn.close()
 
+    # Thêm return trong trường hợp phương thức không phải POST
+    return redirect(url_for('login_page'))
+                
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    session.pop('user_role', None)
+    flash('You have been logged out.')
+    return redirect(url_for('login_page'))
+
+
+# @app.route('/admin_page')
+# def admin_page():
+#     user_role = session.get('user_role')
+#     if user_role != 'Admin':
+#         flash('Access denied.')
+#         return redirect(url_for(''))
+
+#     # Thực hiện các chức năng dành riêng cho admin
+#     return render_template('admin.html')
+               
+                
+                
+        
 if __name__ == '__main__':
     app.run(debug=True)

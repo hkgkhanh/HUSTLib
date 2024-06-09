@@ -141,13 +141,13 @@ button {
 .main-book_items a
 {
   width: 18em;
-  height: 20em;
+/*  height: 20em;*/
   margin: 1em;
   padding-bottom: 1em;
   text-align: center;
   background-color: #8DAAB3;
   border-radius: 1em;
-  white-space: nowrap;
+/*  white-space: nowrap;*/
   overflow: hidden;
 }
 
@@ -159,6 +159,25 @@ button {
   background-color: none;
   border-radius: 1em 1em 0 0;
   margin-bottom: 1em;
+}
+
+.pagination {
+  text-align: center;
+}
+
+.pagination a {
+  padding: 0.5em;
+  line-height: 2em;
+}
+
+.currpage {
+  padding: 0.5em;
+  line-height: 2em;
+  border: 1px solid black;
+}
+
+.pagination a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .book_info-image { grid-area: image; }

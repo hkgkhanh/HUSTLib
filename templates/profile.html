@@ -12,9 +12,15 @@
         <div class="banner-login">
             <a id="link-cart" href="/cart_page">Giỏ mượn</a>
             <a id="link-group" href="/chat_group_page">Hội nhóm</a>
-            <a id="link-profile" href="/profile_page">Hồ sơ</a>
-            <a id="link-login" href="/login_page">Đăng nhập</a>
-            <a id="link-signup" href="/signup_page">Đăng ký</a>
+            {% if 'user_id' in session %}
+                <!-- Hiển thị tùy chọn khi đã đăng nhập -->
+                <a id="link-profile" href="/profile_page">Hồ sơ</a>
+                <a id="link-logout" href="/logout">Đăng xuất</a>
+            {% else %}
+                <!-- Hiển thị tùy chọn khi chưa đăng nhập -->
+                <a id="link-login" href="/login_page">Đăng nhập</a>
+                <a id="link-signup" href="/signup_page">Đăng ký</a>
+            {% endif %}
         </div>
     </div>
     <div class="navbar">
@@ -28,11 +34,188 @@
     <div class="container">
         <div class="func"></div>
         <div class="main">
-            <!-- <h2>Thông tin cá nhân</h2>
-            <p>Xin chào, {{ user['FirstName'] }} {{ user['LastName'] }}!</p>
-            <p>Email: {{ user['Email'] }}</p> -->
+            <div class="main-subdiv">
+                <div class="prof-img"><img src="{{ url_for('static', filename='images/user_placeholder.png') }}"></div>
+                <div class="prof-text">
+                    <table>
+                        <tr>
+                            <td>Tên</td>
+                            <td>Văn A</td>
+                            <td><button>thay đổi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Họ</td>
+                            <td>Nguyễn</td>
+                            <td><button>thay đổi</button></td>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Giới tính</td>
+                            <td>M</td>
+                            <td><button>thay đổi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày sinh</td>
+                            <td>12/10/2004</td>
+                            <td><button>thay đổi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td>18 Giải Phóng, Hai Bà Trưng, Hà Nội</td>
+                            <td><button>thay đổi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại</td>
+                            <td>0885994446</td>
+                            <td><button>thay đổi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>abc.de225678@sis.hust.edu.vn</td>
+                            <td><button>thay đổi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày tạo tài khoản</td>
+                            <td>1/4/2024</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <!-- Thêm các thông tin cá nhân khác tùy theo nhu cầu -->
-            <a href="/logout">Đăng xuất</a> <!-- Đặt href để đăng xuất -->
+            <div class="main-buttons">
+                <button class="btn-red">Đổi mật khẩu</button> <!-- Đặt href để đăng xuất -->
+                <button class="btn-red" href="/logout">Đăng xuất</button>
+            </div>
+            <div class="main-subdiv">
+                <div class="booklist_header"><p>Sách đã mượn</p></div>
+                <div class="booklist">
+                    <div class="list-book">
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
+                            <span>Phát triển lĩnh vực công nghệ tài chính (FinTech) của Trung Quốc và một số hàm ý đối với Việt Nam</span><br>
+                            <span>Author name 1</span>
+                        </a>
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
+                            <span>Book name</span><br>
+                            <span>Author name 1</span>
+                        </a>
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
+                            <span>Book name</span><br>
+                            <span>Author name 1</span>
+                        </a>
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
+                            <span>Book name</span><br>
+                            <span>Author name 1</span>
+                        </a>
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
+                            <span>Book name</span><br>
+                            <span>Author name 1</span>
+                        </a>
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
+                            <span>Book name</span><br>
+                            <span>Author name 1</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="main-subdiv">
+                <div class="ratelist_header"><p>Đánh giá đã thực hiện</p></div>
+                <div class="ratelist">
+                    <div class="list-rate">
+                        <a href="index.html">
+                            <br>
+                            <div>Phát triển lĩnh vực công nghệ tài chính (FinTech) của Trung Quốc và một số hàm ý đối với Việt Nam</div><br>
+                            <div>⭐5/5</div>
+                            <div>12:04:35 12/10/2024</div>
+                        </a>
+                        <a href="index.html">
+                            <br>
+                            <div>Book name</div><br>
+                            <div>⭐5/5</div>
+                            <div>12:04:35 12/10/2024</div>
+                        </a>
+                        <a href="index.html">
+                            <br>
+                            <div>Book name</div><br>
+                            <div>⭐5/5</div>
+                            <div>12:04:35 12/10/2024</div>
+                        </a>
+                        <a href="index.html">
+                            <br>
+                            <div>Book name</div><br>
+                            <div>⭐5/5</div>
+                            <div>12:04:35 12/10/2024</div>
+                        </a>
+                        <a href="index.html">
+                            <br>
+                            <div>Book name</div><br>
+                            <div>⭐5/5</div>
+                            <div>12:04:35 12/10/2024</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="main-subdiv">
+                <div class="grouplist_header"><p>Hội nhóm</p></div>
+                <div class="grouplist">
+                    <div class="list-group">
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/group_placeholder.png') }}"><br>
+                            <span>Group name</span><br>
+                            <span>Thành viên</span>
+                        </a>
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/group_placeholder.png') }}"><br>
+                            <span>Group name</span><br>
+                            <span>Thành viên</span>
+                        </a>
+                        <a href="index.html">
+                            <img src="{{ url_for('static', filename='images/group_placeholder.png') }}"><br>
+                            <span>Group name</span><br>
+                            <span>Chủ nhóm</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="main-subdiv">
+                <div class="meetinglist_header"><p>Lịch trình sắp tới</p></div>
+                <div class="meetinglist">
+                    <div class="list-meeting">
+                        <a href="index.html">
+                            <br>
+                            <div>Tiêu đề cuộc họp</div><br>
+                            <div>12:04:35 12/10/2024</div>
+                            <div>B1-101</div>
+                        </a>
+                        <a href="index.html">
+                            <br>
+                            <div>Tiêu đề cuộc họp</div><br>
+                            <div>12:04:35 12/10/2024</div>
+                            <div>B1-101</div>
+                        </a>
+                        <a href="index.html">
+                            <br>
+                            <div>Tiêu đề cuộc họp</div><br>
+                            <div>12:04:35 12/10/2024</div>
+                            <div>B1-101</div>
+                        </a>
+                        <a href="index.html">
+                            <br>
+                            <div>Tiêu đề cuộc họp</div><br>
+                            <div>12:04:35 12/10/2024</div>
+                            <div>B1-101</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>  
         <div class="right"></div>
     </div>
