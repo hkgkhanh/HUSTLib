@@ -189,6 +189,10 @@ def search_page():
 def search_user_page():
     return render_template('search_user.html')
 
+@app.route('/search_rent_page')
+def search_rent_page():
+    return render_template('search_rent.html')
+
 @app.route('/search_group_page')
 def search_group_page():
     return render_template('search_group.html')

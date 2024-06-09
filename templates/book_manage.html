@@ -29,23 +29,43 @@
 
 			<div class="container">
 				<div class="func">
-					<!--<a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
-					<a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
-					<a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a>-->
+					<a id="link-searchbook" href="/search_rent_page">Quản lí đơn mượn</a><br>
+					<a id="link-searchuser" href="/book_manage_page">Cập nhật CSDL sách</a>
 				</div>
 				<div class="main">
 					
 				</div>
 
 				<div class="right">
-					<label for="id_rent"><b>ID sách</b></label>
-					<input type="text" name="id_rent">
-          
-					<label for="id_book"><b>Tên sách</b></label>
-					<input type="text" name="id_book">
+        <form action="/search_page" method="GET" accept-charset="UTF-8">
+            <label for="title"><b>Tên sách</b></label>
+            <input type="text" name="title">
 
-					<button type="submit">Tìm kiếm</button>
-				</div>
+            <label for="author"><b>Tác giả</b></label>
+            <input type="text" name="author">
+
+            <label for="category"><b>Thể loại</b></label><br>
+            <select name="category">
+                <option value="0">Chọn thể loại</option>
+                {% for category in categories %}
+                    <option value="{{ category.categoryid }}">{{ category.categoryname }}</option>
+                {% endfor %}
+            </select><br>
+
+            <label for="publisher"><b>Nhà xuất bản</b></label>
+            <select name="publisher">
+                <option value="0">Chọn nhà xuất bản</option>
+                {% for publisher in publishers %}
+                    <option value="{{ publisher.publisherid }}">{{ publisher.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="publish_year"><b>Năm xuất bản</b></label>
+            <input type="number" name="publish_year">
+
+            <button type="submit">Tìm kiếm</button>
+        </form>
+    </div>
 				
 			</div>
 

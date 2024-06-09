@@ -49,9 +49,9 @@
             </tr>
             <tr>
               <td>Đã trả hết</td>
-              <td>False</td>
+              <td><input type="checkbox"></td>
               <td>Đã đến nhận sách</td>
-              <td>True</td>
+              <td><input type="checkbox" checked></td>
             </tr>
           </table>
 
@@ -62,7 +62,7 @@
               <th>RentlineID</th>
               <th>BookID</th>
               <th>Tên sách</th>
-              <th>Trạng thái trả</th>
+              <th>Đã trả</th>
               <th>Ngày trả</th>
               <th>Trạng thái sách (usability)</th>
             </tr>
@@ -72,9 +72,13 @@
               <td>12345</td>
               <td>1234</td>
               <td>Bài giảng Giải tích I</td>
-              <td onclick="alert('are you sure')">Not returned</td>
+              <td onclick="alert('are you sure')"><input type="checkbox"></td>
               <td></td>
-              <td>good</td>
+              <td><select>
+                <option>tốt</option>
+                <option>hư hỏng</option>
+                <option>mất</option>
+              </select></td>
             </tr>
             <tr>
               <td>2</td>
@@ -82,9 +86,13 @@
               <td>12346</td>
               <td>2346</td>
               <td>Bài giảng Đại số</td>
-              <td>Returned</td>
+              <td><input type="checkbox" checked></td>
               <td>20/10/2024</td>
-              <td>damaged</td>
+              <td><select>
+                <option>tốt</option>
+                <option>hư hỏng</option>
+                <option>mất</option>
+              </select></td>
             </tr>
             <tr>
               <td>3</td>
@@ -92,9 +100,13 @@
               <td>12347</td>
               <td>5555</td>
               <td>Cấu trúc dữ liệu và thuật toán</td>
-              <td>Returned</td>
+              <td><input type="checkbox" checked></td>
               <td>21/10/2024</td>
-              <td>lost</td>
+              <td><select>
+                <option>tốt</option>
+                <option>hư hỏng</option>
+                <option>mất</option>
+              </select></td>
             </tr>
             <tr>
               <td>4</td>
@@ -102,9 +114,13 @@
               <td>12348</td>
               <td>7749</td>
               <td>Book name</td>
-              <td>Not returned</td>
+              <td><input type="checkbox"></td>
               <td></td>
-              <td>good</td>
+              <td><select>
+                <option>tốt</option>
+                <option>hư hỏng</option>
+                <option>mất</option>
+              </select></td>
             </tr>
             <tr>
               <td>5</td>
@@ -112,15 +128,21 @@
               <td>12349</td>
               <td>1210</td>
               <td>Book name</td>
-              <td>Returned</td>
+              <td><input type="checkbox" checked></td>
               <td>1/11/2024</td>
-              <td>good</td>
+              <td><select>
+                <option>tốt</option>
+                <option>hư hỏng</option>
+                <option>mất</option>
+              </select></td>
             </tr>
           </table>
+
+          <button>Lưu thay đổi</button>
 				</div>
 
 				<div class="right">
-					<label for="id_rent"><b>ID đơn mượn</b></label>
+					<!-- <label for="id_rent"><b>ID đơn mượn</b></label>
 					<input type="text" name="id_rent">
           
 					<label for="id_book"><b>ID sách mượn</b></label>
@@ -131,7 +153,40 @@
 					<label for="name_customer"><b>Họ tên người mượn</b></label>
 					<input type="text" name="name_customer">
 
-					<button type="submit">Tìm kiếm</button>
+					<button type="submit">Tìm kiếm</button> -->
+
+          <h2>Thông tin người mượn</h2>
+          <table>
+            <tr>
+              <td>ID</td>
+              <td>1234</td>
+            </tr>
+            <tr>
+              <td>Tên</td>
+              <td>Khánh</td>
+            </tr>
+            <tr>
+              <td>Họ</td>
+              <td>Nông Quốc</td>
+            </tr>
+            <tr>
+              <td>Địa chỉ</td>
+              <td>18 Giải Phóng, Đống Đa, Hà Nội</td>
+            </tr>
+            <tr>
+              <td>SĐT</td>
+              <td>0123456789</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>khanh.nq22@sis.hust.edu.vn</td>
+            </tr>
+            <tr>
+              <td>Blocked</td>
+              <td>false</td>
+            </tr>
+          </table>
+
 				</div>
 				
 			</div>

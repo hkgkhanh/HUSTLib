@@ -450,6 +450,26 @@ tr:hover {
 }
 
 .table-stats {
-  
   width: fit-content;
+}
+
+.rent-item {
+  margin: 1em;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid black;
+  border-radius: 1em;
+  text-align: center;
+}
+
+.rent-item table {
+  width: 100%;
+}
+
+.rent-item a {
+  padding: 1em;
+  border: none;
+  border-radius: 0.5em;
+  background-color: #04AA6D;
+  color: white;
+  font-size: 0.9em;
 }
