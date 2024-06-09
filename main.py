@@ -222,6 +222,14 @@ def book_info_page():
 def book_manage_page():
     return render_template('book_manage.html')
 
+@app.route('/book_update_page')
+def book_update_page():
+    return render_template('book_update.html')
+
+@app.route('/book_insert_page')
+def book_insert_page():
+    return render_template('book_insert.html')
+
 @app.route('/stats_page')
 
 def stats_quantity():

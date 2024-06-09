@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
+			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
+		</head>
+		<body>
+
+			<div class="banner">
+				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+				<div class="banner-login">
+					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
+					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
+					<a id="link-profile" href="/profile_page">Hồ sơ</a>
+					<a id="link-login" href="/login_page">Đăng nhập</a>
+					<a id="link-signup" href="/signup_page">Đăng ký</a>
+				</div>
+			</div>
+			<div class="navbar">
+				<a id="link-homepage" href="/">Trang chủ</a>
+				<a id="link-intro" href="intro.html">Giới thiệu</a>
+				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
+				<a id="link-search" href="/search_page">Tra cứu</a>
+				<a id="link-stats" href="/stats_page">Thống kê</a>
+			</div>
+
+			<div class="container">
+				<div class="func">
+					<a id="link-searchbook" href="/search_rent_page">Quản lí đơn mượn</a><br>
+					<a id="link-searchuser" href="/book_manage_page">Cập nhật CSDL sách</a>
+				</div>
+				<div class="main">
+
+          <div class="book-manage-item">
+            <table>
+              <tr>
+                <th class="text-right w6">ID</th>
+                <td>1</td>
+              </tr>
+              <tr>
+                <th class="text-right">Tên sách</th>
+                <td><input type="text"></td>
+              </tr>
+              <tr>
+                <th class="text-right">Tác giả</th>
+                <td id="author_list"></td>
+              </tr>
+              <tr>
+                <th class="text-right">Thể loại</th>
+                <td><input type="checkbox"><label>Giáo trình, tài liệu chuyên ngành</label><br>
+                <input type="checkbox"><label>Bài báo khoa học, NCKH</label><br>
+                <input type="checkbox"><label>Lý luận chính trị</label><br>
+                <input type="checkbox"><label>Tiểu thuyết</label><br>
+                <input type="checkbox"><label>Truyện ngắn, tản văn</label><br>
+                <input type="checkbox"><label>Thơ</label><br>
+                <input type="checkbox"><label>Tài chính</label><br>
+                <input type="checkbox"><label>Kiến thức, khoa học công nghệ</label><br>
+                <input type="checkbox"><label>Kỹ năng sống</label></td>
+              </tr>
+              <tr>
+                <th class="text-right">NXB</th>
+                <td><select>
+                  <option>NXB Bách khoa Hà Nội</option>
+                  <option>NXB Kim Đồng</option>
+                  <option>NXB Giáo dục Việt Nam</option>
+                  <option>NXB Trẻ</option>
+                  <option>NXB Chính trị Quốc gia Sự thật</option>
+                  <option>NXB Khoa học tự nhiên và Công nghệ</option>
+                  <option>NXB Tài chính</option>
+                </select></td>
+              </tr>
+              <tr>
+                <th class="text-right">Năm XB</th>
+                <td><input type="number"></td>
+              </tr>
+            </table>
+          </div>
+          <button>Lưu thay đổi</button>
+				</div>
+
+				<div class="right">
+          <button class="bg-red" onclick="resetBookAuthors()">Xóa hết tác giả của sách</button>
+          <label><b>Tác giả mới</b></label>
+          <input id="input_new_author" type="text" placeholder="Nhập họ tên của tác giả mới chưa có trong CSDL">
+          <button onclick="addNewAuthor()">Thêm</button>
+
+          <label><b>Tra cứu tác giả</b></label>
+          <input type="text" placeholder="Họ và tên">
+          
+          <table class="search_author">
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">Họ và tên</th>
+            </tr>
+            <tr>
+              <td class="text-right">4</td>
+              <td>Nguyễn Văn A</td>
+              <td><button onclick="addAuthor(4)">Thêm</button></td>
+            </tr>
+            <tr>
+              <td class="text-right">12</td>
+              <td>Ngô Thị B</td>
+              <td><button onclick="addAuthor(12)">Thêm</button></td>
+            </tr>
+          </table>
+        </div>
+				
+			</div>
+
+			<script type="text/javascript">
+
+        let authorsToThisBook = []; // danh sách id của các tác giả đã có trong CSDL
+        let newAuthors = []; // danh sách tên của các tác giả chưa có trong CSDL, cần đc insert vào bảng Author
+
+        function resetBookAuthors() {
+          authorsToThisBook = [];
+          newAuthors = [];
+          document.getElementById("author_list").innerHTML = "";
+        }
+
+        function addAuthor(authorid) {
+          if (!authorsToThisBook.includes(authorid)) {
+            authorsToThisBook.push(authorid);
+
+            document.getElementById("author_list").innerHTML = authorsToThisBook.join(", ");
+            document.getElementById("author_list").innerHTML += "<br>" + newAuthors.join(", ");
+          }
+        }
+
+        function addNewAuthor() {
+          let newname = document.getElementById("input_new_author").value;
+          newAuthors.push(newname);
+
+          document.getElementById("author_list").innerHTML = authorsToThisBook.join(", ");
+          document.getElementById("author_list").innerHTML += "<br>" + newAuthors.join(", ");
+
+          document.getElementById("input_new_author").value = "";
+        }
+			</script>
+
+		</body>
+		</html>
