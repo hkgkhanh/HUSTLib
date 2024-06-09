@@ -54,6 +54,7 @@
 				</div>
 			</div>
 
+			<div class="table-stats">
 				<div class="table-stats-author">
 					<b>Danh sách tác giả</b>
 					<div class="right-bookitem">
@@ -63,14 +64,12 @@
 								<th>Tác giả</th>
 								<th>Số lượng đầu sách</th>
 							</tr>
-							{% set index = 1 %}
 							{% for author_data in authors_data %}
 							<tr>
-								<td>{{ index }}</td>
+								<td>{{ loop.index }}</td>
 								<td>{{ author_data[0] }}</td>
 								<td>{{ author_data[1] }}</td>
 							</tr>
-							{% set index = index + 1 %}
 							{% endfor %}
 						</table>
 					</div>
@@ -85,14 +84,12 @@
 								<th>NXB</th>
 								<th>Số lượng đầu sách</th>
 							</tr>
-							{% set index = 1 %}
 							{% for publisher_data in publishers_data %}
 							<tr>
-								<td>{{ index }}</td>
+								<td>{{ loop.index }}</td>
 								<td>{{ publisher_data[0] }}</td>
 								<td>{{ publisher_data[1] }}</td>
 							</tr>
-							{% set index = index + 1 %}
 							{% endfor %}
 						</table>
 					</div>

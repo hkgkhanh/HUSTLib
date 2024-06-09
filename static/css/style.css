@@ -427,4 +427,10 @@ tr:hover {
   text-align: center;
   border-radius: 1em;
   height: fit-content;
+  width: fit-content;
+}
+
+.table-stats {
+  
+  width: fit-content;
 }

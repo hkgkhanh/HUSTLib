@@ -9,7 +9,7 @@ def get_db_connection():
         host='localhost',
         dbname='hust_lib',
         user='postgres',
-        password='skadi123',
+        password='postgre',
         port=5432
     )
     return conn
