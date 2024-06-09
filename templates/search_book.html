@@ -49,16 +49,36 @@
                     <a href="/book_info/{{ book.book_id }}">
                         <div class="book-item">
                             <img src="{{ url_for('static', filename='images/book_placeholder.png') }}" alt="{{ book.title }}"><br>
-                            <span><b>{{ book.title }}</b></span><br>
-                            <span>Tác giả: {{ book.author }}</span><br>
-                            <span>Nhà xuất bản: {{ book.publisher }}</span><br>
-                            <span>Năm xuất bản: {{ book.publish_year }}</span><br>
+                            <span><b>{{ book.title }}</b></span><br><br>
+                            <span>{{ book.author }}</span><br>
+                            <!--<span>Nhà xuất bản: {{ book.publisher }}</span><br>-->
+                            <!--<span>Năm xuất bản: {{ book.publish_year }}</span><br>-->
                         </div>
                     </a>
                 {% endfor %}
             {% else %}
                 <p>Không tìm thấy sách phù hợp.</p>
             {% endif %}
+        </div>
+
+        <div class="pagination">
+        	{% if current_page > 1 %}
+        	<a href="{{ url_for('search_page', page=1) }}">Trang đầu</a>
+        	<a href="{{ url_for('search_page', page=current_page - 1) }}">Trang trước</a>
+        	{% endif %}
+
+        	{% for p in range(1, total_pages + 1) %}
+        	{% if p == current_page %}
+        	<span class="currpage">{{ p }}</span>
+        	{% else %}
+        	<a href="{{ url_for('search_page', page=p) }}">{{ p }}</a>
+        	{% endif %}
+        	{% endfor %}
+
+        	{% if current_page < total_pages %}
+        	<a href="{{ url_for('search_page', page=current_page + 1) }}">Trang tiếp</a>
+        	<a href="{{ url_for('search_page', page=total_pages) }}">Trang cuối</a>
+        	{% endif %}
         </div>
     </div>
 
@@ -92,26 +112,6 @@
             <button type="submit">Tìm kiếm</button>
         </form>
     </div>
-</div>
-
-<div class="pagination">
-    {% if current_page > 1 %}
-        <a href="{{ url_for('search_page', page=1) }}">Trang đầu</a>
-        <a href="{{ url_for('search_page', page=current_page - 1) }}">Trang trước</a>
-    {% endif %}
-
-    {% for p in range(1, total_pages + 1) %}
-        {% if p == current_page %}
-            <span>{{ p }}</span>
-        {% else %}
-            <a href="{{ url_for('search_page', page=p) }}">{{ p }}</a>
-        {% endif %}
-    {% endfor %}
-
-    {% if current_page < total_pages %}
-        <a href="{{ url_for('search_page', page=current_page + 1) }}">Trang tiếp</a>
-        <a href="{{ url_for('search_page', page=total_pages) }}">Trang cuối</a>
-    {% endif %}
 </div>
 
 <script type="text/javascript">
