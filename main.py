@@ -184,6 +184,10 @@ def search_page():
 def search_user_page():
     return render_template('search_user.html')
 
+@app.route('/search_rent_page')
+def search_rent_page():
+    return render_template('search_rent.html')
+
 @app.route('/search_group_page')
 def search_group_page():
     return render_template('search_group.html')
@@ -327,6 +331,14 @@ def book_info_page(book_id):
 @app.route('/book_manage_page')
 def book_manage_page():
     return render_template('book_manage.html')
+
+@app.route('/book_update_page')
+def book_update_page():
+    return render_template('book_update.html')
+
+@app.route('/book_insert_page')
+def book_insert_page():
+    return render_template('book_insert.html')
 
 @app.route('/stats_page')
 

@@ -373,7 +373,6 @@ button {
 
 tr:hover {
   cursor: pointer;
-  background-color: #ddd;
 }
 
 .main-item {
@@ -450,6 +449,46 @@ tr:hover {
 }
 
 .table-stats {
-  
   width: fit-content;
+}
+
+.rent-item, .book-manage-item {
+  margin: 1em;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid black;
+  border-radius: 1em;
+  text-align: center;
+}
+
+.rent-item table, .book-manage-item table, .search_author {
+  width: 100%;
+}
+
+.rent-item a, .book-manage-item a, .search_author button {
+  padding: 0.5em;
+  border: none;
+  border-radius: 0.5em;
+  background-color: #04AA6D;
+  color: white;
+  font-size: 0.9em;
+}
+
+.search_author button {
+  margin: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.w6 {
+  width: 6em;
+}
+
+.bg-red {
+  background-color: #A31D2E;
 }
