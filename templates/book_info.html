@@ -7,6 +7,19 @@
 </head>
 <body>
 
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for message in messages %}
+          <div class="flash-message">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+{% endwith %}
+
+
+
 <div class="banner">
     <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
     <div class="banner-login">
@@ -41,10 +54,12 @@
             <div class="book_info-rating">
                 <span>⭐</span><span>{{ book_info['averagerate'] or 'Chưa có đánh giá' }}</span><span>/5 (</span><span>{{ book_info['numratedbook'] }}</span><span>)</span>
             </div>
-            <div class="book_info-rent">
-                <button type="submit">Đưa vào giỏ mượn</button>
-            </div>
             <div class="book_info-quantity">Còn: <span>{{ book_info['quantity'] }}</span></div>
+            <div class="book_info-rent">
+                <form action="{{ url_for('cart_page', book_id=book_info['bookid']) }}" method="POST">
+                    <button type="submit">Đưa vào giỏ mượn</button>
+                </form>
+            </div>
         </div>
 
         <div class="book_info-same_authors_header"><p>Sách cùng tác giả</p></div>
@@ -52,9 +67,9 @@
             <div class="list-book">
                 {% for same_author_book in same_author_books %}
                 <a href="/book_info_page/{{ same_author_book['book_id'] }}">
-                    <img src="{{ same_author_book['image_url'] }}"><br>
+                    <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
                     <span>{{ same_author_book['title'] }}</span><br>
-                    <span>{{ same_author_book['authors'] }}</span>
+                    <span>{{ same_author_book['authorname'] }}</span>
                 </a>
                 {% endfor %}
             </div>
@@ -64,9 +79,9 @@
             <div class="list-book">
                 {% for same_category_book in same_category_books %}
                 <a href="/book_info_page/{{ same_category_book['book_id'] }}">
-                    <img src="{{ same_category_book['image_url'] }}"><br>
+                    <img src="{{ url_for('static', filename='images/book_placeholder.png') }}"><br>
                     <span>{{ same_category_book['title'] }}</span><br>
-                    <span>{{ same_category_book['authors'] }}</span>
+                    <span>{{ same_category_book['authorname'] }}</span>
                 </a>
                 {% endfor %}
             </div>
@@ -75,31 +90,36 @@
 
     <div class="right">
         <div class="add_comment_cell">
-            <div class="star_pick">
-                <button type="submit">0⭐</button>
-                <button type="submit">1⭐</button>
-                <button type="submit">2⭐</button>
-                <button type="submit">3⭐</button>
-                <button type="submit">4⭐</button>
-                <button type="submit">5⭐</button>
+            <form action="{{ url_for('submit_review', book_id=book_info['bookid']) }}" method="POST">
+                <div class="star_pick">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">5⭐</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">4⭐</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">3⭐</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">2⭐</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">1⭐</label>
+                </div>
+                <textarea name="comment" placeholder="Nhận xét"></textarea>
+                <button type="submit">Gửi đánh giá</button>
+            </form>
+        </div>
+        <hr>
+        <div class="comment_section">
+            {% for comment in comments %}
+            <div class="comment_cell">
+                <b><span>{{ comment['RateFullName'] }}</span> |
+                    <span>{{ comment['RateCommentTime'] }}</span></b><br>
+                <span>⭐</span><span>{{ comment['RateStar'] }}</span><span>/5</span><br>
+                <span>{{ comment['CommentBook'] }}</span>
             </div>
-            <textarea placeholder="Nhận xét"></textarea>
-            <button type="submit">Gửi đánh giá</button>
-        </div><hr>
-        <div class="comment_cell">
-            <b><span>Nguyễn Văn A</span> |
-                <span>12:04:35 12/10/2024</span></b><br>
-            <span>⭐</span><span>5</span><span>/5</span><br>
-            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae ligula varius, eleifend arcu a, lacinia eros. Proin magna tellus, tincidunt porttitor gravida faucibus, pretium ac lacus. Ut bibendum orci velit. Etiam id velit nec orci condimentum bibendum mollis ac purus. Phasellus accumsan eleifend convallis.</span>
-        </div><hr>
-        <div class="comment_cell">
-            <b><span>Trần Thị B</span> |
-                <span>12:04:35 12/10/2024</span></b><br>
-            <span>⭐</span><span>4</span><span>/5</span><br>
-            <span>Curabitur accumsan, dui eget mattis sodales, arcu sem ullamcorper ipsum, vitae rhoncus quam est in quam. Morbi eu nisi ac ligula dapibus condimentum sed ac arcu. Sed ultrices ante eu lacinia elementum. Morbi consectetur lobortis ultricies. Fusce id bibendum justo.</span>
+            <hr>
+            {% endfor %}
         </div>
     </div>
 </div>
+
+
+
+
 
 <script type="text/javascript">
 </script>

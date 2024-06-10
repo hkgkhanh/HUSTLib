@@ -196,8 +196,9 @@ def search_group_page():
 def chat_group_page():
     return render_template('group.html')
 
-@app.route('/cart_page')
+@app.route('/cart_page/<int:book_id>')
 def cart_page():
+    
     return render_template('cart.html')
 
 @app.route('/profile_page')
@@ -214,9 +215,13 @@ def rent_manage_page():
 def book_info_page(book_id):
     conn = None
     cur = None
-    book_info = None
-    same_author_books = []
-    same_category_books = []
+    
+    ########
+    book_info = None  # lưu thông tin về cuốn sách có id = book_id
+    same_author_books = [] # lưu các cuốn sách có chung ít nhất 1 tác giả với cuốn sách có id=book_id
+    same_category_books = [] # lưu thông tin các cuốn sách có chung ít nhất 1 tag category trùng với cuốn sách có id=book_id
+    comments = []  # lưu thông tin các đánh giá của sách có id=book_id
+    
     try:
         conn = psycopg2.connect(
             dbname='hust_lib',
@@ -228,13 +233,14 @@ def book_info_page(book_id):
         with conn.cursor() as cur:
             cur.execute(
                 '''SELECT
+                    Book.BookID,
                     Book.Title,
                     string_agg(DISTINCT Author.Full_Name, ', ') AS AuthorName,
                     string_agg(DISTINCT Category.CategoryName, ', ') AS CategoryName,
                     Book.PublishYear,
                     Book.Quantity,
                     COUNT(Rentline.RentlineID) AS NumBorrowedBooks,
-                    AVG(Rate.star) AS AverageRate,
+                    ROUND(AVG(Rate.star), 1) AS AverageRate,
                     COUNT(Rate.RatingID) AS NumRatedBook
                 FROM Book
                 INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
@@ -301,7 +307,22 @@ def book_info_page(book_id):
                         (category_ids, book_id)
                     )
                     same_category_books = cur.fetchall()
-
+                    
+                    cur.execute(
+                    '''SELECT 
+                        CONCAT(Person.Firstname, ' ', Person.LastName) AS RateFullName,
+                        Rate.CustomerID AS RateCustomerID,
+                        Rate.Star AS RateStar,
+                        Rate.Comment AS CommentBook,
+                        Rate.CommentTime AS RateCommentTime
+                    FROM Rate 
+                    INNER JOIN Customer ON Rate.CustomerID = Customer.CustomerID
+                    INNER JOIN Person ON Customer.PersonID = Person.PersonID
+                    WHERE BookID = %s ''',
+                    (book_id,)
+                    )
+                    comments=cur.fetchall()
+                    print(comments)
     except Exception as error:
         print(error)
     finally:
@@ -309,17 +330,55 @@ def book_info_page(book_id):
             cur.close()
         if conn:
             conn.close()
-        if book_info is None:
-            return redirect(url_for('profile_page'))  # Chuyển hướng đến trang hồ sơ
         
-        print(same_author_books)
-        print(same_category_books)
-        print(None)
-        print(book_info)
         return render_template('book_info.html', 
                                book_info=book_info, 
                                same_author_books=same_author_books, 
-                               same_category_books=same_category_books)
+                               same_category_books=same_category_books,
+                               comments=comments)
+        
+@app.route('/submit_review/<int:book_id>', methods=['POST'])
+def submit_review(book_id):
+    if request.method == 'POST':
+        new_rating = int(request.form.get('rating')) # Lấy thông tin số sao từ việc nhấn nút
+        new_comment = request.form.get('comment')
+        conn = None
+        cur = None
+        customer_id = None
+        
+        # Lấy PersonID đang đăng nhập từ session
+        if 'user_id' in session:
+            person_id = session['user_id']
+        else:
+            # Nếu không có session['user_id'], chuyển hướng người dùng về trang đăng nhập
+            flash("Hãy đăng nhập để thực hiện chức năng này")
+        try:
+            conn = get_db_connection()
+            with conn.cursor() as cur:
+                # Lấy CustomerID từ PersonID
+                cur.execute('''
+                    SELECT CustomerID FROM Customer
+                    WHERE PersonID = %s
+                ''', (person_id,))
+                
+                customer_id = cur.fetchone()[0]
+                
+                # Thêm đánh giá mới vào bảng Rate
+                cur.execute('''
+                    INSERT INTO Rate (CustomerID, BookID, Star, Comment)
+                    VALUES (%s, %s, %s, %s)
+                ''', (customer_id, book_id, new_rating, new_comment))
+                
+                conn.commit()
+        except Exception as error:
+            conn.rollback()
+            print("Lỗi khi thêm đánh giá vào cơ sở dữ liệu:", error)
+        finally:
+            if cur:
+                cur.close()
+            if conn:
+                conn.close()
+    return redirect(url_for('book_info_page', book_id=book_id))
 
 
 
