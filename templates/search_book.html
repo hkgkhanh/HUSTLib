@@ -46,7 +46,7 @@
         <div class="main-book_items">
             {% if books %}
                 {% for book in books %}
-                    <a href="/book_info/{{ book.book_id }}">
+                    <a href="/book_info_page/{{ book.bookid}}">
                         <div class="book-item">
                             <img src="{{ url_for('static', filename='images/book_placeholder.png') }}" alt="{{ book.title }}"><br>
                             <span><b>{{ book.title }}</b></span><br><br>

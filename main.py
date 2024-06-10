@@ -1,6 +1,6 @@
-from flask import Flask, render_template,request ,url_for,redirect,flash,session
+from flask import Flask, render_template, request, url_for, redirect, flash, session
 import psycopg2
-import psycopg2.extras
+from psycopg2.extras import RealDictCursor
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Đặt một khóa bí mật cho phiên làm việc
@@ -10,7 +10,7 @@ def get_db_connection():
         host='localhost',
         dbname='hust_lib',
         user='postgres',
-        password='postgre',
+        password='skadi123',
         port=5432
     )
     return conn
@@ -180,11 +180,6 @@ def search_page():
     return render_template('search_book.html', books=books, categories=categories, publishers=publishers,
                            current_page=page, total_pages=total_pages)
     
-    
-    
-    
-    
-
 @app.route('/search_user_page')
 def search_user_page():
     return render_template('search_user.html')
@@ -210,9 +205,124 @@ def profile_page():
 def rent_manage_page():
     return render_template('rent_manage.html')
 
-@app.route('/book_info_page')
-def book_info_page():
-    return render_template('book_info.html')
+
+@app.route('/book_info_page/<int:book_id>')
+def book_info_page(book_id):
+    conn = None
+    cur = None
+    book_info = None
+    same_author_books = []
+    same_category_books = []
+    try:
+        conn = psycopg2.connect(
+            dbname='hust_lib',
+            user='postgres',
+            password='skadi123',
+            host='localhost',
+            cursor_factory=RealDictCursor
+        )
+        with conn.cursor() as cur:
+            cur.execute(
+                '''SELECT
+                    Book.Title,
+                    string_agg(DISTINCT Author.Full_Name, ', ') AS AuthorName,
+                    string_agg(DISTINCT Category.CategoryName, ', ') AS CategoryName,
+                    Book.PublishYear,
+                    Book.Quantity,
+                    COUNT(Rentline.RentlineID) AS NumBorrowedBooks,
+                    AVG(Rate.star) AS AverageRate,
+                    COUNT(Rate.RatingID) AS NumRatedBook
+                FROM Book
+                INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
+                INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
+                INNER JOIN Book_Category ON Book.BookID = Book_Category.BookID
+                INNER JOIN Category ON Book_Category.CategoryID = Category.CategoryID
+                INNER JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
+                LEFT JOIN Rentline ON Book.BookID = Rentline.BookID
+                LEFT JOIN Rate ON Book.BookID = Rate.BookID               
+                WHERE Book.BookID = %s
+                GROUP BY Book.BookID''',
+                (book_id,)
+            )
+
+            book_info = cur.fetchone()
+            print(book_info)
+            if book_info:
+                cur.execute(
+                    '''SELECT DISTINCT Author.AuthorID
+                    FROM Book
+                    INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
+                    INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
+                    WHERE Book.BookID = %s''',
+                    (book_id,)
+                )
+                author_ids = [row['authorid'] for row in cur.fetchall()]
+
+                if author_ids:
+                    cur.execute(
+                        '''SELECT DISTINCT Book.BookID, Book.Title,
+                            string_agg(DISTINCT Author.Full_Name, ', ') AS AuthorName
+                        FROM Book
+                        INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
+                        INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
+                        WHERE Book_Author.AuthorID IN %s AND Book.BookID != %s
+                        GROUP BY Book.BookID''',
+                        (tuple(author_ids), book_id)
+                    )
+                    same_author_books = cur.fetchall()
+
+            if book_info:
+                cur.execute(
+                    '''SELECT DISTINCT Category.CategoryID
+                    FROM Book
+                    INNER JOIN Book_Category ON Book.BookID = Book_Category.BookID
+                    INNER JOIN Category ON Book_Category.CategoryID = Category.CategoryID
+                    WHERE Book.BookID = %s''',
+                    (book_id,)
+                )
+                category_ids = [row['categoryid'] for row in cur.fetchall()]
+                category_ids = tuple(set(category_ids))  # Loại bỏ các thể loại trùng lặp
+
+                if category_ids:
+                    cur.execute(
+                        '''SELECT DISTINCT Book.BookID, Book.Title,
+                            string_agg(DISTINCT Author.Full_Name, ', ') AS AuthorName
+                        FROM Book
+                        INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
+                        INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
+                        INNER JOIN Book_Category ON Book.BookID = Book_Category.BookID
+                        INNER JOIN Category ON Book_Category.CategoryID = Category.CategoryID
+                        WHERE Book_Category.CategoryID IN %s AND Book.BookID != %s
+                        GROUP BY Book.BookID''',
+                        (category_ids, book_id)
+                    )
+                    same_category_books = cur.fetchall()
+
+    except Exception as error:
+        print(error)
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+        if book_info is None:
+            return redirect(url_for('profile_page'))  # Chuyển hướng đến trang hồ sơ
+        
+        print(same_author_books)
+        print(same_category_books)
+        print(None)
+        print(book_info)
+        return render_template('book_info.html', 
+                               book_info=book_info, 
+                               same_author_books=same_author_books, 
+                               same_category_books=same_category_books)
+
+
+
+
+
+
+
 
 @app.route('/book_manage_page')
 def book_manage_page():
@@ -285,7 +395,7 @@ def stats_quantity():
             cur.close()
         if conn:
             conn.close()
-
+        
     # Render template stats.html với tất cả dữ liệu
     return render_template('stats.html', user_count=quantity_person, book_count=quantity_book,
                            author_count=quantity_author, rent_count=quantity_rent, group_count=quantity_group,
