@@ -15,7 +15,7 @@
         <a id="link-group" href="/chat_group_page">Hội nhóm</a>
         {% if 'user_id' in session %}
             <!-- Hiển thị tùy chọn khi đã đăng nhập -->
-            <a id="link-profile" href="/profile_page">Hồ sơ</a>
+            <a id="link-profile" href="/profile_page/{{ session.get('user_id', '') }}">Hồ sơ</a>
             <a id="link-logout" href="/logout">Đăng xuất</a>
         {% else %}
             <!-- Hiển thị tùy chọn khi chưa đăng nhập -->

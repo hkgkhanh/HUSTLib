@@ -201,9 +201,47 @@ def cart_page():
     
     return render_template('cart.html')
 
-@app.route('/profile_page')
-def profile_page():
-    return render_template('profile.html')
+@app.route('/profile_page/<int:person_id>')
+def profile_page(person_id):
+    conn = None
+    cur = None
+    user_profile = None
+    try:
+        conn = psycopg2.connect(
+            dbname='hust_lib',
+            user='postgres',
+            password='skadi123',
+            host='localhost',
+            cursor_factory=RealDictCursor
+        )
+        with conn.cursor() as cur:
+            cur.execute(
+                    '''SELECT 
+                    Person.FirstName, 
+                    Person.LastName,
+                    Person.PersonID,
+                    Person.Gender,
+                    Person.Dob,
+                    Person.Address,
+                    Person.PhoneNumber,
+                    Person.Email,
+                    Person.CreatedDate,
+                    Person.LastActiveDate
+                    FROM Person
+                    WHERE Person.PersonID=%s''',
+                    (person_id,)
+                )
+            user_profile = cur.fetchone()
+    except Exception as error:
+            print(error)
+    finally:
+            if cur:
+                cur.close()
+            if conn:
+                conn.close()    
+        
+    
+    return render_template('profile.html',person_id=person_id,user_profile=user_profile)
 
 
 @app.route('/rent_manage_page')
@@ -256,7 +294,6 @@ def book_info_page(book_id):
             )
 
             book_info = cur.fetchone()
-            print(book_info)
             if book_info:
                 cur.execute(
                     '''SELECT DISTINCT Author.AuthorID
@@ -322,7 +359,6 @@ def book_info_page(book_id):
                     (book_id,)
                     )
                     comments=cur.fetchall()
-                    print(comments)
     except Exception as error:
         print(error)
     finally:
@@ -492,9 +528,16 @@ def login():
                     # Lưu thông tin người dùng vào session
                     session['user_id'] = user['personid']
                     session['user_role'] = user['role']
-
+                    
                     flash('Login success!')
-                    return redirect(url_for('profile_page'))  # Chuyển hướng đến trang hồ sơ
+                    # cập nhập LastActiveDate mỗi khi đăng nhập thành công
+                    cur.execute('''
+                            UPDATE Person
+                            SET LastActiveDate = CURRENT_TIMESTAMP
+                            WHERE personid = %s
+                        ''', (user['personid'],))
+                    conn.commit()
+                    return redirect(url_for('profile_page',person_id=session['user_id']))  # Chuyển hướng đến trang hồ sơ
                 else:
                     flash('Invalid email or password. Please try again.')
                     return redirect(url_for('login_page'))

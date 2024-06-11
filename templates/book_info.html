@@ -23,11 +23,17 @@
 <div class="banner">
     <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
     <div class="banner-login">
-        <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+        {% if 'user_id' in session %}
+        <a id="link-profile" href="/profile_page/{{ session.get('user_id', '') }}">Hồ sơ</a>
         <a id="link-group" href="/chat_group_page">Hội nhóm</a>
-        <a id="link-profile" href="/profile_page">Hồ sơ</a>
+        <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+        <a id="link-logout" href="/logout">Đăng xuất</a>
+        {% else %}
         <a id="link-login" href="/login_page">Đăng nhập</a>
         <a id="link-signup" href="/signup_page">Đăng ký</a>
+        <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+        <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+        {% endif %}
     </div>
 </div>
 <div class="navbar">
