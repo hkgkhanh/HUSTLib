@@ -112,10 +112,10 @@
         <div class="comment_section">
             {% for comment in comments %}
             <div class="comment_cell">
-                <b><span>{{ comment['RateFullName'] }}</span> |
-                    <span>{{ comment['RateCommentTime'] }}</span></b><br>
-                <span>⭐</span><span>{{ comment['RateStar'] }}</span><span>/5</span><br>
-                <span>{{ comment['CommentBook'] }}</span>
+                <b><span>{{ comment['ratefullname'] }}</span> |
+                    <span>{{ comment['ratecommenttime'] }}</span></b><br>
+                <span>⭐</span><span>{{ comment['ratestar'] }}</span><span>/5</span><br>
+                <span>{{ comment['commentbook'] }}</span>
             </div>
             <hr>
             {% endfor %}
