@@ -4,20 +4,45 @@
     <title>HUSTLib - Thư viện của sinh viên BKHN</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+    <script>
+        function enableEdit(field) {
+            var valueTd = document.getElementById(field + "-value");
+            var buttonTd = document.getElementById(field + "-button");
+
+            var currentValue = valueTd.textContent;
+            valueTd.innerHTML = '<input type="text" id="' + field + '-input" value="' + currentValue + '">';
+            buttonTd.innerHTML = '<button onclick="saveChange(\'' + field + '\')">Lưu</button>';
+        }
+
+        function saveChange(field) {
+            var inputElement = document.getElementById(field + "-input");
+            var newValue = inputElement.value;
+
+            var form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/update_profile";
+
+            var inputField = document.createElement("input");
+            inputField.type = "hidden";
+            inputField.name = field;
+            inputField.value = newValue;
+
+            form.appendChild(inputField);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 </head>
 <body>
-
     <div class="banner">
         <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
         <div class="banner-login">
             <a id="link-cart" href="/cart_page">Giỏ mượn</a>
             <a id="link-group" href="/chat_group_page">Hội nhóm</a>
             {% if 'user_id' in session %}
-                <!-- Hiển thị tùy chọn khi đã đăng nhập -->
                 <a id="link-profile" href="/profile_page/{{ session['user_id'] }}">Hồ sơ</a>
                 <a id="link-logout" href="/logout">Đăng xuất</a>
             {% else %}
-                <!-- Hiển thị tùy chọn khi chưa đăng nhập -->
                 <a id="link-login" href="/login_page">Đăng nhập</a>
                 <a id="link-signup" href="/signup_page">Đăng ký</a>
             {% endif %}
@@ -35,64 +60,65 @@
         <div class="main">
             <div class="main-subdiv">
                 <div class="prof-img"><img src="{{ url_for('static', filename='images/user_placeholder.png') }}"></div>
-                    <div class="prof-text">
-                        <table>
-                            <tr>
-                                <td>Tên</td>
-                                <td>{{ user_profile['firstname'] }}</td>
-                                <td><button>thay đổi</button></td>
-                            </tr>
-                            <tr>
-                                <td>Họ</td>
-                                <td>{{ user_profile['lastname'] }}</td>
-                                <td><button>thay đổi</button></td>
-                            </tr>
-                            <tr>
-                                <td>ID</td>
-                                <td>{{ user_profile['personid'] }}</td>
-                            </tr>
-                            <tr>
-                                <td>Giới tính</td>
-                                <td>{{ user_profile['gender'] }}</td>
-                                <td><button>thay đổi</button></td>
-                            </tr>
-                            <tr>
-                                <td>Ngày sinh</td>
-                                <td>{{ user_profile['dob'] }}</td>
-                                <td><button>thay đổi</button></td>
-                            </tr>
-                            <tr>
-                                <td>Địa chỉ</td>
-                                <td>{{ user_profile['address'] }}</td>
-                                <td><button>thay đổi</button></td>
-                            </tr>
-                            <tr>
-                                <td>Số điện thoại</td>
-                                <td>{{ user_profile['phonenumber'] }}</td>
-                                <td><button>thay đổi</button></td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>{{ user_profile['email'] }}</td>
-                                <td><button>thay đổi</button></td>
-                            </tr>
-                            <tr>
-                                <td>Ngày tạo tài khoản</td>
-                                <td>{{ user_profile['createddate'] }}</td>
-                            </tr>
-                            <tr>
-                                <td>Lần đăng nhập gần nhất</td>
-                                <td>{{ user_profile['lastactivedate'] }}</td>
-                            </tr>
-                        </table>
-                    </div>
-
+                <div class="prof-text">
+                    <table>
+                        <tr>
+                            <td>Họ</td>
+                            <td id="lastname-value">{{ user_profile['lastname'] }}</td>
+                            {% if session.get('user_id') == user_profile['personid'] %}
+                                <td id="lastname-button"><button onclick="enableEdit('lastname')">thay đổi</button></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Tên</td>
+                            <td id="firstname-value">{{ user_profile['firstname'] }}</td>
+                            {% if session.get('user_id') == user_profile['personid'] %}
+                                <td id="firstname-button"><button onclick="enableEdit('firstname')">thay đổi</button></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Ngày sinh</td>
+                            <td id="dob-value">{{ user_profile['dob'] }}</td>
+                            {% if session.get('user_id') == user_profile['personid'] %}
+                                <td id="dob-button"><button onclick="enableEdit('dob')">thay đổi</button></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td id="address-value">{{ user_profile['address'] }}</td>
+                            {% if session.get('user_id') == user_profile['personid'] %}
+                                <td id="address-button"><button onclick="enableEdit('address')">thay đổi</button></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại</td>
+                            <td id="phonenumber-value">{{ user_profile['phonenumber'] }}</td>
+                            {% if session.get('user_id') == user_profile['personid'] %}
+                                <td id="phonenumber-button"><button onclick="enableEdit('phonenumber')">thay đổi</button></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td id="email-value">{{ user_profile['email'] }}</td>
+                            {% if session.get('user_id') == user_profile['personid'] %}
+                                <td id="email-button"><button onclick="enableEdit('email')">thay đổi</button></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Ngày tạo tài khoản</td>
+                            <td>{{ user_profile['createddate'] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Lần đăng nhập gần nhất</td>
+                            <td>{{ user_profile['lastactivedate'] }}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="main-buttons">
                 <button class="btn-red" onclick="window.location.href='/change_password'">Đổi mật khẩu</button>
                 <button class="btn-red" onclick="window.location.href='/logout'">Đăng xuất</button>
             </div>
-            <!-- Thêm các thông tin cá nhân khác tùy theo nhu cầu -->
             <div class="main-subdiv">
                 <div class="booklist_header"><p>Sách đã mượn</p></div>
                 <div class="booklist">
@@ -128,6 +154,5 @@
         </div>
         <div class="right"></div>
     </div>
-
 </body>
 </html>

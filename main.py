@@ -551,6 +551,59 @@ def login():
 
     # Thêm return trong trường hợp phương thức không phải POST
     return redirect(url_for('login_page'))
+
+
+
+from flask import flash
+
+@app.route('/update_profile', methods=['POST'])
+def update_profile():
+    if 'user_id' in session:
+        user_id = session['user_id']
+        updated_field = list(request.form.keys())[0]
+        # Loại bỏ dấu nháy đơn từ tên trường
+        clean_updated_field = updated_field.strip("'")
+        updated_value = request.form[clean_updated_field]
+
+        try:
+            update_user_profile(user_id, updated_field, updated_value)
+            flash('Profile updated successfully', 'success')
+        except Exception as error:
+            flash(str(error), 'error')
+        
+        return redirect(url_for('profile_page', person_id=user_id))
+    return redirect(url_for('login_page'))
+
+def update_user_profile(user_id, field, value):
+    conn = None
+    cur = None
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        
+        # Sử dụng prepared statements và parametrized queries để tránh lỗi injection và bảo vệ dữ liệu
+        sql = f"UPDATE Person SET \"{field}\" = %s WHERE PersonID = %s"
+
+        cur.execute(sql, (value, user_id))
+        conn.commit()
+    except Exception as error:
+        # Xử lý lỗi và ném ra ngoại lệ để xử lý ở route handler
+        if conn:
+            conn.rollback()
+        raise Exception("Failed to update profile: " + str(error))
+    finally:
+        # Đóng các kết nối và con trỏ
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
+
+
+
+
+
+
                 
 @app.route('/logout')
 def logout():
