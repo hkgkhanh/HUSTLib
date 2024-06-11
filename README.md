@@ -1,4 +1,4 @@
-    # HUSTLib
+# HUSTLib
 Bài tập lớn học phần Thực hành Cơ sở dữ liệu
 ## Thông tin chung
 ### Tên học phần: Thực hành Cơ sở dữ liệu
@@ -6,4 +6,4 @@ Bài tập lớn học phần Thực hành Cơ sở dữ liệu
 ### Thành viên:
 - Đỗ Quang Bắc Kỳ 20226111
 - Nông Quốc Khánh 20226088
-- Nguyễn Văn Tuấn Tú
+- Nguyễn Văn Tuấn Tú 20225771
