@@ -1,102 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
-		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
-			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
-		</head>
-		<body>
+    <title>HUSTLib - Thư viện của sinh viên BKHN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+    <meta charset="UTF-8">
+</head>
+<body>
 
-			<div class="banner">
-				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
-				<div class="banner-login">
-					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
-					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
-					<a id="link-profile" href="/profile_page">Hồ sơ</a>
-					<a id="link-login" href="/login_page">Đăng nhập</a>
-					<a id="link-signup" href="/signup_page">Đăng ký</a>
-				</div>
-			</div>
-			<div class="navbar">
-				<a id="link-homepage" href="/">Trang chủ</a>
-				<a id="link-intro" href="intro.html">Giới thiệu</a>
-				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
-				<a id="link-search" href="/search_page">Tra cứu</a>
-				<a id="link-stats" href="/stats_page">Thống kê</a>
-			</div>
+<div class="banner">
+    <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+    <div class="banner-login">
+        {% if 'user_id' in session %}
+        <a id="link-profile" href="/profile_page/{{ session.get('user_id', '') }}">Hồ sơ</a>
+        <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+        <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+        <a id="link-logout" href="/logout">Đăng xuất</a>
+        {% else %}
+        <a id="link-login" href="/login_page">Đăng nhập</a>
+        <a id="link-signup" href="/signup_page">Đăng ký</a>
+        <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+        <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+        {% endif %}
+    </div>
+</div>
 
-			<div class="container">
-				<div class="func">
-					<a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
-					<a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
-					<!-- <a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a> -->
-				</div>
-				<div class="main">
-					<div class="main-sort_option">
-						<label for="sort_by"><b>Sắp xếp theo</b></label>
-						<select name="sort_by" id="sort_by_select">
-							<option value="0">Chọn thứ tự hiển thị</option>
-							<option value="1">ID tăng dần</option>
-							<option value="2">ID giảm dần</option>
-						</select>
-					</div>
+<div class="navbar">
+    <a id="link-homepage" href="/">Trang chủ</a>
+    <a id="link-intro" href="intro.html">Giới thiệu</a>
+    <a id="link-search" href="/search_page">Tra cứu</a>
+    <a id="link-stats" href="/stats_page">Thống kê</a>
+</div>
 
-					<div class="main-book_items">
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/user_placeholder.png') }}"><br>
-							<span>Nguyễn Văn A</span><br>
-							<span>20221234</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/user_placeholder.png') }}"><br>
-							<span>Nguyễn Văn A</span><br>
-							<span>20221234</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/user_placeholder.png') }}"><br>
-							<span>Nguyễn Văn A</span><br>
-							<span>20221234</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/user_placeholder.png') }}"><br>
-							<span>Nguyễn Văn A</span><br>
-							<span>20221234</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/user_placeholder.png') }}"><br>
-							<span>Nguyễn Văn A</span><br>
-							<span>20221234</span>
-						</a>
-						<a href="index.html">
-							<img src="{{ url_for('static', filename='images/user_placeholder.png') }}"><br>
-							<span>Nguyễn Văn A</span><br>
-							<span>20221234</span>
-						</a>
-					</div>
-				</div>
+<div class="container">
+    <div class="func">
+        <a id="link-searchbook" href="/search_page">Tra cứu sách</a><br>
+        <a id="link-searchuser" href="/search_user_page">Tra cứu người dùng</a><br>
+        <!-- <a id="link-searchgroup" href="/search_group_page">Tra cứu hội nhóm</a> -->
+    </div>
+    <div class="main">
+        <div class="main-sort_option">
+            <label for="sort_by"><b>Sắp xếp theo</b></label>
+            <select name="sort_by" id="sort_by_select">
+                <option value="0">Chọn thứ tự hiển thị</option>
+                <option value="1">ID tăng dần</option>
+                <option value="2">ID giảm dần</option>
+            </select>
+        </div>
 
-				<div class="right">
-					<label for="name"><b>Họ và tên</b></label>
-					<input type="text" name="name">
+        <div class="main-user_items">
+            {% if users %}
+                {% for user in users %}
+                    <a href="/profile_page/{{ user.personid}}">
+                        <div class="user-item">
+                            <img src="{{ url_for('static', filename='images/user_placeholder.png') }}" alt="{{ user.fullname }}"><br>
+                            <span><b>{{ user.fullname }}</b></span><br><br>
+                            <span>ID: {{ user.personid }}</span><br>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>Không tìm thấy người dùng phù hợp.</p>
+            {% endif %}
+        </div>
 
-					<label for="id"><b>ID</b></label>
-					<input type="number" name="id">
+        <div class="pagination">
+            {% if current_page > 1 %}
+            <a href="{{ url_for('search_user_page', page=1) }}">Trang đầu</a>
+            <a href="{{ url_for('search_user_page', page=current_page - 1) }}">Trang trước</a>
+            {% endif %}
 
-					<label for="phonenumber"><b>Số điện thoại</b></label>
-					<input type="tel" name="phonenumber" pattern="0[0-9]{9}">
+            {% for p in range(1, total_pages + 1) %}
+            {% if p == current_page %}
+            <span class="currpage">{{ p }}</span>
+            {% else %}
+            <a href="{{ url_for('search_user_page', page=p) }}">{{ p }}</a>
+            {% endif %}
+            {% endfor %}
 
-					<label for="mail"><b>Email</b></label>
-					<input type="email" name="mail">
+            {% if current_page < total_pages %}
+            <a href="{{ url_for('search_user_page', page=current_page + 1) }}">Trang tiếp</a>
+            <a href="{{ url_for('search_user_page', page=total_pages) }}">Trang cuối</a>
+            {% endif %}
+        </div>
+    </div>
 
-					<button type="submit">Tìm kiếm</button>
-				</div>
-				
-			</div>
+    <div class="right">
+        <form action="/search_user_page" method="GET" accept-charset="UTF-8">
+            <label for="name"><b>Họ và tên</b></label>
+            <input type="text" name="name">
 
-			<script type="text/javascript">
-			</script>
+            <label for="id"><b>ID</b></label>
+            <input type="number" name="id">
 
-		</body>
-		</html>
+            <label for="phonenumber"><b>Số điện thoại</b></label>
+            <input type="tel" name="phonenumber" pattern="0[0-9]{9}">
+
+            <label for="mail"><b>Email</b></label>
+            <input type="email" name="mail">
+
+            <button type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // JavaScript functions go here
+</script>
+
+</body>
+</html>

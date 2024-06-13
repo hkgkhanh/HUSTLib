@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, session
 import psycopg2
+import re
 from psycopg2.extras import RealDictCursor
 
 app = Flask(__name__)
@@ -19,8 +20,18 @@ def get_db_connection():
 def login_page():
     return render_template('login.html')
 
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    session.pop('user_role', None)
+    flash('You have been logged out.')
+    return redirect(url_for('login_page'))
+
 @app.route('/')
 def home_page():
+    
+    
     return render_template('index.html')
 
 @app.route('/signup_page')
@@ -66,7 +77,6 @@ def signup():
 
 
 PER_PAGE = 9  # Số sách hiển thị mỗi trang
-import re
 @app.route('/search_page', methods=['GET'])
 def search_page():
     # Lấy trang hiện tại từ tham số truy vấn, mặc định là trang 1
@@ -179,10 +189,101 @@ def search_page():
     # Render trang tìm kiếm với dữ liệu cần thiết
     return render_template('search_book.html', books=books, categories=categories, publishers=publishers,
                            current_page=page, total_pages=total_pages)
-    
-@app.route('/search_user_page')
+
+
+@app.route('/search_user_page', methods=['GET'])
 def search_user_page():
-    return render_template('search_user.html')
+    PER_PAGE = 30  # Số user hiển thị mỗi trang
+    conn = None
+    cur = None
+    
+    try:
+        # Lấy trang hiện tại từ tham số truy vấn, mặc định là trang 1
+        page = request.args.get('page', 1, type=int)
+
+        # Tính toán offset cho trang hiện tại
+        offset = (page - 1) * PER_PAGE    
+
+        # Kết nối tới cơ sở dữ liệu và tạo một cursor
+        conn = get_db_connection()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        
+        # Danh sách các điều kiện WHERE và tham số cho truy vấn
+        where_clauses = []
+        params = []
+
+        # Lấy các tham số tìm kiếm từ chuỗi truy vấn và thêm vào điều kiện WHERE nếu có
+        name = request.args.get('name')
+        if name:
+            name = re.sub(r'\s+', ' ', name.strip())  # Loại bỏ khoảng trắng thừa
+            where_clauses.append('TRIM(CONCAT(Person.FirstName, \' \', Person.LastName)) ILIKE TRIM(%s)')
+            params.append('%' + name + '%')
+        
+        id = request.args.get('id')
+        if id:
+            where_clauses.append('Person.PersonID = %s')
+            params.append(id)
+        
+        phonenumber = request.args.get('phonenumber')
+        if phonenumber:
+            where_clauses.append('Person.PhoneNumber = %s')
+            params.append(phonenumber)
+            
+        mail = request.args.get('mail')
+        if mail:
+            mail = re.sub(r'\s+', ' ', mail.strip())  # Loại bỏ khoảng trắng thừa
+            where_clauses.append('TRIM(Person.Email) ILIKE TRIM(%s)')
+            params.append('%' + mail + '%')
+        
+        # Xây dựng câu truy vấn để đếm tổng số user dựa trên các điều kiện tìm kiếm
+        count_query = '''
+            SELECT COUNT(Person.PersonID)
+            FROM Person
+        '''
+        
+        if where_clauses:
+            count_query += ' WHERE ' + ' AND '.join(where_clauses)
+
+        # Thực thi câu truy vấn để đếm tổng số user
+        cur.execute(count_query, params)
+        total_users = cur.fetchone()[0]
+        
+        # Tính toán tổng số trang
+        total_pages = (total_users + PER_PAGE - 1) // PER_PAGE
+
+        # Xây dựng câu truy vấn chính
+        query = '''
+            SELECT 
+                Person.PersonID, 
+                CONCAT(Person.FirstName, ' ', Person.LastName) AS FullName
+            FROM Person
+        '''    
+        
+        # Thêm các điều kiện WHERE vào câu truy vấn nếu có
+        if where_clauses:
+            query += ' WHERE ' + ' AND '.join(where_clauses)
+
+        # Thêm giới hạn và offset cho phân trang
+        query += ' LIMIT %s OFFSET %s'
+
+        # Thêm giới hạn và offset vào params
+        params.extend([PER_PAGE, offset])
+        
+        # Thực thi câu truy vấn để lấy người dùng
+        cur.execute(query, params)
+        users = cur.fetchall()
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
+    return render_template('search_user.html', users=users, current_page=page, total_pages=total_pages)
+
+
 
 @app.route('/search_rent_page')
 def search_rent_page():
@@ -192,9 +293,39 @@ def search_rent_page():
 def search_group_page():
     return render_template('search_group.html')
 
-@app.route('/chat_group_page')
-def chat_group_page():
-    return render_template('group.html')
+@app.route('/chat_group_page/<int:person_id>')
+def chat_group_page(person_id):
+    # conn = None
+    # cur = None
+    # customer_id = None
+    # list_groups= None
+        
+    # # Lấy PersonID đang đăng nhập từ session
+    # if 'user_id' in session:
+    #     person_id = session['user_id']
+    # else:
+    #     # Nếu không có session['user_id'], chuyển hướng người dùng về trang đăng nhập
+    #     flash("Hãy đăng nhập để thực hiện chức năng này")
+    # try:
+    #     conn = get_db_connection()
+    #     with conn.cursor() as cur:
+    #         # Lấy CustomerID từ PersonID
+    #         cur.execute('''
+    #             SELECT CustomerID FROM Customer
+    #             WHERE PersonID = %s
+    #         ''', (person_id,))
+                
+    #         customer_id = cur.fetchone()[0]
+            
+            
+    # except Exception as error:
+    #     conn.rollback()
+    # finally:
+    #     if cur:
+    #         cur.close()
+    #     if conn:
+    #         conn.close()
+    return render_template('group.html',person_id=person_id)
 
 @app.route('/cart_page/<int:book_id>')
 def cart_page():
@@ -242,6 +373,65 @@ def profile_page(person_id):
         
     
     return render_template('profile.html',person_id=person_id,user_profile=user_profile)
+
+
+
+@app.route('/change_password_page', methods=['GET', 'POST'])
+def change_password_page():
+    if 'user_id' not in session:  # Kiểm tra xem người dùng đã đăng nhập chưa
+        return redirect(url_for('login_page'))
+    
+    if request.method == 'POST':
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+        confirm_password = request.form['confirm_password']
+        
+        if new_password != confirm_password:
+            return "Mật khẩu nhập lại không khớp. Vui lòng nhập lại."
+        
+        user_id = session['user_id']
+        conn = None
+        cur = None
+        try:
+            conn = psycopg2.connect(
+                dbname='hust_lib',
+                user='postgres',
+                password='skadi123',
+                host='localhost',
+                cursor_factory=RealDictCursor
+            )
+            cur = conn.cursor()
+            
+            # Lấy mật khẩu hiện tại của người dùng từ cơ sở dữ liệu
+            cur.execute('SELECT password FROM Person WHERE PersonID = %s', (user_id,))
+            result = cur.fetchone()
+            if not result:
+                return "Người dùng không tồn tại trong hệ thống."
+            
+            current_password = result['password']  # Truy cập vào trường 'password' đúng cách
+            
+            # Kiểm tra mật khẩu cũ nhập vào có đúng không
+            if old_password != current_password:
+                return "Mật khẩu cũ không chính xác."
+            
+            # Tiến hành cập nhật mật khẩu mới
+            cur.execute('UPDATE Person SET Password = %s WHERE PersonID = %s', (new_password, user_id))
+            conn.commit()
+            
+            # Thực hiện đăng xuất sau khi đổi mật khẩu thành công (giả sử logout() là hàm đăng xuất của bạn)
+            return logout()
+        
+        except Exception as error:
+            print(f"Lỗi: {error}")
+            return "Đã xảy ra lỗi khi thực hiện thay đổi mật khẩu."
+        
+        finally:
+            if cur:
+                cur.close()
+            if conn:
+                conn.close()
+                    
+    return render_template('change_password.html')
 
 
 @app.route('/rent_manage_page')
@@ -528,7 +718,6 @@ def login():
                     # Lưu thông tin người dùng vào session
                     session['user_id'] = user['personid']
                     session['user_role'] = user['role']
-                    
                     flash('Login success!')
                     # cập nhập LastActiveDate mỗi khi đăng nhập thành công
                     cur.execute('''
@@ -605,12 +794,7 @@ def update_user_profile(user_id, field, value):
 
 
                 
-@app.route('/logout')
-def logout():
-    session.pop('user_id', None)
-    session.pop('user_role', None)
-    flash('You have been logged out.')
-    return redirect(url_for('login_page'))
+
 
 
 # @app.route('/admin_page')
