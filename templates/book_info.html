@@ -62,10 +62,10 @@
             </div>
             <div class="book_info-quantity">Còn: <span>{{ book_info['quantity'] }}</span></div>
             <div class="book_info-rent">
-                <form action="{{ url_for('cart_page', book_id=book_info['bookid']) }}" method="POST">
-                    <button type="submit">Đưa vào giỏ mượn</button>
-                </form>
-            </div>
+                <a href="{{ url_for('add_to_cart', book_id=book_info['bookid']) }}">
+                    <button type="button">Đưa vào giỏ mượn</button>
+                </a>
+            </div>            
         </div>
 
         <div class="book_info-same_authors_header"><p>Sách cùng tác giả</p></div>

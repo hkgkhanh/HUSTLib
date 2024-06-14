@@ -327,10 +327,102 @@ def chat_group_page(person_id):
     #         conn.close()
     return render_template('group.html',person_id=person_id)
 
-@app.route('/cart_page/<int:book_id>')
-def cart_page():
+@app.route('/add_to_cart/<int:book_id>')
+def add_to_cart(book_id):
+    if 'user_id' not in session:
+        flash('Bạn cần đăng nhập để đưa sách vào giỏ mượn.')
+        return redirect(url_for('login_page'))
+
+    if not book_id:
+        flash('Không tìm thấy mã sách.')
+        return redirect(url_for('cart_page'))
     
-    return render_template('cart.html')
+    user_id = session['user_id']
+    conn = None
+    cur = None
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # Lấy ra CustomerID tương ứng với personID
+        cur.execute('''SELECT CustomerID FROM Person 
+                       JOIN Customer ON Person.PersonID = Customer.PersonID
+                       WHERE Person.PersonID = %s''', (user_id,))
+        customer = cur.fetchone()
+        
+        if not customer:
+            flash('Không tìm thấy khách hàng tương ứng.')
+            return redirect(url_for('cart_page'))
+
+        customer_id = customer[0]
+        # Gọi hàm add_to_cart
+        cur.execute('SELECT add_to_cart(%s, %s)', (customer_id, book_id))
+        conn.commit()
+        
+        flash('Sách đã được thêm vào giỏ mượn.')
+    except Exception as error:
+        print(error)
+        flash('Có lỗi xảy ra. Vui lòng thử lại.')
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+        
+    return redirect(url_for('cart_page'))
+
+
+@app.route('/cart_page')
+def cart_page():
+    if 'user_id' not in session:
+        flash('Bạn cần đăng nhập để đưa sách vào giỏ mượn.', 'error')
+        return redirect(url_for('login_page'))
+
+    user_id = session['user_id']
+    cart_books = []
+    conn = None
+    cur = None
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # Lấy ra CustomerID tương ứng với personID
+        cur.execute('''SELECT CustomerID FROM Person 
+                       JOIN Customer ON Person.PersonID = Customer.PersonID
+                       WHERE Person.PersonID = %s''', (user_id,))
+        customer = cur.fetchone()
+        customer_id = customer[0]
+
+        # Lấy thông tin sách trong giỏ mượn
+        cur.execute('''
+            SELECT Book.BookID, Book.Title, 
+                   string_agg(DISTINCT Author.Full_Name, ', ') AS AuthorName,
+                   string_agg(DISTINCT Category.CategoryName, ', ') AS CategoryName
+            FROM Cart
+            INNER JOIN Book ON Cart.BookID = Book.BookID
+            INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
+            INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
+            INNER JOIN Book_Category ON Book.BookID = Book_Category.BookID
+            INNER JOIN Category ON Book_Category.CategoryID = Category.CategoryID
+            WHERE Cart.CustomerID = %s
+            GROUP BY Book.BookID
+        ''', (customer_id,))
+        cart_books = cur.fetchall()
+
+    except Exception as error:
+        print(error)
+        flash('Có lỗi xảy ra. Vui lòng thử lại.')
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
+    return render_template('cart.html', cart_books=cart_books)
+
+
+
+
 
 @app.route('/profile_page/<int:person_id>')
 def profile_page(person_id):
