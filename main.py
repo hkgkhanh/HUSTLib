@@ -371,6 +371,50 @@ def add_to_cart(book_id):
         
     return redirect(url_for('cart_page'))
 
+@app.route('/remove_from_cart/<int:book_id>', methods=['POST'])
+def remove_from_cart(book_id):
+    if 'user_id' not in session:
+        flash('Bạn cần đăng nhập để xóa sách trong giỏ mượn.')
+        return redirect(url_for('login_page'))
+
+    if not book_id:
+        flash('Không tìm thấy mã sách.')
+        return redirect(url_for('cart_page'))
+    
+    user_id = session['user_id']
+    conn = None
+    cur = None
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # Lấy ra CustomerID tương ứng với personID
+        cur.execute('''SELECT CustomerID FROM Person 
+                       JOIN Customer ON Person.PersonID = Customer.PersonID
+                       WHERE Person.PersonID = %s''', (user_id,))
+        customer = cur.fetchone()
+        
+        if not customer:
+            flash('Không tìm thấy khách hàng tương ứng.')
+            return redirect(url_for('cart_page'))
+
+        customer_id = customer[0]
+        # Gọi hàm add_to_cart
+        cur.execute('SELECT remove_from_cart(%s, %s)', (customer_id, book_id))
+        conn.commit()
+        
+        flash('Sách đã được xóa khỏi giỏ mượn.')
+    except Exception as error:
+        print(error)
+        flash('Có lỗi xảy ra. Vui lòng thử lại.')
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+        
+    return redirect(url_for('cart_page'))
+
 
 @app.route('/cart_page')
 def cart_page():
@@ -535,12 +579,13 @@ def rent_manage_page():
 def book_info_page(book_id):
     conn = None
     cur = None
-    
-    ########
-    book_info = None  # lưu thông tin về cuốn sách có id = book_id
-    same_author_books = [] # lưu các cuốn sách có chung ít nhất 1 tác giả với cuốn sách có id=book_id
-    same_category_books = [] # lưu thông tin các cuốn sách có chung ít nhất 1 tag category trùng với cuốn sách có id=book_id
-    comments = []  # lưu thông tin các đánh giá của sách có id=book_id
+   
+    book_info = None
+    count_rate = None
+    count_rent = None
+    same_author_books = []
+    same_category_books = []
+    comments = []
     
     try:
         conn = psycopg2.connect(
@@ -552,30 +597,40 @@ def book_info_page(book_id):
         )
         with conn.cursor() as cur:
             cur.execute(
-                '''SELECT
+            '''SELECT
                     Book.BookID,
                     Book.Title,
                     string_agg(DISTINCT Author.Full_Name, ', ') AS AuthorName,
                     string_agg(DISTINCT Category.CategoryName, ', ') AS CategoryName,
                     Book.PublishYear,
                     Book.Quantity,
-                    COUNT(Rentline.RentlineID) AS NumBorrowedBooks,
-                    ROUND(AVG(Rate.star), 1) AS AverageRate,
-                    COUNT(Rate.RatingID) AS NumRatedBook
+                    ROUND(AVG(COALESCE(Rate.star, 0)), 1) AS AverageRate
                 FROM Book
                 INNER JOIN Book_Author ON Book.BookID = Book_Author.BookID
                 INNER JOIN Author ON Book_Author.AuthorID = Author.AuthorID
                 INNER JOIN Book_Category ON Book.BookID = Book_Category.BookID
                 INNER JOIN Category ON Book_Category.CategoryID = Category.CategoryID
-                INNER JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
-                LEFT JOIN Rentline ON Book.BookID = Rentline.BookID
-                LEFT JOIN Rate ON Book.BookID = Rate.BookID               
+                LEFT JOIN Rate ON Book.BookID = Rate.BookID
                 WHERE Book.BookID = %s
                 GROUP BY Book.BookID''',
                 (book_id,)
             )
 
             book_info = cur.fetchone()
+            
+            cur.execute(
+                'SELECT COUNT(RatingID) AS NumRatedBook FROM Rate WHERE BookID = %s',
+                (book_id,)
+            )
+            count_rate = cur.fetchone()
+            
+            cur.execute(
+                'SELECT COUNT(RentlineID) AS NumBorrowedBooks FROM Rentline WHERE BookID = %s',
+                (book_id,)
+            )
+            count_rent = cur.fetchone()
+            
+            
             if book_info:
                 cur.execute(
                     '''SELECT DISTINCT Author.AuthorID
@@ -610,7 +665,7 @@ def book_info_page(book_id):
                     (book_id,)
                 )
                 category_ids = [row['categoryid'] for row in cur.fetchall()]
-                category_ids = tuple(set(category_ids))  # Loại bỏ các thể loại trùng lặp
+                category_ids = tuple(set(category_ids))  # Remove duplicates
 
                 if category_ids:
                     cur.execute(
@@ -628,19 +683,20 @@ def book_info_page(book_id):
                     same_category_books = cur.fetchall()
                     
                     cur.execute(
-                    '''SELECT 
-                        CONCAT(Person.Firstname, ' ', Person.LastName) AS RateFullName,
-                        Rate.CustomerID AS RateCustomerID,
-                        Rate.Star AS RateStar,
-                        Rate.Comment AS CommentBook,
-                        Rate.CommentTime AS RateCommentTime
-                    FROM Rate 
-                    INNER JOIN Customer ON Rate.CustomerID = Customer.CustomerID
-                    INNER JOIN Person ON Customer.PersonID = Person.PersonID
-                    WHERE BookID = %s ''',
-                    (book_id,)
+                        '''SELECT 
+                            CONCAT(Person.Firstname, ' ', Person.LastName) AS RateFullName,
+                            Rate.CustomerID AS RateCustomerID,
+                            Rate.Star AS RateStar,
+                            Rate.Comment AS CommentBook,
+                            Rate.CommentTime AS RateCommentTime
+                        FROM Rate 
+                        INNER JOIN Customer ON Rate.CustomerID = Customer.CustomerID
+                        INNER JOIN Person ON Customer.PersonID = Person.PersonID
+                        WHERE BookID = %s''',
+                        (book_id,)
                     )
-                    comments=cur.fetchall()
+                    comments = cur.fetchall()
+
     except Exception as error:
         print(error)
     finally:
@@ -653,7 +709,11 @@ def book_info_page(book_id):
                                book_info=book_info, 
                                same_author_books=same_author_books, 
                                same_category_books=same_category_books,
-                               comments=comments)
+                               comments=comments,
+                               count_rate=count_rate,
+                               count_rent=count_rent)
+
+
         
 @app.route('/submit_review/<int:book_id>', methods=['POST'])
 def submit_review(book_id):

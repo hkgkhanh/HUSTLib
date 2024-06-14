@@ -56,9 +56,9 @@
             <div class="book_info-categories">{{ book_info['categoryname'] }}</div>
             <div class="book_info-authors">{{ book_info['authorname'] }}</div>
             <div class="book_info-publish_year">Năm xuất bản: {{ book_info['publishyear'] }}</div>
-            <div class="book_info-rent_count">Lượt mượn: {{ book_info['numborrowedbooks']}}</div>
+            <div class="book_info-rent_count">Lượt mượn: {{ count_rent['numborrowedbooks']}}</div>
             <div class="book_info-rating">
-                <span>⭐</span><span>{{ book_info['averagerate'] or 'Chưa có đánh giá' }}</span><span>/5 (</span><span>{{ book_info['numratedbook'] }}</span><span>)</span>
+                <span>⭐</span><span>{{ book_info['averagerate'] or 'Chưa có đánh giá' }}</span><span>/5 (</span><span>{{ count_rate['numratedbook'] }}</span><span>)</span>
             </div>
             <div class="book_info-quantity">Còn: <span>{{ book_info['quantity'] }}</span></div>
             <div class="book_info-rent">

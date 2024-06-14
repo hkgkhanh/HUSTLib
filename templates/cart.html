@@ -36,12 +36,16 @@
             <div class="book-rent-stt">{{ loop.index }}</div>
             <div class="book-name">{{ book[1] }}</div>
             <div class="book-authors">{{ book[2] }}</div>
-            <div class="book-remove"><button>Xóa</button></div>
+            <div class="book-remove">
+                <form action="{{ url_for('remove_from_cart', book_id=book[0])}}" method="POST">
+                    <button type="submit">Xóa</button>
+                </form>
+            </div>
         </div>
         {% endfor %}
         <div class="main-buttons">
             <div class="button-confirm"><button>Xác nhận mượn</button></div>
-            <div class="button-delete"><button>Xóa toàn bộ</button></div>
+            <div class="button-delete"><button>Hủy mượn</button></div>
         </div>
     </div>
 
