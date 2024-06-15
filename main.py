@@ -216,7 +216,7 @@ def search_user_page():
         name = request.args.get('name')
         if name:
             name = re.sub(r'\s+', ' ', name.strip())  # Loại bỏ khoảng trắng thừa
-            where_clauses.append('TRIM(CONCAT(Person.FirstName, \' \', Person.LastName)) ILIKE TRIM(%s)')
+            where_clauses.append('TRIM(CONCAT(Person.LastName, \' \', Person.FirstName)) ILIKE TRIM(%s)')
             params.append('%' + name + '%')
         
         id = request.args.get('id')
@@ -285,9 +285,97 @@ def search_user_page():
 
 
 
-@app.route('/search_rent_page')
+
+
+@app.route('/search_rent_page', methods=['GET'])
 def search_rent_page():
-    return render_template('search_rent.html')
+    PER_PAGE = 9  # Số đơn mượn hiển thị mỗi trang
+    # Lấy trang hiện tại từ tham số truy vấn, mặc định là trang 1
+    page = request.args.get('page', 1, type=int)
+
+    # Tính toán offset cho trang hiện tại
+    offset = (page - 1) * PER_PAGE
+
+    # Kết nối tới cơ sở dữ liệu và tạo một cursor
+    conn = get_db_connection()  # Đảm bảo bạn đã có hàm get_db_connection() trong mã của bạn
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+    # Danh sách các điều kiện WHERE và tham số cho truy vấn
+    where_clauses = []
+    params = []
+
+    # Lấy các tham số tìm kiếm từ chuỗi truy vấn và thêm vào điều kiện WHERE nếu có
+    id_rent = request.args.get('id_rent')
+    if id_rent:
+        where_clauses.append('Rent.RentID = %s')
+        params.append(id_rent)
+
+    id_customer = request.args.get('id_customer')
+    if id_customer:
+        where_clauses.append('Rent.CustomerID = %s')
+        params.append(id_customer)
+
+    name_customer = request.args.get('name_customer')
+    if name_customer:
+        name_customer = re.sub(r'\s+', ' ', name_customer.strip())  # Loại bỏ khoảng trắng thừa
+        where_clauses.append("TRIM(CONCAT(Person.LastName, ' ', Person.FirstName)) ILIKE TRIM(%s)")
+        params.append('%' + name_customer + '%')
+
+    # Xây dựng câu truy vấn để đếm tổng số đơn mượn dựa trên các điều kiện tìm kiếm
+    count_query = '''
+        SELECT COUNT(DISTINCT Rent.RentID)
+        FROM Rent
+        JOIN Customer ON Rent.CustomerID = Customer.CustomerID
+        JOIN Person ON Customer.PersonID = Person.PersonID
+    '''
+    if where_clauses:
+        count_query += ' WHERE ' + ' AND '.join(where_clauses)
+
+    # Thực thi câu truy vấn để đếm tổng số đơn mượn
+    cur.execute(count_query, params)
+    total_rents = cur.fetchone()[0]
+
+    # Tính toán tổng số trang
+    total_pages = (total_rents + PER_PAGE - 1) // PER_PAGE
+
+    # Xây dựng câu truy vấn chính
+    query = '''
+        SELECT
+            Rent.*, 
+            TRIM(CONCAT(Person.LastName, ' ', Person.FirstName)) AS FullName, 
+            COUNT(Rentline.RentID) AS Rentline_Count
+        FROM Rent
+        JOIN Rentline ON Rent.RentID = Rentline.RentID
+        JOIN Customer ON Rent.CustomerID = Customer.CustomerID
+        JOIN Person ON Customer.PersonID = Person.PersonID
+    '''
+    # Thêm các điều kiện WHERE vào câu truy vấn nếu có
+    if where_clauses:
+        query += ' WHERE ' + ' AND '.join(where_clauses)
+
+    # Thêm GROUP BY và ORDER BY
+    query += '''
+        GROUP BY Rent.RentID, Person.LastName, Person.FirstName
+        ORDER BY Rent.RentID
+    '''
+
+    # Thêm giới hạn và offset cho phân trang
+    query += ' LIMIT %s OFFSET %s'
+
+    # Thêm giới hạn và offset vào params
+    params.extend([PER_PAGE, offset])
+
+    # Thực thi câu truy vấn để lấy đơn mượn
+    cur.execute(query, params)
+    rents = cur.fetchall()
+
+    # Đóng kết nối cơ sở dữ liệu
+    cur.close()
+    conn.close()
+
+    # Render trang tìm kiếm với dữ liệu cần thiết
+    return render_template('search_rent.html', rents=rents, current_page=page, total_pages=total_pages)
+
 
 @app.route('/blacklist_manage_page')
 def blacklist_manage_page():

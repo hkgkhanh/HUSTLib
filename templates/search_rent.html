@@ -1,181 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HUSTLib - Thư viện của sinh viên BKHN</title>
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
-		<!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
-			<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-straight/css/uicons-bold-straight.css'> -->
-		</head>
-		<body>
+    <title>HUSTLib - Thư viện của sinh viên BKHN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana">
+    <meta charset="UTF-8">
+</head>
+<body>
 
-			<div class="banner">
-				<img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
-				<div class="banner-login">
-          <a id="link-group" href="/search_rent_page">Quản lí</a>
-					<a id="link-cart" href="/cart_page">Giỏ mượn</a>
-					<a id="link-group" href="/chat_group_page">Hội nhóm</a>
-					<a id="link-profile" href="/profile_page">Hồ sơ</a>
-					<a id="link-login" href="/login_page">Đăng nhập</a>
-					<a id="link-signup" href="/signup_page">Đăng ký</a>
-				</div>
-			</div>
-			<div class="navbar">
-				<a id="link-homepage" href="/">Trang chủ</a>
-				<a id="link-intro" href="intro.html">Giới thiệu</a>
-				<!-- <a id="link-news" href="index.html">Tin tức</a> -->
-				<a id="link-search" href="/search_page">Tra cứu</a>
-				<a id="link-stats" href="/stats_page">Thống kê</a>
-			</div>
+<div class="banner">
+    <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
+    <div class="banner-login">
+        <a id="link-group" href="/search_rent_page">Quản lí</a>
+        <a id="link-cart" href="/cart_page">Giỏ mượn</a>
+        <a id="link-group" href="/chat_group_page">Hội nhóm</a>
+        <a id="link-profile" href="/profile_page">Hồ sơ</a>
+        <a id="link-login" href="/login_page">Đăng nhập</a>
+        <a id="link-signup" href="/signup_page">Đăng ký</a>
+    </div>
+</div>
 
-			<div class="container">
-				<div class="func">
-					<a id="link-searchbook" href="/search_rent_page">Quản lí đơn mượn</a><br>
-          <a id="link-searchuser" href="/book_manage_page">Cập nhật CSDL sách</a><br>
-          <a id="link-searchuser" href="/book_insert_page">Thêm sách mới</a><br>
-          <a id="link-searchuser" href="/blacklist_manage_page">Quản lí danh sách đen</a>
-				</div>
-				<div class="main">
-          <div class="rent-item">
-            <table>
-              <tr>
-                <td>Đơn mượn</td>
-                <td>1234</td>
-                <td>ID người mượn</td>
-                <td>1234</td>
-                <td><a href="/rent_manage_page">Chỉnh sửa</a></td>
-              </tr>
-              <tr>
-                <td>Ngày mượn</td>
-                <td>12/10/2024</td>
-                <td>Ngày trả</td>
-                <td>12/11/2024</td>
-              </tr>
-              <tr>
-                <td>Số lượng rentline</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Đã đến nhận sách</td>
-                <td>true</td>
-                <td>Đã trả hết</td>
-                <td>false</td>
-              </tr>
-            </table>
-          </div>
+<div class="navbar">
+    <a id="link-homepage" href="/">Trang chủ</a>
+    <a id="link-intro" href="intro.html">Giới thiệu</a>
+    <a id="link-search" href="/search_page">Tra cứu</a>
+    <a id="link-stats" href="/stats_page">Thống kê</a>
+</div>
 
-          <div class="rent-item">
-            <table>
-              <tr>
-                <td>Đơn mượn</td>
-                <td>1234</td>
-                <td>ID người mượn</td>
-                <td>1234</td>
-                <td><a href="/rent_manage_page">Chỉnh sửa</a></td>
-              </tr>
-              <tr>
-                <td>Ngày mượn</td>
-                <td>12/10/2024</td>
-                <td>Ngày trả</td>
-                <td>12/11/2024</td>
-              </tr>
-              <tr>
-                <td>Số lượng rentline</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Đã đến nhận sách</td>
-                <td>true</td>
-                <td>Đã trả hết</td>
-                <td>false</td>
-              </tr>
-            </table>
-          </div>
+<div class="container">
+    <div class="func">
+        <a id="link-searchbook" href="/search_rent_page">Quản lí đơn mượn</a><br>
+        <a id="link-searchuser" href="/book_manage_page">Cập nhật CSDL sách</a><br>
+        <a id="link-searchuser" href="/book_insert_page">Thêm sách mới</a><br>
+        <a id="link-searchuser" href="/blacklist_manage_page">Quản lí danh sách đen</a>
+    </div>
+    <div class="main">
+        {% if rents %}
+            {% for rent in rents %}
+                <div class="rent-item">
+                    <table>
+                        <tr>
+                            <td>Đơn mượn</td>
+                            <td>{{ rent['rentid'] }}</td>
+                            <td>ID người mượn</td>
+                            <td>{{ rent['customerid'] }}</td>
+                            <td><a href="/rent_manage_page">Chỉnh sửa</a></td>
+                        </tr>
+                        <tr>
+                            <td>Ngày mượn</td>
+                            <td>{{ rent['borrowdate'] }}</td>
+                            <td>Ngày trả</td>
+                            <td>{{ rent['duedate'] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Số lượng rentline</td>
+                            <td>{{ rent['rentline_count'] }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Đã đến nhận sách</td>
+                            <td>{{ rent['iscollected'] }}</td>
+                            <td>Đã trả hết</td>
+                            <td>{{ rent['returnall'] }}</td>
+                        </tr>
+                    </table>
+                </div>
+            {% endfor %}
 
-          <div class="rent-item">
-            <table>
-              <tr>
-                <td>Đơn mượn</td>
-                <td>1234</td>
-                <td>ID người mượn</td>
-                <td>1234</td>
-                <td><a href="/rent_manage_page">Chỉnh sửa</a></td>
-              </tr>
-              <tr>
-                <td>Ngày mượn</td>
-                <td>12/10/2024</td>
-                <td>Ngày trả</td>
-                <td>12/11/2024</td>
-              </tr>
-              <tr>
-                <td>Số lượng rentline</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Đã đến nhận sách</td>
-                <td>true</td>
-                <td>Đã trả hết</td>
-                <td>false</td>
-              </tr>
-            </table>
-          </div>
+            <div class="pagination">
+                {% if current_page > 1 %}
+                    <a href="{{ url_for('search_rent_page', page=1) }}">Trang đầu</a>
+                    <a href="{{ url_for('search_rent_page', page=current_page - 1) }}">Trang trước</a>
+                {% endif %}
+            
+                {% for p in range(1, total_pages + 1) %}
+                    {% if p == current_page %}
+                        <span class="currpage">{{ p }}</span>
+                    {% else %}
+                        <a href="{{ url_for('search_rent_page', page=p) }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+            
+                {% if current_page < total_pages %}
+                    <a href="{{ url_for('search_rent_page', page=current_page + 1) }}">Trang tiếp</a>
+                    <a href="{{ url_for('search_rent_page', page=total_pages) }}">Trang cuối</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Không có kết quả nào được tìm thấy.</p>
+        {% endif %}
+    </div>
 
-          <div class="rent-item">
-            <table>
-              <tr>
-                <td>Đơn mượn</td>
-                <td>1234</td>
-                <td>ID người mượn</td>
-                <td>1234</td>
-                <td><a href="/rent_manage_page">Chỉnh sửa</a></td>
-              </tr>
-              <tr>
-                <td>Ngày mượn</td>
-                <td>12/10/2024</td>
-                <td>Ngày trả</td>
-                <td>12/11/2024</td>
-              </tr>
-              <tr>
-                <td>Số lượng rentline</td>
-                <td>5</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Đã đến nhận sách</td>
-                <td>true</td>
-                <td>Đã trả hết</td>
-                <td>false</td>
-              </tr>
-            </table>
-          </div>
-				</div>
+    <div class="right">
+        <form method="GET" action="{{ url_for('search_rent_page') }}">
+            <label for="id_rent"><b>ID đơn mượn</b></label>
+            <input type="text" name="id_rent">
+            
+            <label for="id_customer"><b>ID người mượn</b></label>
+            <input type="text" name="id_customer">
 
-				<div class="right">
-					<label for="id_rent"><b>ID đơn mượn</b></label>
-					<input type="text" name="id_rent">
-          
-					<label for="id_book"><b>ID sách mượn</b></label>
-					<input type="text" name="id_book">
+            <label for="name_customer"><b>Họ tên người mượn</b></label>
+            <input type="text" name="name_customer">
 
-					<label for="id_customer"><b>ID người mượn</b></label>
-					<input type="text" name="id_customer">
-					<label for="name_customer"><b>Họ tên người mượn</b></label>
-					<input type="text" name="name_customer">
+            <button type="submit">Tìm kiếm</button>
+        </form>
+    </div>
+</div>
 
-					<button type="submit">Tìm kiếm</button>
-				</div>
-				
-			</div>
+<script type="text/javascript">
+    // JavaScript functions go here
+</script>
 
-			<script type="text/javascript">
-			</script>
-
-		</body>
-		</html>
+</body>
+</html>
