@@ -63,7 +63,7 @@
             </div>
             <div class="book_info-quantity">Còn: <span>{{ book_info['quantity'] }}</span></div>
             <div class="book_info-rent">
-                {% if session.get('blockrent') == False %}
+                {% if session.get('blockrent') == False and session.get('user_role') == 'Customer' %}
                 <a href="{{ url_for('add_to_cart', book_id=book_info['bookid']) }}">
                     <button type="button">Đưa vào giỏ mượn</button>
                 </a>

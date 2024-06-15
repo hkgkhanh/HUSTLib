@@ -11,7 +11,7 @@ def get_db_connection():
         host='localhost',
         dbname='hust_lib',
         user='postgres',
-        password='postgre',
+        password='skadi123',
         port=5432
     )
     return conn
@@ -575,7 +575,7 @@ def profile_page(person_id):
         conn = psycopg2.connect(
             dbname='hust_lib',
             user='postgres',
-            password='postgre',
+            password='skadi123',
             host='localhost',
             cursor_factory=RealDictCursor
         )
@@ -630,7 +630,7 @@ def change_password_page():
             conn = psycopg2.connect(
                 dbname='hust_lib',
                 user='postgres',
-                password='postgre',
+                password='skadi123',
                 host='localhost',
                 cursor_factory=RealDictCursor
             )
@@ -689,7 +689,7 @@ def book_info_page(book_id):
         conn = psycopg2.connect(
             dbname='hust_lib',
             user='postgres',
-            password='postgre',
+            password='skadi123',
             host='localhost',
             cursor_factory=RealDictCursor
         )
@@ -982,7 +982,8 @@ def login():
                     ''', (user['personid'],))
                     blockrent = cur.fetchone()
 
-                    session['blockrent'] = blockrent['blockrent']  # Lưu trạng thái BlockRent vào session
+                    if session['user_role'] =='Customer' :
+                        session['blockrent'] = blockrent['blockrent']  # Lưu trạng thái BlockRent vào session
 
                     return redirect(url_for('profile_page', person_id=session['user_id']))  # Chuyển hướng đến trang hồ sơ
                 else:
