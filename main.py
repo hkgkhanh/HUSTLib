@@ -951,10 +951,8 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-       
-        conn = None
-        cur = None
 
+        conn = None
         try:
             conn = get_db_connection()
             with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
@@ -965,14 +963,24 @@ def login():
                     session['user_id'] = user['personid']
                     session['user_role'] = user['role']
                     flash('Login success!')
-                    # cập nhập LastActiveDate mỗi khi đăng nhập thành công
+
+                    # Cập nhật LastActiveDate mỗi khi đăng nhập thành công
                     cur.execute('''
-                            UPDATE Person
-                            SET LastActiveDate = CURRENT_TIMESTAMP
-                            WHERE personid = %s
-                        ''', (user['personid'],))
+                        UPDATE Person
+                        SET LastActiveDate = CURRENT_TIMESTAMP
+                        WHERE personid = %s
+                    ''', (user['personid'],))
                     conn.commit()
-                    return redirect(url_for('profile_page',person_id=session['user_id']))  # Chuyển hướng đến trang hồ sơ
+
+                    # Kiểm tra và lưu trạng thái BlockRent vào session
+                    cur.execute('''
+                        SELECT BlockRent FROM Customer WHERE PersonID = %s
+                    ''', (user['personid'],))
+                    blockrent = cur.fetchone()
+
+                    session['blockrent'] = blockrent['blockrent']  # Lưu trạng thái BlockRent vào session
+
+                    return redirect(url_for('profile_page', person_id=session['user_id']))  # Chuyển hướng đến trang hồ sơ
                 else:
                     flash('Invalid email or password. Please try again.')
                     return redirect(url_for('login_page'))
@@ -986,6 +994,7 @@ def login():
 
     # Thêm return trong trường hợp phương thức không phải POST
     return redirect(url_for('login_page'))
+
 
 
 
