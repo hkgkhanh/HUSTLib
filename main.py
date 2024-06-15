@@ -358,7 +358,6 @@ def add_to_cart(book_id):
         # Gọi hàm add_to_cart
         cur.execute('SELECT add_to_cart(%s, %s)', (customer_id, book_id))
         conn.commit()
-        
         flash('Sách đã được thêm vào giỏ mượn.')
     except Exception as error:
         print(error)
@@ -402,7 +401,6 @@ def remove_from_cart(book_id):
         # Gọi hàm add_to_cart
         cur.execute('SELECT remove_from_cart(%s, %s)', (customer_id, book_id))
         conn.commit()
-        
         flash('Sách đã được xóa khỏi giỏ mượn.')
     except Exception as error:
         print(error)
@@ -463,6 +461,102 @@ def cart_page():
             conn.close()
 
     return render_template('cart.html', cart_books=cart_books)
+
+
+
+@app.route('/confirm_rent', methods=['POST'])
+def confirm_rent():
+    if 'user_id' not in session:
+        flash('Bạn cần đăng nhập để đưa sách vào giỏ mượn.')
+        return redirect(url_for('login_page'))
+
+    user_id = session['user_id']
+    conn = None
+    cur = None
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # Lấy ra CustomerID tương ứng với personID
+        cur.execute('''SELECT CustomerID FROM Person 
+                       JOIN Customer ON Person.PersonID = Customer.PersonID
+                       WHERE Person.PersonID = %s''', (user_id,))
+        customer = cur.fetchone()
+        
+        if not customer:
+            flash('Không tìm thấy khách hàng tương ứng.')
+            return redirect(url_for('cart_page'))
+
+        customer_id = customer[0]
+        # Gọi hàm confirm_rent
+        cur.execute('SELECT confirm_rent(%s)', (customer_id,))
+        rent_id = cur.fetchone()[0]  # Lấy RentID trả về từ hàm confirm_rent
+        conn.commit()
+        
+        # Lưu RentID vào session
+        session['rent_id'] = rent_id
+        session['blockrent']= True
+        flash('Xác nhận mượn thành công.')
+    except Exception as error:
+        print(error)
+        flash('Có lỗi xảy ra. Vui lòng thử lại.')
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+    return redirect(url_for('cart_page'))
+
+
+
+@app.route('/cancel_rent', methods=['POST'])
+def cancel_rent():
+    if 'user_id' not in session:
+        flash('Bạn cần đăng nhập để hủy mượn sách.')
+        return redirect(url_for('login_page'))
+
+    if 'rent_id' not in session:
+        flash('Không tìm thấy mã mượn sách.')
+        return redirect(url_for('cart_page'))
+    
+    user_id = session['user_id']
+    rent_id = session['rent_id']
+    
+    conn = None
+    cur = None
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+
+        # Lấy ra CustomerID tương ứng với personID
+        cur.execute('''SELECT CustomerID FROM Person 
+                       JOIN Customer ON Person.PersonID = Customer.PersonID
+                       WHERE Person.PersonID = %s''', (user_id,))
+        customer = cur.fetchone()
+
+        if not customer:
+            flash('Không tìm thấy khách hàng tương ứng.')
+            return redirect(url_for('cart_page'))
+
+        customer_id = customer[0]
+
+        # Gọi hàm cancel_rent
+        cur.execute('SELECT cancel_rent(%s, %s)', (customer_id, rent_id))
+        conn.commit()
+
+        # Xóa RentID khỏi session
+        session.pop('rent_id', None)
+        session['blockrent'] = False
+        flash('Hủy mượn sách thành công.')
+    except psycopg2.Error as error:
+        print(error)
+        flash('Có lỗi xảy ra. Vui lòng thử lại.')
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+    return redirect(url_for('cart_page'))
 
 
 

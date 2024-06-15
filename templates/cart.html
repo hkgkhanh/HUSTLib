@@ -37,16 +37,25 @@
             <div class="book-name">{{ book[1] }}</div>
             <div class="book-authors">{{ book[2] }}</div>
             <div class="book-remove">
-                <form action="{{ url_for('remove_from_cart', book_id=book[0])}}" method="POST">
-                    <button type="submit">Xóa</button>
-                </form>
+                {% if session.get('blockrent') == False %}
+                    <form action="{{ url_for('remove_from_cart', book_id=book[0]) }}" method="POST">
+                        <button type="submit">Xóa</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
         <div class="main-buttons">
-            <div class="button-confirm"><button>Xác nhận mượn</button></div>
-            <div class="button-delete"><button>Hủy mượn</button></div>
-        </div>
+            {% if session.get('blockrent') == False %}
+            <form action="{{ url_for('confirm_rent') }}" method="POST">
+                <button type="submit">Xác nhận mượn</button>
+            </form>
+            {% elif session.get('blockrent') == True %}
+            <form action="{{ url_for('cancel_rent') }}" method="POST">
+                <button type="submit">Hủy mượn</button>
+            </form>
+            {% endif %}
+        </div>        
     </div>
 
     <div class="right">
