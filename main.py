@@ -11,7 +11,7 @@ def get_db_connection():
         host='localhost',
         dbname='hust_lib',
         user='postgres',
-        password='skadi123',
+        password='postgre',
         port=5432
     )
     return conn
@@ -288,6 +288,10 @@ def search_user_page():
 @app.route('/search_rent_page')
 def search_rent_page():
     return render_template('search_rent.html')
+
+@app.route('/blacklist_manage_page')
+def blacklist_manage_page():
+    return render_template('search_blacklist.html')
 
 @app.route('/search_group_page')
 def search_group_page():
@@ -571,7 +575,7 @@ def profile_page(person_id):
         conn = psycopg2.connect(
             dbname='hust_lib',
             user='postgres',
-            password='skadi123',
+            password='postgre',
             host='localhost',
             cursor_factory=RealDictCursor
         )
@@ -626,7 +630,7 @@ def change_password_page():
             conn = psycopg2.connect(
                 dbname='hust_lib',
                 user='postgres',
-                password='skadi123',
+                password='postgre',
                 host='localhost',
                 cursor_factory=RealDictCursor
             )
@@ -685,7 +689,7 @@ def book_info_page(book_id):
         conn = psycopg2.connect(
             dbname='hust_lib',
             user='postgres',
-            password='skadi123',
+            password='postgre',
             host='localhost',
             cursor_factory=RealDictCursor
         )

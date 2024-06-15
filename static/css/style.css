@@ -1,11 +1,11 @@
 body
 {
-	margin: 0;
-	font-family: "Verdana", sans-serif;
-	background-color: #B5DAE6;
-	font-size: 14px;
-	cursor: default;
-	z-index: 0;
+  margin: 0;
+  font-family: "Verdana", sans-serif;
+  background-color: #B5DAE6;
+  font-size: 14px;
+  cursor: default;
+  z-index: 0;
 }
 
 a:link, a:visited, a:hover, a:active
@@ -17,7 +17,7 @@ a:link, a:visited, a:hover, a:active
 .banner {
   display: flex;
   justify-content: space-between;
-	background-color: #ffffff;
+  background-color: #ffffff;
 /*  background-image: linear-gradient(to right, rgb(163, 29, 46, 0), rgb(163, 29, 46, 0), rgb(163, 29, 46, 1));*/
   color: #D80015;
   padding: 0;
@@ -86,6 +86,7 @@ a:link, a:visited, a:hover, a:active
   background-color: rgba(255, 255, 255, 0.8);
   text-align: left;
   padding: 1em;
+  border-radius: 1em;
 }
 
 .func > a {
@@ -161,40 +162,6 @@ button {
   margin-bottom: 1em;
 }
 
-
-
-.main-user_items
-{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  background-color: none;
-}
-
-.main-user_items a
-{
-  width: 18em;
-/*  height: 20em;*/
-  margin: 1em;
-  padding-bottom: 1em;
-  text-align: center;
-  background-color: #8DAAB3;
-  border-radius: 1em;
-/*  white-space: nowrap;*/
-  overflow: hidden;
-}
-
-.main-user_items a img
-{
-  width: 100%;
-  height: 80%;
-  object-fit: cover;
-  background-color: none;
-  border-radius: 1em 1em 0 0;
-  margin-bottom: 1em;
-}
-
-
 .pagination {
   text-align: center;
 }
@@ -265,7 +232,7 @@ button {
   font-weight: bold;
 }
 
-.book_info-same_authors, .book_info-same_categories, .booklist, .ratelist, .meetinglist, .grouplist {
+.book_info-same_authors, .book_info-same_categories, .booklist, .ratelist, .meetinglist, .grouplist, .rentlist {
   /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
   text-align: left;
@@ -273,20 +240,20 @@ button {
   overflow: auto;
  }
 
-.book_info-same_authors_header, .book_info-same_categories_header, .booklist_header, .ratelist_header , .meetinglist_header, .meetinglist_header {
+.book_info-same_authors_header, .book_info-same_categories_header, .booklist_header, .ratelist_header , .meetinglist_header, .meetinglist_header, .rentlist_header {
   /*  background-color: rgba(255, 255, 255, 0.8);*/
   background: none;
   text-align: center;
  }
 
-.book_info-same_authors_header > p, .book_info-same_categories_header > p, .booklist_header > p, .ratelist_header > p, .meetinglist_header > p, .grouplist_header > p {
+.book_info-same_authors_header > p, .book_info-same_categories_header > p, .booklist_header > p, .ratelist_header > p, .meetinglist_header > p, .grouplist_header > p, .rentlist_header > p {
   padding: 1em;
   text-align: center;
   background-color: #A31D2E;
   color: #FEFEFE;
  }
 
- .list-book, .list-rate, .list-meeting, .list-group
+ .list-book, .list-rate, .list-meeting, .list-group, .list-rent
 {
   display: inline-flex;
   flex-wrap: nowrap;
@@ -294,7 +261,7 @@ button {
   background-color: none;
 }
 
-.list-book a, .list-group a
+.list-book a, .list-group a, .list-rent a
 {
   width: 18em;
   height: 20em;
@@ -307,7 +274,7 @@ button {
   overflow: hidden;
 }
 
-.list-rate a, .list-meeting a {
+.list-rate a, .list-meeting a, .list-rent a {
   width: 18em;
   height: auto;
   margin: 1em;
@@ -486,7 +453,7 @@ tr:hover {
   width: fit-content;
 }
 
-.rent-item, .book-manage-item {
+.rent-item, .book-manage-item, .blacklist-item {
   margin: 1em;
   background-color: rgba(0, 0, 0, 0.05);
   border: 1px solid black;
@@ -494,11 +461,11 @@ tr:hover {
   text-align: center;
 }
 
-.rent-item table, .book-manage-item table, .search_author {
+.rent-item table, .book-manage-item table, .blacklist-item table, .search_author {
   width: 100%;
 }
 
-.rent-item a, .book-manage-item a, .search_author button {
+.rent-item a, .book-manage-item a, .blacklist-item a, .search_author button {
   padding: 0.5em;
   border: none;
   border-radius: 0.5em;

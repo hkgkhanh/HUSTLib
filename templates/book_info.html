@@ -24,6 +24,7 @@
     <img src="{{ url_for('static', filename='images/banner.png') }}" class="banner-image">
     <div class="banner-login">
         {% if 'user_id' in session %}
+        <a id="link-group" href="/search_rent_page">Quản lí</a>
         <a id="link-profile" href="/profile_page/{{ session.get('user_id', '') }}">Hồ sơ</a>
         <a id="link-group" href="/chat_group_page">Hội nhóm</a>
         <a id="link-cart" href="/cart_page">Giỏ mượn</a>
