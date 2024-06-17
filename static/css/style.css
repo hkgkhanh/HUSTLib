@@ -131,7 +131,7 @@ button {
   color: red;
 }
 
-.main-book_items
+.main-book_items, .main-user_items
 {
   display: flex;
   flex-wrap: wrap;
@@ -139,7 +139,7 @@ button {
   background-color: none;
 }
 
-.main-book_items a
+.main-book_items a, .main-user_items a
 {
   width: 18em;
 /*  height: 20em;*/
@@ -152,7 +152,7 @@ button {
   overflow: hidden;
 }
 
-.main-book_items a img
+.main-book_items a img, .main-user_items a img
 {
   width: 100%;
   height: 80%;

@@ -763,7 +763,7 @@ def book_info_page(book_id):
                     (book_id,)
                 )
                 category_ids = [row['categoryid'] for row in cur.fetchall()]
-                category_ids = tuple(set(category_ids))  # Remove duplicates
+                category_ids = tuple(set(category_ids))  # loại bỏ các id trùng nhau
 
                 if category_ids:
                     cur.execute(
